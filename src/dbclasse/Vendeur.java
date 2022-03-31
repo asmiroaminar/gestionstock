@@ -11,5 +11,6 @@ package dbclasse;
  */
 public class Vendeur {
     private String idVendeur;
+    private String nom;
     
 }
