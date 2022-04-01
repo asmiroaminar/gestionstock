@@ -5,8 +5,6 @@
  */
 package dbclasse;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author User
