@@ -191,7 +191,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         produit_info.setBackground(new java.awt.Color(255, 255, 255));
-        produit_info.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         usersTab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         usersTab.setModel(new javax.swing.table.DefaultTableModel(
@@ -224,8 +223,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         usersTab.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(usersTab);
 
-        produit_info.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 780, 150));
-
         jButton1.setBackground(new java.awt.Color(0, 143, 218));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("إضافة");
@@ -234,7 +231,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        produit_info.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 130, 40));
 
         jButton2.setBackground(new java.awt.Color(238, 91, 53));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -244,7 +240,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        produit_info.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 114, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 159, 130));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -254,7 +249,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        produit_info.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 130, 40));
 
         jButton4.setBackground(new java.awt.Color(50, 59, 88));
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -264,7 +258,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        produit_info.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 130, 40));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.GridLayout(0, 2, 5, 5));
@@ -359,7 +352,44 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel44.setText("سعر الوحدة /د.ج:");
         jPanel4.add(jLabel44);
 
-        produit_info.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 770, 250));
+        javax.swing.GroupLayout produit_infoLayout = new javax.swing.GroupLayout(produit_info);
+        produit_info.setLayout(produit_infoLayout);
+        produit_infoLayout.setHorizontalGroup(
+            produit_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, produit_infoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(produit_infoLayout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, produit_infoLayout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        produit_infoLayout.setVerticalGroup(
+            produit_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(produit_infoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(produit_infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         clients_info.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -470,7 +500,7 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(234, Short.MAX_VALUE)
+                .addContainerGap(237, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,8 +611,8 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

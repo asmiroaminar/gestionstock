@@ -10,12 +10,12 @@ package dbclasse;
  * @author User
  */
 public class Client {
-    private String idClient, doit, profil, formeJuridique, adr, tel, fax, ni;
+    private String idClient, doit, profil, formeJuridique, adr, tel, fax, nif;
     
     public Client(){};
     
     public Client(String idClient, String doit, String profil, String formeJuridique, 
-            String adr, String tel, String fax, String ni){
+            String adr, String tel, String fax, String nif){
         this.idClient = idClient;
         this.doit = doit;
         this.profil = profil; 
@@ -23,7 +23,7 @@ public class Client {
         this.adr = adr;
         this.tel = tel;
         this.fax = fax; 
-        this.ni = ni;
+        this.nif = nif;
     };
 
     public String getIdClient() {
@@ -54,8 +54,8 @@ public class Client {
         return fax;
     }
 
-    public String getNi() {
-        return ni;
+    public String getNif() {
+        return nif;
     }
 
     public void setIdClient(String idClient) {
@@ -86,8 +86,8 @@ public class Client {
         this.fax = fax;
     }
 
-    public void setNi(String ni) {
-        this.ni = ni;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
     
 }
