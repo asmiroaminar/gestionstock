@@ -14,12 +14,11 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+
+import com.github.royken.converter.*;
 
 /**
  *
@@ -416,7 +415,7 @@ public class Gestion_ventes extends javax.swing.JFrame {
 
         jTextField34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField34.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField34.setText("5200.00");
+        jTextField34.setText("0");
         jTextField34.setToolTipText("");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -565,6 +564,11 @@ public class Gestion_ventes extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("معاينة");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -697,6 +701,12 @@ public class Gestion_ventes extends javax.swing.JFrame {
         int selectedRow = jTable1.getSelectedRow();
         table_model.removeRow(selectedRow);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+       int nbr = Integer.parseInt(jTextField34.getText());
+       jLabel14.setText(FrenchNumberToWords.convert(nbr)+" DA.");
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
