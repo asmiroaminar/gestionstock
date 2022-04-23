@@ -378,7 +378,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="237" max="32767" attributes="0"/>
+                      <EmptySpace pref="240" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -879,93 +879,175 @@
                         </Property>
                       </Properties>
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                        <Property name="useNullLayout" type="boolean" value="false"/>
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel8" pref="940" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField12" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField13" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField2" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField14" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField11" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField10" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
+                                  <Component id="jTextField15" min="-2" pref="460" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="120" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jPanel10" min="-2" pref="650" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="390" pref="390" max="-2" attributes="0"/>
+                                  <Component id="jButton6" min="-2" pref="110" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jPanel8" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField1" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel11" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField12" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel20" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField13" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel21" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField2" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel12" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField14" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel22" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField11" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel19" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField10" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel18" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField15" pref="30" max="32767" attributes="0"/>
+                                      <Component id="jLabel23" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="jPanel10" min="-2" pref="280" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jButton6" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
                       </Layout>
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel11">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x633;&#x645; &#x627;&#x644;&#x645;&#x624;&#x633;&#x633;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="70" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField1">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="&#x647;&#x628;&#x64a;&#x631; &#x639;&#x628;&#x62f; &#x627;&#x644;&#x633;&#x644;&#x627;&#x645;"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="70" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel12">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x646;&#x648;&#x639; &#x627;&#x644;&#x646;&#x634;&#x627;&#x637; &#x628;&#x627;&#x644;&#x641;&#x631;&#x646;&#x633;&#x64a;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="190" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField2">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="V&#xe9;n&#xe8;te en gros des produits li&#xe9;s &#xe0; l&apos;alimentation humaine"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="190" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel18">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x648;&#x643;&#x627;&#x644;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="310" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField10">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x642;&#x631;&#x636; &#x627;&#x644;&#x634;&#x639;&#x628;&#x64a; &#x627;&#x644;&#x62c;&#x632;&#x627;&#x626;&#x631;&#x64a;"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="310" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton6">
                           <Properties>
@@ -977,151 +1059,96 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
                           </Events>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="390" y="770" width="110" height="50"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField11">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="Zone D&apos;activite Artisanal N&#xb0;176-Ain M&apos;lila"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="270" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel19">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x639;&#x646;&#x648;&#x627;&#x646; &#x628;&#x627;&#x644;&#x641;&#x631;&#x646;&#x633;&#x64a;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="270" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel20">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x633;&#x645; &#x627;&#x644;&#x645;&#x624;&#x633;&#x633;&#x629; &#x628;&#x627;&#x644;&#x641;&#x631;&#x646;&#x633;&#x64a;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="110" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField12">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="HEBBIR ABDESSELAM"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="110" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel21">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x646;&#x648;&#x639; &#x627;&#x644;&#x646;&#x634;&#x627;&#x637;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="150" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField13">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="&#x62a;&#x62c;&#x627;&#x631;&#x629; &#x628;&#x627;&#x644;&#x62c;&#x645;&#x644;&#x629; &#x644;&#x644;&#x645;&#x646;&#x62a;&#x62c;&#x627;&#x62a; &#x627;&#x644;&#x645;&#x631;&#x62a;&#x628;&#x637;&#x629; &#x628;&#x62a;&#x63a;&#x630;&#x64a;&#x629; &#x627;&#x644;&#x625;&#x646;&#x633;&#x627;&#x646;"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="150" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField14">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="&#x645;&#x646;&#x637;&#x642;&#x629; &#x627;&#x644;&#x646;&#x634;&#x627;&#x637;&#x627;&#x62a; &#x627;&#x644;&#x62d;&#x631;&#x641;&#x64a;&#x629; &#x631;&#x642;&#x645; 173 &#x639;&#x64a;&#x646; &#x645;&#x644;&#x64a;&#x644;&#x629;"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="230" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel22">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x639;&#x646;&#x648;&#x627;&#x646;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="230" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel23">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x648;&#x643;&#x627;&#x644;&#x629; &#x628;&#x627;&#x644;&#x641;&#x631;&#x646;&#x633;&#x64a;&#x629;:"/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="670" y="350" width="-1" height="-1"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField15">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="16" style="0"/>
+                              <Font name="Tahoma" size="14" style="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="CPA - Agence de Ain M&apos;lila"/>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="190" y="350" width="460" height="35"/>
-                            </Constraint>
-                          </Constraints>
                         </Component>
                         <Container class="javax.swing.JPanel" name="jPanel10">
                           <Properties>
@@ -1129,11 +1156,6 @@
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
                             </Property>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="120" y="390" width="650" height="360"/>
-                            </Constraint>
-                          </Constraints>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                             <Property name="columns" type="int" value="3"/>
@@ -1145,7 +1167,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel24">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Telphone :"/>
                               </Properties>
@@ -1153,7 +1175,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField3">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="0550 50 32 54"/>
@@ -1163,7 +1185,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel4">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x647;&#x627;&#x62a;&#x641;:"/>
@@ -1172,7 +1194,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel25">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Tel/Fax:"/>
                               </Properties>
@@ -1180,7 +1202,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField4">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="032 51 12 12"/>
@@ -1190,7 +1212,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel5">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x647;&#x627;&#x62a;&#x641;/&#x641;&#x627;&#x643;&#x633;:"/>
@@ -1199,7 +1221,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel26">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="N&#xb0; RC:"/>
                               </Properties>
@@ -1207,7 +1229,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField5">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="00/04-2018202 99"/>
@@ -1217,7 +1239,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel13">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x631;&#x642;&#x645; &#x627;&#x644;&#x633;&#x62c;&#x644; &#x627;&#x644;&#x62a;&#x62c;&#x627;&#x631;&#x64a;:"/>
@@ -1226,7 +1248,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel27">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Date de RC:"/>
                               </Properties>
@@ -1234,7 +1256,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField6">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="2017/01/18"/>
@@ -1244,7 +1266,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel14">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x62a;&#x627;&#x631;&#x64a;&#x62e; &#x627;&#x644;&#x635;&#x62f;&#x648;&#x631;:"/>
@@ -1253,7 +1275,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel28">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="NIF:"/>
                               </Properties>
@@ -1261,7 +1283,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField7">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="177041201983465"/>
@@ -1271,7 +1293,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel15">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x631;&#x642;&#x645; &#x627;&#x644;&#x62c;&#x628;&#x627;&#x626;&#x64a;:"/>
@@ -1280,7 +1302,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel29">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="NIC:"/>
                               </Properties>
@@ -1288,7 +1310,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField8">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="798304120006533"/>
@@ -1298,7 +1320,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel16">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x627;&#x644;&#x631;&#x642;&#x645; &#x627;&#x644;&#x625;&#x62d;&#x635;&#x627;&#x626;&#x64a;:"/>
@@ -1307,7 +1329,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel30">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="N&#xb0; RIP:"/>
                               </Properties>
@@ -1315,7 +1337,7 @@
                             <Component class="javax.swing.JTextField" name="jTextField9">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="004003354000751211-76"/>
@@ -1325,7 +1347,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel17">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="16" style="0"/>
+                                  <Font name="Tahoma" size="14" style="0"/>
                                 </Property>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="&#x631;.&#x62d;.&#x627;&#x644;&#x628;&#x646;&#x643;&#x64a;:"/>
@@ -1333,27 +1355,12 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JLabel" name="jLabel31">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="   "/>
-                          </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="390" y="830" width="10" height="-1"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
                         <Container class="javax.swing.JPanel" name="jPanel8">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="99" red="66" type="rgb"/>
                             </Property>
                           </Properties>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="0" y="0" width="940" height="50"/>
-                            </Constraint>
-                          </Constraints>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                           <SubComponents>

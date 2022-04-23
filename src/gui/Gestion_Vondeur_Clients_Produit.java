@@ -186,7 +186,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -500,7 +499,7 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
+                .addContainerGap(240, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,37 +682,30 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("اسم المؤسسة:");
-        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField1.setText("هبير عبد السلام");
         jTextField1.setToolTipText("");
-        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 460, 35));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("نوع النشاط بالفرنسية:");
-        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField2.setText("Vénète en gros des produits liés à l'alimentation humaine");
         jTextField2.setToolTipText("");
-        jPanel7.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 460, 35));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("الوكالة:");
-        jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, -1, -1));
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setText("القرض الشعبي الجزائري");
         jTextField10.setToolTipText("");
-        jPanel7.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 460, 35));
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton6.setText("حفظ");
@@ -722,170 +714,154 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 770, 110, 50));
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField11.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField11.setText("Zone D'activite Artisanal N°176-Ain M'lila");
         jTextField11.setToolTipText("");
-        jPanel7.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 460, 35));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("العنوان بالفرنسية:");
-        jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("اسم المؤسسة بالفرنسية:");
-        jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, -1, -1));
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField12.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField12.setText("HEBBIR ABDESSELAM");
         jTextField12.setToolTipText("");
-        jPanel7.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 460, 35));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("نوع النشاط:");
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, -1, -1));
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField13.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField13.setText("تجارة بالجملة للمنتجات المرتبطة بتغذية الإنسان");
         jTextField13.setToolTipText("");
-        jPanel7.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 460, 35));
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField14.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField14.setText("منطقة النشاطات الحرفية رقم 173 عين مليلة");
         jTextField14.setToolTipText("");
-        jPanel7.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 460, 35));
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("العنوان:");
-        jPanel7.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, -1, -1));
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setText("الوكالة بالفرنسية:");
-        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, -1, -1));
 
-        jTextField15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField15.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField15.setText("CPA - Agence de Ain M'lila");
         jTextField15.setToolTipText("");
-        jPanel7.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 460, 35));
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setLayout(new java.awt.GridLayout(0, 3, 5, 5));
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("Telphone :");
         jPanel10.add(jLabel24);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField3.setText("0550 50 32 54");
         jTextField3.setToolTipText("");
         jPanel10.add(jTextField3);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("الهاتف:");
         jPanel10.add(jLabel4);
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel25.setText("Tel/Fax:");
         jPanel10.add(jLabel25);
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField4.setText("032 51 12 12");
         jTextField4.setToolTipText("");
         jPanel10.add(jTextField4);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("هاتف/فاكس:");
         jPanel10.add(jLabel5);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel26.setText("N° RC:");
         jPanel10.add(jLabel26);
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField5.setText("00/04-2018202 99");
         jTextField5.setToolTipText("");
         jPanel10.add(jTextField5);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("رقم السجل التجاري:");
         jPanel10.add(jLabel13);
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel27.setText("Date de RC:");
         jPanel10.add(jLabel27);
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField6.setText("2017/01/18");
         jTextField6.setToolTipText("");
         jPanel10.add(jTextField6);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("تاريخ الصدور:");
         jPanel10.add(jLabel14);
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel28.setText("NIF:");
         jPanel10.add(jLabel28);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField7.setText("177041201983465");
         jTextField7.setToolTipText("");
         jPanel10.add(jTextField7);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("الرقم الجبائي:");
         jPanel10.add(jLabel15);
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel29.setText("NIC:");
         jPanel10.add(jLabel29);
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField8.setText("798304120006533");
         jTextField8.setToolTipText("");
         jPanel10.add(jTextField8);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("الرقم الإحصائي:");
         jPanel10.add(jLabel16);
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel30.setText("N° RIP:");
         jPanel10.add(jLabel30);
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField9.setText("004003354000751211-76");
         jTextField9.setToolTipText("");
         jPanel10.add(jTextField9);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("ر.ح.البنكي:");
         jPanel10.add(jLabel17);
-
-        jPanel7.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 650, 360));
-
-        jLabel31.setText("   ");
-        jPanel7.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 830, 10, -1));
 
         jPanel8.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -893,7 +869,100 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel10.setText("معلومات عن البائع");
         jPanel8.add(jLabel10);
 
-        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 50));
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel11))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel20))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel21))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel12))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel22))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel19))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel18))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel23))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(390, 390, 390)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jScrollPane3.setViewportView(jPanel7);
 
@@ -1134,7 +1203,6 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
