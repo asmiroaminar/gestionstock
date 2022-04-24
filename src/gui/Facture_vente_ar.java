@@ -19,6 +19,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.royken.converter.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -110,9 +112,14 @@ public class Facture_vente_ar extends javax.swing.JFrame {
     }
 
     //********************************************************************
+    void set_current_date() {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+        jTextField31.setText(dateFormat.format(currentDate));
+    }
     //********************************************************************   
     public final void AfficherProduits_designnation() throws SQLException {
-        Vector<String> Produits = pm.getAllProduits_designnation();
+        Vector<String> Produits = pm.getAllProduits_designnation_ar();
         Produits.add(0, " / ");
         final DefaultComboBoxModel model = new DefaultComboBoxModel(Produits);
         jComboBox2.setModel(model);
@@ -152,7 +159,7 @@ public class Facture_vente_ar extends javax.swing.JFrame {
         int nbr = Integer.parseInt(jTextField32.getText());
         try {
             // jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA."); // en FR
-            jLabel14.setText(Nombrearabic.CALCULATE.getValue(nbr)); // en AR
+            jLabel14.setText(Nombrearabic.CALCULATE.getValue(nbr)+" ،دينار جزائري. "); // en AR
         } catch (Exception ex) {
             Logger.getLogger(Facture_vente_ar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -192,6 +199,8 @@ public class Facture_vente_ar extends javax.swing.JFrame {
 
         jTextField27.getDocument().addDocumentListener(documentListener);
         jTextField28.getDocument().addDocumentListener(documentListener);
+        
+        set_current_date();
 
         // jTextField32.getDocument().addDocumentListener(chifreToLetter_listener);
     }
@@ -233,6 +242,8 @@ public class Facture_vente_ar extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -442,7 +453,7 @@ public class Facture_vente_ar extends javax.swing.JFrame {
         jTextField32.setText("0");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel11.setText("الرسوم على القيمة المضافة :0%");
+        jLabel11.setText("الرسوم على القيمة المضافة :");
 
         jTextField33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -463,8 +474,15 @@ public class Facture_vente_ar extends javax.swing.JFrame {
         jLabel13.setToolTipText("");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel14.setText("ثلاثة مائة و ستة و خمسون ألف و مائة ،دينار جزائري");
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setText("صفر ،دينار جزائري.");
         jLabel14.setToolTipText("");
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField1.setText("0");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel1.setText("%");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -472,22 +490,27 @@ public class Facture_vente_ar extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField34, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(jTextField32)
-                    .addComponent(jTextField33))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(334, Short.MAX_VALUE)
-                .addComponent(jLabel14)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField34, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(jTextField32)
+                            .addComponent(jTextField33))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel11))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel10))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,7 +522,9 @@ public class Facture_vente_ar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -600,11 +625,6 @@ public class Facture_vente_ar extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("معاينة");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -720,7 +740,7 @@ public class Facture_vente_ar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (!jComboBox2.getSelectedItem().equals(" / ")) {
+        if ((!jComboBox2.getSelectedItem().equals(" / ")) && (!jTextField27.getText().equals("0")) && (!jTextField28.getText().equals("0"))) {
             int counter = table_model.getRowCount();
             Object[] row = new Object[]{
                 jTextField29.getText(), jTextField28.getText(), jTextField27.getText(), jComboBox2.getSelectedItem(), counter + 1};
@@ -742,12 +762,6 @@ public class Facture_vente_ar extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        int nbr = Integer.parseInt(jTextField34.getText());
-        jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -803,6 +817,7 @@ public class Facture_vente_ar extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -824,6 +839,7 @@ public class Facture_vente_ar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;

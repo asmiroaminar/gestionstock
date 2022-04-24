@@ -17,7 +17,7 @@ import java.util.Vector;
  */
 public class ProduitManipulation {
 
-    public Vector<String> getAllProduits_designnation() throws SQLException {
+    public Vector<String> getAllProduits_designnation_ar() throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<String> Produits = new Vector<>();
         String sql = "select * from produit";
@@ -29,11 +29,24 @@ public class ProduitManipulation {
         c.close();
         return Produits;
     }
+    
+    public Vector<String> getAllProduits_designnation_fr() throws SQLException {
+        Connection c = sqlConnection.conector();
+        Vector<String> Produits = new Vector<>();
+        String sql = "select * from produit";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            Produits.addElement(rs.getString(6));
+        }
+        c.close();
+        return Produits;
+    }
 
     public int getProduit_pric(String designnation) throws SQLException {
         Connection c = sqlConnection.conector();
         int pric = 0;
-        String sql = "select * from produit where designnation='" + designnation + "'";
+        String sql = "select * from produit where designnation='" + designnation + "' OR designnation_fr='" + designnation + "'";
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         pric = rs.getInt("prix_u");

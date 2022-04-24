@@ -7,15 +7,9 @@ package gui;
 
 //import dataBase.User;
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 //import servises.LoginService;
 
 /**
@@ -101,12 +95,12 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jTextField32 = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
         jTextField31 = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jTextField27 = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         jTextField28 = new javax.swing.JTextField();
@@ -291,35 +285,34 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
         jLabel45.setText("إسم المنتج بالفرنسية:");
         jPanel4.add(jLabel45);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new java.awt.GridLayout(1, 4, 5, 0));
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel47.setText("Unité:");
-        jPanel6.add(jLabel47);
+        jPanel9.add(jLabel47);
 
         jTextField32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField32.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField32.setText("KG");
         jTextField32.setToolTipText("");
-        jPanel6.add(jTextField32);
-
-        jPanel4.add(jPanel6);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel9.add(jTextField32);
 
         jTextField31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField31.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField31.setText("كغ");
         jTextField31.setToolTipText("");
-        jPanel5.add(jTextField31);
+        jPanel9.add(jTextField31);
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel46.setText("وحدة الوزن:");
-        jPanel5.add(jLabel46);
+        jPanel9.add(jLabel46);
 
-        jPanel4.add(jPanel5);
+        jPanel4.add(jPanel9);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel4.add(jPanel6);
 
         jTextField27.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField27.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1229,10 +1222,10 @@ public class Gestion_Vondeur_Clients_Produit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

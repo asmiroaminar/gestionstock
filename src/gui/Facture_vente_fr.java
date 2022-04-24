@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import com.github.royken.converter.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -49,26 +51,22 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         }
     };
 
-//    DocumentListener chifreToLetter_listener = new DocumentListener() {
-//        @Override
-//        public void insertUpdate(DocumentEvent e) {
-//            int nbr = Integer.parseInt(jTextField32.getText());
-//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-//        }
-//
-//        @Override
-//        public void removeUpdate(DocumentEvent e) {
-//            int nbr = Integer.parseInt(jTextField32.getText());
-//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-//        }
-//
-//        @Override
-//        public void changedUpdate(DocumentEvent e) {
-//            int nbr = Integer.parseInt(jTextField32.getText());
-//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-//        }
-//    };
+    DocumentListener calculeTotalwithTAX_listener = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
 
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
+    };
     DefaultTableModel table_model = new javax.swing.table.DefaultTableModel(
             new Object[][]{},
             new String[]{
@@ -112,11 +110,12 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     }
 
     //********************************************************************
-    void set_current_date (){
+    void set_current_date() {
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
         jTextField31.setText(dateFormat.format(currentDate));
     }
+
     //********************************************************************   
     public final void AfficherProduits_designnation() throws SQLException {
         Vector<String> Produits = pm.getAllProduits_designnation_fr();
@@ -150,20 +149,29 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     }
 
     void calc_Tot() {
-        int somme = 0;
+        float somme = 0;
         for (int i = 0; i < table_model.getRowCount(); i++) {
             somme += Integer.parseInt((String) table_model.getValueAt(i, 4));
         }
         jTextField32.setText("" + somme);
-        //******** montant en letter 
-        int nbr = Integer.parseInt(jTextField32.getText());
-//        try {
-             jLabel14.setText(FrenchNumberToWords.convert(nbr) + " ,dinars algériens"); // en FR
-            //jLabel14.setText(Nombrearabic.CALCULATE.getValue(nbr)); // en AR
-//        } catch (Exception ex) {
-//            Logger.getLogger(Facture_vente_fr.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
+        calcul_tva();
+        convert_chiffre2letter();
+
+    }
+
+    void calcul_tva() {
+        if (!jTextField1.getText().isEmpty()) {
+            float mtht = Float.parseFloat(jTextField32.getText());
+            int ptva = Integer.parseInt(jTextField1.getText());
+
+            float tva = (float) mtht * ptva / 100;
+            jTextField33.setText("" + tva);
+
+            float mtttc = mtht + tva;
+            jTextField34.setText("" + mtttc);
+            convert_chiffre2letter();
+        }
     }
 
     void re_orginase_nbrs() {
@@ -172,6 +180,27 @@ public class Facture_vente_fr extends javax.swing.JFrame {
             table_model.setValueAt(i + 1, i, 0);
 
         }
+    }
+
+    void convert_chiffre2letter() {
+        //******** montant en letter 
+
+        float nbr = Float.parseFloat(jTextField34.getText());
+
+        String doubleAsString = String.valueOf(nbr);
+        int indexOfDecimal = doubleAsString.indexOf(".");
+
+        String dinar = FrenchNumberToWords.convert((long) nbr);
+
+        int int_centime = Integer.parseInt(doubleAsString.substring(indexOfDecimal + 1));
+        String centime = ".";
+
+        if (int_centime != 0) {
+            centime = "et " + FrenchNumberToWords.convert(int_centime) + " centimes";
+        }
+
+        jLabel14.setText(dinar + ", dinars algériens " + centime); // en FR
+
     }
 
     //******************************************************************** 
@@ -193,16 +222,23 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     public Facture_vente_fr() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
+
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(170);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+       
+        jTable1.setModel(table_model);
+
         AfficherClients_doit();
         AfficherProduits_designnation();
         clear_pro(true);
 
         jTextField27.getDocument().addDocumentListener(documentListener);
         jTextField28.getDocument().addDocumentListener(documentListener);
-        
+
+        jTextField1.getDocument().addDocumentListener(calculeTotalwithTAX_listener);
+
         set_current_date();
 
-        // jTextField32.getDocument().addDocumentListener(chifreToLetter_listener);
     }
 
     /**
@@ -242,6 +278,8 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -470,37 +508,53 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         jLabel12.setText("montant total en tout taxes comprises :");
         jLabel12.setToolTipText("");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel13.setText("Arrêtée la Présente Facture a la Somme de:");
         jLabel13.setToolTipText("");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel14.setText("Zero ,dinars algériens");
         jLabel14.setToolTipText("");
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField1.setText("0");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel1.setText("%");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(480, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField1)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,16 +565,18 @@ public class Facture_vente_fr extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -753,9 +809,19 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        int nbr = Integer.parseInt(jTextField34.getText());
-        jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
+        System.out.println(jTextField34.getText().split(".")[0]);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c)
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || c == KeyEvent.VK_DELETE)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -811,6 +877,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -832,6 +899,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;
