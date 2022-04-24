@@ -24,7 +24,7 @@ public class sqlConnection {
 //			Class.forName("com.mysql.jdbc.Driver");
 //			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/cobraPro?useUnicode=yes&characterEncoding=UTF-8","root","");//localhost
             Class.forName("org.sqlite.JDBC");
-            Connection con = DriverManager.getConnection("jdbc:sqlite:sql_database\\database.db");
+            Connection con = DriverManager.getConnection("jdbc:sqlite:database.db");
             return con;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
