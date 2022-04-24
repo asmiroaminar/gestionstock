@@ -19,6 +19,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.royken.converter.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -47,25 +49,25 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         }
     };
 
-    DocumentListener chifreToLetter_listener = new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            int nbr = Integer.parseInt(jTextField32.getText());
-            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            int nbr = Integer.parseInt(jTextField32.getText());
-            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            int nbr = Integer.parseInt(jTextField32.getText());
-            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
-        }
-    };
+//    DocumentListener chifreToLetter_listener = new DocumentListener() {
+//        @Override
+//        public void insertUpdate(DocumentEvent e) {
+//            int nbr = Integer.parseInt(jTextField32.getText());
+//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
+//        }
+//
+//        @Override
+//        public void removeUpdate(DocumentEvent e) {
+//            int nbr = Integer.parseInt(jTextField32.getText());
+//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
+//        }
+//
+//        @Override
+//        public void changedUpdate(DocumentEvent e) {
+//            int nbr = Integer.parseInt(jTextField32.getText());
+//            jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA.");
+//        }
+//    };
 
     DefaultTableModel table_model = new javax.swing.table.DefaultTableModel(
             new Object[][]{},
@@ -110,9 +112,14 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     }
 
     //********************************************************************
+    void set_current_date (){
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+        jTextField31.setText(dateFormat.format(currentDate));
+    }
     //********************************************************************   
     public final void AfficherProduits_designnation() throws SQLException {
-        Vector<String> Produits = pm.getAllProduits_designnation();
+        Vector<String> Produits = pm.getAllProduits_designnation_fr();
         Produits.add(0, " / ");
         final DefaultComboBoxModel model = new DefaultComboBoxModel(Produits);
         jComboBox2.setModel(model);
@@ -192,6 +199,8 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
         jTextField27.getDocument().addDocumentListener(documentListener);
         jTextField28.getDocument().addDocumentListener(documentListener);
+        
+        set_current_date();
 
         // jTextField32.getDocument().addDocumentListener(chifreToLetter_listener);
     }
@@ -299,10 +308,11 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -393,8 +403,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -410,8 +419,8 @@ public class Facture_vente_fr extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
