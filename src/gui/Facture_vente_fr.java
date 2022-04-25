@@ -19,10 +19,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.royken.converter.*;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import pdfgenerator.Fr_factur_generate;
 
 /**
  *
@@ -33,6 +36,8 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     Client selected_client = new Client();
     ClientManipulation cm = new ClientManipulation();
     ProduitManipulation pm = new ProduitManipulation();
+
+    Fr_factur_generate fr_factur_generate = new Fr_factur_generate();
 
     DocumentListener documentListener = new DocumentListener() {
         @Override
@@ -225,7 +230,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(170);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-       
+
         jTable1.setModel(table_model);
 
         AfficherClients_doit();
@@ -663,6 +668,11 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("تحرير الفاتورة");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("إلغاء");
@@ -822,6 +832,15 @@ public class Facture_vente_fr extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            fr_factur_generate.generate_fr_factur();
+        } catch (MalformedURLException | FileNotFoundException ex) {
+            Logger.getLogger(Facture_vente_fr.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
