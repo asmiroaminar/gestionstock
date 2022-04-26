@@ -12,9 +12,11 @@ import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
@@ -59,6 +61,81 @@ public class Fr_factur_generate {
         para.setBold().setFontSize(14);
         para.setTextAlignment(TextAlignment.CENTER);
         document.add(para);
+        //************************************************************************
+        para = new Paragraph();
+        Text text = new Text("N°RC: ").setBold();
+        para.add(text);
+        text = new Text("04/00-2018202 A99" + "\n");
+        para.add(text);
+
+        text = new Text("NIF: ").setBold();
+        para.add(text);
+        text = new Text("177041201983465" + "\n");
+        para.add(text);
+
+        text = new Text("NIS: ").setBold();
+        para.add(text);
+        text = new Text("7 983 0412 00065 33" + "\n");
+        para.add(text);
+
+        text = new Text("N° RIP: ").setBold();
+        para.add(text);
+        text = new Text("004003354000751211-76" + "\n");
+        para.add(text);
+
+        text = new Text("CPA - Agence de Ain M'lila");
+        para.add(text);
+
+        para.setTextAlignment(TextAlignment.LEFT);
+        document.add(para);
+
+        //*********************************************************
+        para = new Paragraph();
+        text = new Text("DOIT: ").setBold();
+        para.add(text);
+        text = new Text("Direction des Oevres Universitaires deTebessa" + "\n");
+        para.add(text);
+
+        text = new Text("Au Profil: ").setBold();
+        para.add(text);
+        text = new Text("Résidence Universitaire Mekahlia Ibrahim (Restaurant central)" + "\n");
+        para.add(text);
+
+        para.setTextAlignment(TextAlignment.CENTER);
+        document.add(para);
+
+        //*********************************************************
+        para = new Paragraph();
+        text = new Text("Mois: ").setBold();
+        para.add(text);
+        text = new Text("Janvier / 2022" + "\n");
+        para.add(text);
+
+        text = new Text("Facture N°: ").setBold();
+        para.add(text);
+        text = new Text("001");
+        para.add(text);
+
+        para.setTextAlignment(TextAlignment.CENTER);
+        document.add(para);
+        //*************************************************
+        Paragraph para1 = new Paragraph("N°").setBold();
+        Paragraph para2 = new Paragraph("Désignnation").setBold();
+        Paragraph para3 = new Paragraph("Unite").setBold();
+        Paragraph para4 = new Paragraph("Qte").setBold();
+        Paragraph para5 = new Paragraph("Prix u HT").setBold();
+        Paragraph para6 = new Paragraph("Montant").setBold();
+        
+        Table table2 = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
+
+        table2.addCell(new Cell().add(para1).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para2).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para3).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para4).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para5).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para6).setTextAlignment(TextAlignment.CENTER));
+        
+        document.add(table2);
 
         document.close();
     }
