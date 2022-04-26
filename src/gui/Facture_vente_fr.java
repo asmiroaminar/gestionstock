@@ -19,7 +19,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.royken.converter.*;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -676,6 +679,11 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("إلغاء");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("معاينة");
@@ -819,7 +827,14 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        System.out.println(jTextField34.getText().split(".")[0]);
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File("pdf_test.pdf");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -841,6 +856,10 @@ public class Facture_vente_fr extends javax.swing.JFrame {
             Logger.getLogger(Facture_vente_fr.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
