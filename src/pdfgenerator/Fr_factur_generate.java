@@ -119,12 +119,16 @@ public class Fr_factur_generate {
         para.setTextAlignment(TextAlignment.CENTER);
         document.add(para);
         //*************************************************
+        Paragraph para0 = new Paragraph("0.00");
         Paragraph para1 = new Paragraph("N°").setBold();
         Paragraph para2 = new Paragraph("Désignnation").setBold();
         Paragraph para3 = new Paragraph("Unite").setBold();
         Paragraph para4 = new Paragraph("Qte").setBold();
         Paragraph para5 = new Paragraph("Prix u HT").setBold();
         Paragraph para6 = new Paragraph("Montant").setBold();
+        Paragraph para7 = new Paragraph("montant total hors taxes").setBold();
+        Paragraph para8 = new Paragraph("taxe sur la valeur ajoutee").setBold();
+        Paragraph para9 = new Paragraph("montant total en tout taxes comprises").setBold();
         
         Table table2 = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
 
@@ -134,8 +138,34 @@ public class Fr_factur_generate {
         table2.addCell(new Cell().add(para4).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell().add(para5).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell().add(para6).setTextAlignment(TextAlignment.CENTER));
+        //********************************
+        
+        //********************************
+        table2.addCell(new Cell(1,5).add(para7).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell(1,5).add(para8).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell(1,5).add(para9).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
         
         document.add(table2);
+        
+        
+        //******************************
+        
+        para = new Paragraph();
+        text = new Text("Arrêtée la Présente Facture a la Somme de: ").setBold();
+        para.add(text);
+        text = new Text("Zero ,dinars algériens" + "\n");
+        para.add(text);
+        
+        para.setTextAlignment(TextAlignment.LEFT);
+        document.add(para);
+        
+        para = new Paragraph("Fournisseur");
+        para.setTextAlignment(TextAlignment.RIGHT);
+        document.add(para);
+        
 
         document.close();
     }

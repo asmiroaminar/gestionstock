@@ -500,7 +500,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         jTextField32.setText("0");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel11.setText("taxe sur lavaleur ajoutee :");
+        jLabel11.setText("taxe sur la valeur ajoutee :");
 
         jTextField33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
