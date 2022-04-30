@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author HP
  */
-public class Add_update_client extends javax.swing.JFrame {
+public class Add_update_client extends javax.swing.JDialog {
 
     /**
      * Creates new form Add_update_produit
@@ -70,7 +70,8 @@ public class Add_update_client extends javax.swing.JFrame {
     }
 //************* Add ****************************
 
-    public Add_update_client() {
+    public Add_update_client(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         // setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
@@ -188,6 +189,7 @@ public class Add_update_client extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(7, 153, 146));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -197,6 +199,7 @@ public class Add_update_client extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Customer_30px.png"))); // NOI18N
         jLabel7.setText("Fiche Clients");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 60));
 
@@ -328,11 +331,11 @@ public class Add_update_client extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 740, 520));
 
         jButton1.setBackground(new java.awt.Color(184, 233, 148));
-        jButton1.setText("save");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Save_30px.png"))); // NOI18N
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 80, -1));
 
         jButton2.setBackground(new java.awt.Color(235, 47, 6));
-        jButton2.setText("X");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Delete_30px.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

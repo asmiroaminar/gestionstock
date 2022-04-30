@@ -10,17 +10,22 @@ package dbclasse;
  * @author User
  */
 public class Produit {
-   String idProduit, designation, qte, prixU, taxe;
-   
-   public Produit(){};
-   
-   public Produit(String idProduit, String designation, String qte, String prixU, String taxe){
-       this.idProduit = idProduit;
-       this.designation = designation;
-       this.qte = qte; 
-       this.prixU = prixU;
-       this.taxe = taxe;
-   }
+
+    String idProduit, designation, designation_fr;
+    int qte, prixU_ht, tva, prix_achat;
+
+    public Produit() {
+    };
+
+    public Produit(String idProduit, String designation, String designation_fr, int qte, int prixU_ht, int tva, int prix_achat) {
+        this.idProduit = idProduit;
+        this.designation = designation;
+        this.designation_fr = designation_fr;
+        this.qte = qte;
+        this.prixU_ht = prixU_ht;
+        this.tva = tva;
+        this.prix_achat = prix_achat;
+    }
 
     public String getIdProduit() {
         return idProduit;
@@ -30,16 +35,24 @@ public class Produit {
         return designation;
     }
 
-    public String getQte() {
+    public String getDesignation_fr() {
+        return designation_fr;
+    }
+
+    public int getQte() {
         return qte;
     }
 
-    public String getPrixU() {
-        return prixU;
+    public int getPrixU_ht() {
+        return prixU_ht;
     }
 
-    public String getTaxe() {
-        return taxe;
+    public int getTva() {
+        return tva;
+    }
+
+    public int getPrix_achat() {
+        return prix_achat;
     }
 
     public void setIdProduit(String idProduit) {
@@ -50,19 +63,28 @@ public class Produit {
         this.designation = designation;
     }
 
-    public void setQte(String qte) {
+    public void setDesignation_fr(String designation_fr) {
+        this.designation_fr = designation_fr;
+    }
+
+    public void setQte(int qte) {
         this.qte = qte;
     }
 
-    public void setPrixU(String prixU) {
-        this.prixU = prixU;
+    public void setPrixU_ht(int prixU_ht) {
+        this.prixU_ht = prixU_ht;
     }
 
-    public void setTaxe(String taxe) {
-        this.taxe = taxe;
+    public void setTva(int tva) {
+        this.tva = tva;
     }
+
+    public void setPrix_achat(int prix_achat) {
+        this.prix_achat = prix_achat;
+    }
+
    
-   
-   
-   
+
+    
+
 }

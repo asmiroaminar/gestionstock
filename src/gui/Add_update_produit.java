@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author HP
  */
-public class Add_update_produit extends javax.swing.JFrame {
+public class Add_update_produit extends javax.swing.JDialog {
 
     /**
      * Creates new form Add_update_produit
@@ -75,46 +75,46 @@ public class Add_update_produit extends javax.swing.JFrame {
     }
 //************* Add ****************************
 
-    public Add_update_produit() {
+    public Add_update_produit(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
 //        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
 
         jid.setText(generateId());
-//        jdateAjout.setText(getDate());
 
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (isAllWriten()) {
-//
-//                    Produit produit = new Produit();
-//                    produit.setId_p(jid.getText());
-//                    produit.setNom(jnam.getText());
-//                    produit.setDateAjoute(jdateAjout.getText());
-//                    produit.setPrix_achat(Integer.parseInt(jpa.getText()));
-//                    produit.setPrix_vent(Integer.parseInt(jpv.getText()));
-//                    produit.setQte(Integer.parseInt(jqte.getText()));
-//                    produit.setPosition(jposition.getText());
-//
-//                    try {
-//                        ps.AddProduit(produit);
-//                    } catch (SQLException | ClassNotFoundException ex) {
-//                        Logger.getLogger(Add_update_produit.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                    JOptionPane.showMessageDialog(null, "Bien Eregistrer");
-//                    clearAll();
-//                    //  dispose();
-//
-//                    try {
-//                        Gestion_Produit.AfficherProduits();
-//                    } catch (SQLException ex) {
-//                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
-//                }
+                if (isAllWriten()) {
+
+                    Produit produit = new Produit();
+                    produit.setIdProduit(jid.getText());
+                    produit.setDesignation(jnam_ar.getText());
+                    produit.setDesignation_fr(jnam.getText());
+                    produit.setQte(Integer.parseInt(jqte.getText()));
+                    produit.setTva(Integer.parseInt(jtva.getText()));
+                    produit.setPrixU_ht(Integer.parseInt(jpht.getText()));
+                    produit.setPrix_achat(Integer.parseInt(jprix_achat.getText()));
+                    try {
+                        ps.AddProduit(produit);
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(Add_update_produit.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+                    clearAll();
+                    //  dispose();
+
+                    try {
+                        Home_v2.AfficherProduit();
+                        dispose();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
+                }
 
             }
         });
@@ -207,6 +207,7 @@ public class Add_update_produit extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/New Product_30px.png"))); // NOI18N
         jLabel7.setText("Informations de produit");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 60));
 
@@ -262,20 +263,25 @@ public class Add_update_produit extends javax.swing.JFrame {
         jnam_ar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jnam_ar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
+        junite_fr.setEditable(false);
         junite_fr.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         junite_fr.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        junite_fr.setText("KG");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Unité en FR :");
 
+        junite_ar.setEditable(false);
         junite_ar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         junite_ar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        junite_ar.setText("كغ");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Quantité d'alerte :");
 
+        jqte_ala.setEditable(false);
         jqte_ala.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jqte_ala.setText("0");
 
@@ -372,17 +378,17 @@ public class Add_update_produit extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 740, -1));
 
         jButton1.setBackground(new java.awt.Color(184, 233, 148));
-        jButton1.setText("save");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 530, 80, -1));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Save_30px.png"))); // NOI18N
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 550, 80, -1));
 
         jButton2.setBackground(new java.awt.Color(235, 47, 6));
-        jButton2.setText("x");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Delete_30px.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 530, 80, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 550, 80, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 610));
 
