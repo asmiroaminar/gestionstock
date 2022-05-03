@@ -5,13 +5,16 @@
  */
 package gui;
 
+import dbclasse.Produit;
 import dbmanipulation.ClientManipulation;
+import dbmanipulation.ProduitManipulation;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +23,10 @@ import javax.swing.DefaultComboBoxModel;
 public class Ajouter_commande_frame extends javax.swing.JDialog {
 
     static ClientManipulation cm = new ClientManipulation();
+    static ProduitManipulation pm = new ProduitManipulation();
+
+//    DefaultTableModel produit_table_model = (DefaultTableModel) produit_table.getModel();
+//    DefaultTableModel factur_table_model = (DefaultTableModel) factur_table.getModel();
 
     /**
      * Creates new form Ajouter_commande_frame
@@ -31,7 +38,24 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
         client_list.setModel(model);
     }
+
     //-----------------------------------------------
+    // afficher tout les Produit en produit table
+    public static void AfficherProduit() throws SQLException {
+        // TODO Auto-generated method stub
+        DefaultTableModel model = (DefaultTableModel) produit_table.getModel();
+        model.setRowCount(0);
+        Vector<Produit> parants = pm.getAllProduits();
+        for (int i = 0; i < parants.size(); i++) {
+            Produit p = (Produit) parants.get(i);
+            Object[] row = new Object[]{
+                //  p.getDesignation(),
+                p.getDesignation_fr(),
+                p.getQte(),
+                p.getPrixU_ht()};
+            model.addRow(row);
+        }
+    }
 
     public Ajouter_commande_frame(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
@@ -39,6 +63,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         setLocationRelativeTo(null);
 
         AfficherClients_doit();
+        AfficherProduit();
     }
 
     /**
@@ -71,13 +96,13 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jTextField4 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        produit_table = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        factur_table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -222,7 +247,8 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Rechercher");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        produit_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        produit_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -232,8 +258,18 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             new String [] {
                 "nom du produit", "Stock", "Prix HT"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        produit_table.setRowHeight(26);
+        produit_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(produit_table);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -266,6 +302,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Ajouter produit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton4.setText("delete");
@@ -273,15 +314,26 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton5.setText("delete All");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        factur_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        factur_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nom du produit", "Qte", "Prix HT", "Prix TTC"
+                "Nom du produit", "Qte", "Prix HT", "Montant"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        factur_table.setRowHeight(26);
+        factur_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(factur_table);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -330,6 +382,24 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = produit_table.getSelectedRow();
+
+        DefaultTableModel p_model = (DefaultTableModel) produit_table.getModel();
+
+        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+        Object[] row = new Object[]{
+            //  p.getDesignation(),
+            p_model.getValueAt(selectedRow, 0),
+            "1",
+            p_model.getValueAt(selectedRow, 2),
+            "0.00"};
+        model.addRow(row);
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -375,6 +445,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> client_list;
+    private static javax.swing.JTable factur_table;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -395,12 +466,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private static javax.swing.JTable produit_table;
     // End of variables declaration//GEN-END:variables
 }

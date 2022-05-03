@@ -48,7 +48,7 @@ public class Home_v2 extends javax.swing.JFrame {
         }
     }
 
-    // afficher tout les Produit en produit table
+    // afficher tout les Clients en produit table
     public static void AfficherClients() throws SQLException {
         // TODO Auto-generated method stub
         DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
