@@ -5,9 +5,12 @@
  */
 package gui;
 
+import dbclasse.Client;
 import dbclasse.Produit;
+import dbclasse.Vent;
 import dbmanipulation.ClientManipulation;
 import dbmanipulation.ProduitManipulation;
+import dbmanipulation.VentManipulation;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -22,12 +25,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Ajouter_commande_frame extends javax.swing.JDialog {
 
+    public Client selected_client = new Client();
+    public Vector<Produit> selected_products;
+
     static ClientManipulation cm = new ClientManipulation();
     static ProduitManipulation pm = new ProduitManipulation();
+    static VentManipulation vm = new VentManipulation();
 
 //    DefaultTableModel produit_table_model = (DefaultTableModel) produit_table.getModel();
 //    DefaultTableModel factur_table_model = (DefaultTableModel) factur_table.getModel();
-
     /**
      * Creates new form Ajouter_commande_frame
      */
@@ -49,7 +55,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         for (int i = 0; i < parants.size(); i++) {
             Produit p = (Produit) parants.get(i);
             Object[] row = new Object[]{
-                //  p.getDesignation(),
+                p.getIdProduit(),
                 p.getDesignation_fr(),
                 p.getQte(),
                 p.getPrixU_ht()};
@@ -80,7 +86,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         client_list = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -123,8 +129,8 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Date de commande :");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText("29/04/2022");
+        jdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jdate.setText("29/04/2022");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Total HT :");
@@ -165,7 +171,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,7 +183,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                     .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -208,6 +214,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton7.setText("Valider la commande");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -250,17 +261,17 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         produit_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         produit_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "nom du produit", "Stock", "Prix HT"
+                "ID Produit", "nom du produit", "Stock", "Prix HT"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -310,9 +321,19 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton4.setText("delete");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton5.setText("delete All");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         factur_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         factur_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -320,11 +341,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nom du produit", "Qte", "Prix HT", "Montant"
+                "ID Produit", "Nom du produit", "Qte", "Prix HT", "Montant"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -392,13 +413,51 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         Object[] row = new Object[]{
             //  p.getDesignation(),
             p_model.getValueAt(selectedRow, 0),
+            p_model.getValueAt(selectedRow, 1),
             "1",
-            p_model.getValueAt(selectedRow, 2),
+            p_model.getValueAt(selectedRow, 3),
             "0.00"};
         model.addRow(row);
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+        int selectedRow = factur_table.getSelectedRow();
+        if (selectedRow != -1) {
+            model.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+        int rowCount = factur_table.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            Vent v = new Vent();
+            v.setDate_vent(jdate.getText());
+            v.setIdClinet(client_list.getSelectedItem().toString());
+            v.setIdProduit((String) model.getValueAt(i, 0));
+            v.setQte(Integer.parseInt(model.getValueAt(i, 2).toString()) );
+            v.setPrixU(Integer.parseInt(model.getValueAt(i, 3).toString()));
+            v.setMontant(Integer.parseInt(model.getValueAt(i, 4).toString()));
+
+            try {
+                vm.AddProduit(v);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(Ajouter_commande_frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -467,10 +526,10 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jdate;
     private static javax.swing.JTable produit_table;
     // End of variables declaration//GEN-END:variables
 }

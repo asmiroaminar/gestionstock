@@ -10,33 +10,48 @@ package dbclasse;
  * @author User
  */
 public class Vent {
-    private String idVent, idProduit, qte, prixU, montant;
-    public Vent(){};
-    public Vent(String idVent, String idProduit, String qte, String prixU, String montant){
+
+    private String idVent, date_vent, idClinet, idProduit;
+    private int  qte, prixU, montant;
+
+    public Vent() {
+    }
+
+    public Vent(String idVent, String date_vent, String idClinet, String idProduit, int qte, int prixU, int montant) {
         this.idVent = idVent;
+        this.date_vent = date_vent;
+        this.idClinet = idClinet;
         this.idProduit = idProduit;
-        this.qte = qte; 
-        this.prixU = prixU; 
+        this.qte = qte;
+        this.prixU = prixU;
         this.montant = montant;
-    };
+    }
 
     public String getIdVent() {
         return idVent;
+    }
+
+    public String getDate_vent() {
+        return date_vent;
+    }
+
+    public String getIdClinet() {
+        return idClinet;
     }
 
     public String getIdProduit() {
         return idProduit;
     }
 
-    public String getQte() {
+    public int getQte() {
         return qte;
     }
 
-    public String getPrixU() {
+    public int getPrixU() {
         return prixU;
     }
 
-    public String getMontant() {
+    public int getMontant() {
         return montant;
     }
 
@@ -44,20 +59,32 @@ public class Vent {
         this.idVent = idVent;
     }
 
+    public void setDate_vent(String date_vent) {
+        this.date_vent = date_vent;
+    }
+
+    public void setIdClinet(String idClinet) {
+        this.idClinet = idClinet;
+    }
+
     public void setIdProduit(String idProduit) {
         this.idProduit = idProduit;
     }
 
-    public void setQte(String qte) {
+    public void setQte(int qte) {
         this.qte = qte;
     }
 
-    public void setPrixU(String prixU) {
+    public void setPrixU(int prixU) {
         this.prixU = prixU;
     }
 
-    public void setMontant(String montant) {
+    public void setMontant(int montant) {
         this.montant = montant;
     }
+
     
+    
+    
+
 }

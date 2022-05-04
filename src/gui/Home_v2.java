@@ -7,8 +7,10 @@ package gui;
 
 import dbclasse.Client;
 import dbclasse.Produit;
+import dbclasse.Vent;
 import dbmanipulation.ClientManipulation;
 import dbmanipulation.ProduitManipulation;
+import dbmanipulation.VentManipulation;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ public class Home_v2 extends javax.swing.JFrame {
 
     static ProduitManipulation pm = new ProduitManipulation();
     static ClientManipulation cm = new ClientManipulation();
+    static VentManipulation vm = new VentManipulation();
 
     /**
      * Creates new form Home_v2
@@ -68,6 +71,26 @@ public class Home_v2 extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
+
+    // afficher tout les Vent  en Vent table
+    public static void AfficherVents() throws SQLException {
+        // TODO Auto-generated method stub
+        DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
+        model.setRowCount(0);
+        Vector<Vent> parants = vm.getAllVents();
+        for (int i = 0; i < parants.size(); i++) {
+            Vent v = (Vent) parants.get(i);
+            Object[] row = new Object[]{
+                v.getIdVent(),
+                v.getDate_vent(),
+                v.getIdClinet(),
+                v.getIdProduit(),
+                v.getQte(),
+                v.getPrixU(),
+                v.getMontant()};
+            model.addRow(row);
+        }
+    }
     //------------------------------------------------------------
 
     public Home_v2() throws SQLException {
@@ -77,6 +100,7 @@ public class Home_v2 extends javax.swing.JFrame {
 
         AfficherProduit();
         AfficherClients();
+        AfficherVents();
     }
 
     /**
@@ -120,7 +144,7 @@ public class Home_v2 extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton27 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        vent_table = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -471,19 +495,32 @@ public class Home_v2 extends javax.swing.JFrame {
 
         jButton27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton27.setText("Tous commandes");
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        vent_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID vent", "date", "ID Client", "ID Produit", "Qte", "Prix", "montant"
             }
-        ));
-        jScrollPane5.setViewportView(jTable5);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(vent_table);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Somme");
@@ -908,6 +945,15 @@ public class Home_v2 extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        try {
+            // TODO add your handling code here:
+            AfficherVents();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton27ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1010,7 +1056,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -1020,5 +1065,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private static javax.swing.JTable produit_table;
     private javax.swing.JPanel sceen;
     private javax.swing.JPanel stock;
+    private static javax.swing.JTable vent_table;
     // End of variables declaration//GEN-END:variables
 }
