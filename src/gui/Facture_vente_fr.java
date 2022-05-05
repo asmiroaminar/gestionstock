@@ -99,7 +99,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
 
     //********************************************************************   
     public final void AfficherClients_doit() throws SQLException {
-        Vector<String> clients = cm.getAllClients_doit();
+        Vector<String> clients = cm.getAllClients_Profil();
         clients.add(0, " / ");
         final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
         jComboBox1.setModel(model);

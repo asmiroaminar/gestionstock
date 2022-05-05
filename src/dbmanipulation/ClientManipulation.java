@@ -44,14 +44,14 @@ public class ClientManipulation {
         return clients;
     }
 
-    public Vector<String> getAllClients_doit() throws SQLException {
+    public Vector<String> getAllClients_Profil() throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<String> clients = new Vector<>();
         String sql = "select * from client";
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
-            clients.addElement(rs.getString(2));
+            clients.addElement(rs.getString(3));
         }
         c.close();
         return clients;

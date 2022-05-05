@@ -17,6 +17,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,7 +40,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
      */
     //-----------------------------------------------
     public final void AfficherClients_doit() throws SQLException {
-        Vector<String> clients = cm.getAllClients_doit();
+        Vector<String> clients = cm.getAllClients_Profil();
         clients.add(0, " / ");
         final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
         client_list.setModel(model);
@@ -280,6 +281,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         });
         produit_table.setRowHeight(26);
         produit_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        produit_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(produit_table);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -344,9 +346,16 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                 "ID Produit", "Nom du produit", "Qte", "Prix HT", "Montant"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, true, true, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -354,6 +363,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         });
         factur_table.setRowHeight(26);
         factur_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        factur_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(factur_table);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -406,18 +416,23 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int selectedRow = produit_table.getSelectedRow();
-
         DefaultTableModel p_model = (DefaultTableModel) produit_table.getModel();
-
         DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
-        Object[] row = new Object[]{
-            //  p.getDesignation(),
-            p_model.getValueAt(selectedRow, 0),
-            p_model.getValueAt(selectedRow, 1),
-            "1",
-            p_model.getValueAt(selectedRow, 3),
-            "0.00"};
-        model.addRow(row);
+
+        if (!is_produitExicte(p_model.getValueAt(selectedRow, 0).toString())) {
+            Object[] row = new Object[]{
+                //  p.getDesignation(),
+                p_model.getValueAt(selectedRow, 0),
+                p_model.getValueAt(selectedRow, 1),
+                "1",
+                p_model.getValueAt(selectedRow, 3),
+                Integer.parseInt(p_model.getValueAt(selectedRow, 3).toString())
+            };
+            model.addRow(row);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Ce produit est déjà existe dans la liste !");
+        }
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -439,24 +454,27 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
-        int rowCount = factur_table.getRowCount();
-        for (int i = 0; i < rowCount; i++) {
-            Vent v = new Vent();
-            v.setDate_vent(jdate.getText());
-            v.setIdClinet(client_list.getSelectedItem().toString());
-            v.setIdProduit((String) model.getValueAt(i, 0));
-            v.setQte(Integer.parseInt(model.getValueAt(i, 2).toString()) );
-            v.setPrixU(Integer.parseInt(model.getValueAt(i, 3).toString()));
-            v.setMontant(Integer.parseInt(model.getValueAt(i, 4).toString()));
+        if (!client_list.getSelectedItem().equals(" / ")) {
+            DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+            int rowCount = factur_table.getRowCount();
+            for (int i = 0; i < rowCount; i++) {
+                Vent v = new Vent();
+                v.setDate_vent(jdate.getText());
+                v.setIdClinet(client_list.getSelectedItem().toString());
+                v.setIdProduit((String) model.getValueAt(i, 0));
+                v.setQte(Integer.parseInt(model.getValueAt(i, 2).toString()));
+                v.setPrixU(Integer.parseInt(model.getValueAt(i, 3).toString()));
+                v.setMontant(Integer.parseInt(model.getValueAt(i, 4).toString()));
 
-            try {
-                vm.AddProduit(v);
-            } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Ajouter_commande_frame.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    vm.AddProduit(v);
+
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(Ajouter_commande_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -473,16 +491,24 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ajouter_commande_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -494,8 +520,10 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                 try {
                     dialog = new Ajouter_commande_frame(null, true);
                     dialog.setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Ajouter_commande_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Ajouter_commande_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -532,4 +560,16 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private javax.swing.JTextField jdate;
     private static javax.swing.JTable produit_table;
     // End of variables declaration//GEN-END:variables
+
+    private boolean is_produitExicte(String id_p) {
+        boolean tr = false;
+        DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
+        for (int i = 0; i < factur_table.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).toString().equals(id_p)) {
+                tr = true;
+                break;
+            }
+        }
+        return tr;
+    }
 }
