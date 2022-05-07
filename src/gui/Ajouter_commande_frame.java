@@ -283,6 +283,9 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         produit_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         produit_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(produit_table);
+        if (produit_table.getColumnModel().getColumnCount() > 0) {
+            produit_table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -418,21 +421,25 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         int selectedRow = produit_table.getSelectedRow();
         DefaultTableModel p_model = (DefaultTableModel) produit_table.getModel();
         DefaultTableModel model = (DefaultTableModel) factur_table.getModel();
-
-        if (!is_produitExicte(p_model.getValueAt(selectedRow, 0).toString())) {
-            Object[] row = new Object[]{
-                //  p.getDesignation(),
-                p_model.getValueAt(selectedRow, 0),
-                p_model.getValueAt(selectedRow, 1),
-                "1",
-                p_model.getValueAt(selectedRow, 3),
-                Integer.parseInt(p_model.getValueAt(selectedRow, 3).toString())
-            };
-            model.addRow(row);
+        if (selectedRow != -1) {
+            if (!is_produitExicte(p_model.getValueAt(selectedRow, 0).toString())) {
+                Object[] row = new Object[]{
+                    //  p.getDesignation(),
+                    p_model.getValueAt(selectedRow, 0),
+                    p_model.getValueAt(selectedRow, 1),
+                    "1",
+                    p_model.getValueAt(selectedRow, 3),
+                    Integer.parseInt(p_model.getValueAt(selectedRow, 3).toString())
+                };
+                model.addRow(row);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Ce produit est déjà existe dans la liste !");
+            }
         } else {
-            JOptionPane.showMessageDialog(this,
-                    "Ce produit est déjà existe dans la liste !");
-        }
+                JOptionPane.showMessageDialog(this,
+                        "Selectionez un produit ...");
+            }
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
