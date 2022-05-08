@@ -325,6 +325,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cr&#xe9;e Facture"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton30ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

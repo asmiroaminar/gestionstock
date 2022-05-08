@@ -317,6 +317,11 @@ public class Home_v2 extends javax.swing.JFrame {
         });
 
         jButton30.setText("Crée Facture");
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton30ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout accueilLayout = new javax.swing.GroupLayout(accueil);
         accueil.setLayout(accueilLayout);
@@ -980,6 +985,14 @@ public class Home_v2 extends javax.swing.JFrame {
             Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+        // TODO add your handling code here:
+
+        Generate_facture_frame dialog = new Generate_facture_frame(this, true);
+        dialog.setVisible(true);
+
+    }//GEN-LAST:event_jButton30ActionPerformed
 
     /**
      * @param args the command line arguments
