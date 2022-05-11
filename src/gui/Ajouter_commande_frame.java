@@ -39,7 +39,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
      * Creates new form Ajouter_commande_frame
      */
     //-----------------------------------------------
-    public final void AfficherClients_doit() throws SQLException {
+    public final void AfficherClients_Profil() throws SQLException {
         Vector<String> clients = cm.getAllClients_Profil();
         clients.add(0, " / ");
         final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
@@ -69,7 +69,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
 
-        AfficherClients_doit();
+        AfficherClients_Profil();
         AfficherProduit();
     }
 

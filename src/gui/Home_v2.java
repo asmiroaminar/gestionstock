@@ -987,10 +987,14 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        // TODO add your handling code here:
-
-        Generate_facture_frame dialog = new Generate_facture_frame(this, true);
-        dialog.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            
+            Generate_facture_frame dialog = new Generate_facture_frame(this, true);
+            dialog.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton30ActionPerformed
 

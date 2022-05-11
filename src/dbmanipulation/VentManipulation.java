@@ -50,4 +50,26 @@ public class VentManipulation {
         c.close();
         return prods;
     }
+    
+    public Vector<Vent> getAllVents_ofclient_withdate() throws SQLException {
+        Connection c = sqlConnection.conector();
+        Vector<Vent> prods = new Vector<>();
+        String sql = "select * from vent where [date_vent]='07/01/2022'";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            prods.addElement(new Vent(
+                    rs.getString("id"),
+                    rs.getString("date_vent"),
+                    rs.getString("id_clinet"),
+                    rs.getString("id_produit"),
+                    rs.getInt("qte"),
+                    rs.getInt("prix_ht"),
+                    rs.getInt("montant"))
+            );
+        }
+        c.close();
+        return prods;
+    }
+    
 }

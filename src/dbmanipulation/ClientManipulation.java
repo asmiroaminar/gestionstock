@@ -66,10 +66,10 @@ public class ClientManipulation {
 //        String sql = "update client SET nom_prenom='" + c.getNom_prenom() + "',tel='" + c.getTel() + "',dette_n=" + c.getDette_n() + ",dette_p=" + c.getDette_p() + ",rest=" + c.getRest() + " where id_c= " + c.getId_c();
 //        sqlConnection.executeSQLQuery(sql);
 //    }
-    public Client getClient(String doit) throws SQLException {
+    public Client getClient_byprofile(String profile) throws SQLException {
         Connection c = sqlConnection.conector();
         Client cl = new Client();
-        String sql = "select * from client where doit = '" + doit + "'";
+        String sql = "select * from client where profile = '" + profile + "'";
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {

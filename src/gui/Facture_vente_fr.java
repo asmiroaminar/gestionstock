@@ -111,7 +111,7 @@ public class Facture_vente_fr extends javax.swing.JFrame {
         if (selected_doit.equals(" / ")) {
             jLabel16.setText("----------------------");
         } else {
-            selected_client = cm.getClient(selected_doit);
+            selected_client = cm.getClient_byprofile(selected_doit);
             jLabel16.setText(selected_client.getProfil());
         }
 
