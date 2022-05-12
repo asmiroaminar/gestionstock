@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,6 +64,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             model.addRow(row);
         }
     }
+    
+    private void pick_client(String profile) throws SQLException {
+        selected_client = cm.getClient_byprofile(profile);
+        System.out.println("" + selected_client.getIdClient());
+    }
 
     public Ajouter_commande_frame(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
@@ -87,11 +93,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         client_list = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jdate = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -118,6 +124,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         client_list.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         client_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        client_list.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                client_listActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("+");
@@ -129,9 +140,6 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Date de commande :");
-
-        jdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jdate.setText("29/04/2022");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Total HT :");
@@ -146,6 +154,8 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField3.setText("0.00");
+
+        jdate.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,22 +179,23 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                         .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2)
-                    .addComponent(jdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel2))
+                    .addComponent(jdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -466,8 +477,8 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             int rowCount = factur_table.getRowCount();
             for (int i = 0; i < rowCount; i++) {
                 Vent v = new Vent();
-                v.setDate_vent(jdate.getText());
-                v.setIdClinet(client_list.getSelectedItem().toString());
+                v.setDate_vent(((JTextField) jdate.getDateEditor().getUiComponent()).getText());
+                v.setIdClinet(selected_client.getIdClient());
                 v.setIdProduit((String) model.getValueAt(i, 0));
                 v.setQte(Integer.parseInt(model.getValueAt(i, 2).toString()));
                 v.setPrixU(Integer.parseInt(model.getValueAt(i, 3).toString()));
@@ -483,6 +494,15 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void client_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_client_listActionPerformed
+        try {
+            // TODO add your handling code here:
+            pick_client(client_list.getSelectedItem().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(Ajouter_commande_frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_client_listActionPerformed
 
     /**
      * @param args the command line arguments
@@ -564,7 +584,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jdate;
+    private com.toedter.calendar.JDateChooser jdate;
     private static javax.swing.JTable produit_table;
     // End of variables declaration//GEN-END:variables
 
