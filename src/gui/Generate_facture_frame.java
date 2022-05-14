@@ -10,15 +10,18 @@ import dbmanipulation.ClientManipulation;
 import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Stack;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import pdfgenerator.Fr_factur_generate;
 
 /**
  *
@@ -27,16 +30,50 @@ import javax.swing.table.DefaultTableModel;
 public class Generate_facture_frame extends javax.swing.JDialog {
 
     Client selected_client = new Client();
+    Vector<Client> v_clients = new Vector<>();
+    static Vector<Vent> v_vents = new Vector<>();
+    Vector<Vent> v_selected_vents = new Vector<>();
 
     static ClientManipulation cm = new ClientManipulation();
     static ProduitManipulation pm = new ProduitManipulation();
     static VentManipulation vm = new VentManipulation();
 
+    DocumentListener calculeTotalwithTAX_listener = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            calcul_tva();
+        }
+    };
+
+    Fr_factur_generate fr_factur_generate = new Fr_factur_generate();
+    
     public final void AfficherClients_Profil() throws SQLException {
-        Vector<String> clients = cm.getAllClients_Profil();
-        clients.add(0, " / ");
+//        Vector<String> clients = cm.getAllClients_Profil();
+//        clients.add(0, " / ");
+//        final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
+//        client_list.setModel(model);
+        //-----------------------------
+        v_clients = cm.getAllClients();
+        Vector<String> clients = new Vector<>();
+        clients.add(" / ");
+        for (int i = 0; i < v_clients.size(); i++) {
+            Client c = v_clients.get(i);
+            clients.add(c.getProfil());
+        }
         final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
         client_list.setModel(model);
+
+        //-----------------------------
     }
 
     static boolean isDuplicated(Vector<String> v, String pro) {
@@ -51,7 +88,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     }
 
     // afficher tout les Vent  en Vent table
-    public static void AfficherVents(String idClient, String start, String end) throws SQLException {
+    public static void AfficherVents(String idClient, String month, String year) throws SQLException {
         // TODO Auto-generated method stub
         DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
         model.setRowCount(0);
@@ -59,9 +96,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         Vector<String> listproduit = new Stack<String>();
         listproduit.add(" / ");
         //----------------------------
-        Vector<Vent> parants = vm.getAllVents_ofclient_withdate(idClient, start, end);
-        for (int i = 0; i < parants.size(); i++) {
-            Vent v = (Vent) parants.get(i);
+//        Vector<Vent> parants = vm.getAllVents_ofclient_withdate(idClient, month, year);
+        v_vents = vm.getAllVents_ofclient_withdate(idClient, month, year);
+        for (int i = 0; i < v_vents.size(); i++) {
+            Vent v = (Vent) v_vents.get(i);
             Object[] row = new Object[]{
                 v.getDate_vent(),
                 v.getIdProduit(),
@@ -73,7 +111,6 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             if (!isDuplicated(listproduit, v.getIdProduit())) {
                 listproduit.add(v.getIdProduit());
             }
-
         }
         //--------------------------------------
         final DefaultComboBoxModel model2 = new DefaultComboBoxModel(listproduit);
@@ -81,9 +118,45 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         //----------------------------------
     }
 
-    private void pick_client(String profile) throws SQLException {
-        selected_client = cm.getClient_byprofile(profile);
-        System.out.println("" + selected_client.getIdClient());
+    private void pick_client(int index)/*String profile) throws SQLException */ {
+//        selected_client = cm.getClient_byprofile(profile); 
+        //----------------------------------------
+        if (index == 0) {
+            selected_client = new Client();
+        } else {
+            index--;
+            selected_client = v_clients.get(index);
+            System.out.println("" + selected_client.getIdClient());
+        }
+        //----------------------------------------
+
+    }
+
+    //---------------------------------------------
+    void calc_Tot() {
+//        DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
+        float somme = 0;
+        for (int i = 0; i < v_selected_vents.size(); i++) {
+            somme += v_selected_vents.get(i).getMontant();
+        }
+        jTextField32.setText("" + somme);
+
+        calcul_tva();
+
+    }
+
+    void calcul_tva() {
+        if (!jTextField1.getText().isEmpty()) {
+            float mtht = Float.parseFloat(jTextField32.getText());
+            int ptva = Integer.parseInt(jTextField1.getText());
+
+            float tva = (float) mtht * ptva / 100;
+            jTextField33.setText("" + tva);
+
+            float mtttc = mtht + tva;
+            jTextField34.setText("" + mtttc);
+
+        }
     }
 
     /**
@@ -93,6 +166,9 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         AfficherClients_Profil();
+
+        jTextField1.getDocument().addDocumentListener(calculeTotalwithTAX_listener);
+
         setLocationRelativeTo(null);
     }
 
@@ -105,9 +181,15 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel6 = new javax.swing.JPanel();
+        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         client_list = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jTextField32 = new javax.swing.JTextField();
@@ -135,11 +217,66 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         fact_table = new javax.swing.JTable();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jLabel3 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jMonthChooser2 = new com.toedter.calendar.JMonthChooser();
+        jYearChooser2 = new com.toedter.calendar.JYearChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jNo_fact = new javax.swing.JTextField();
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Les vents de mois :");
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Les vents de mois :");
+
+        jDateChooser2.setDateFormatString("yyyy-MM-dd");
+        jDateChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(275, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jMonthChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                    .addComponent(jYearChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -154,12 +291,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Les vents de mois :");
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setText("montant total hors taxes :");
 
+        jTextField32.setEditable(false);
         jTextField32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField32.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField32.setText("0");
@@ -167,19 +302,18 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel11.setText("taxe sur la valeur ajoutee :");
 
+        jTextField33.setEditable(false);
         jTextField33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField33.setText("0");
-        jTextField33.setToolTipText("");
 
+        jTextField34.setEditable(false);
         jTextField34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField34.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField34.setText("0");
-        jTextField34.setToolTipText("");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel12.setText("montant total en tout taxes comprises :");
-        jLabel12.setToolTipText("");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField1.setText("0");
@@ -193,6 +327,11 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel5.setText("%");
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jCheckBox1.setText("facture détaillée");
@@ -202,7 +341,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(484, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -261,6 +400,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             }
         });
 
+        vent_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         vent_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -280,6 +420,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        vent_table.setRowHeight(20);
         vent_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(vent_table);
         if (vent_table.getColumnModel().getColumnCount() > 0) {
@@ -375,6 +516,14 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel9.setText("Montant:");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton4.setText("Vider la liste");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -388,6 +537,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -419,12 +570,15 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(5, 5, 5)
-                .addComponent(jButton3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel5, java.awt.BorderLayout.NORTH);
 
+        fact_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         fact_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -433,14 +587,22 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 "N°", "Produit", "Qte", "Prix", "montant"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        fact_table.setRowHeight(18);
         fact_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(fact_table);
         if (fact_table.getColumnModel().getColumnCount() > 0) {
@@ -455,14 +617,19 @@ public class Generate_facture_frame extends javax.swing.JDialog {
 
         jPanel1.add(jPanel4);
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMonthChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMonthChooser2.setYearChooser(jYearChooser2);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Les vents de mois :");
+        jYearChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jDateChooser2.setDateFormatString("yyyy-MM-dd");
-        jDateChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Facture du Mois :");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Facture N°:");
+
+        jNo_fact.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jNo_fact.setText("0001");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -471,22 +638,24 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1226, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13)
+                                .addGap(31, 31, 31)
+                                .addComponent(jNo_fact, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -495,17 +664,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNo_fact, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jYearChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jMonthChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,58 +703,138 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//       String month = jMonthChooser1.getSpinner().
-        String mymonth = ((JTextField) jDateChooser1.getDateEditor().getUiComponent()).getText();
-        System.out.println("gui.Generate_facture_frame.jButton2ActionPerformed() " + mymonth);
+
+        // get month and year from inteface !!
+        int mi = jMonthChooser2.getMonth() + 1;
+        String month = "" + mi;
+        String year = "" + jYearChooser2.getYear();
+        if (mi < 10) {
+            month = "0" + mi;
+        }
+        System.out.println(month + "-" + year);
+        //-----------------------
         try {
+//            AfficherVents(selected_client.getIdClient(),
+//                    ((JTextField) jDateChooser1.getDateEditor().getUiComponent()).getText(),
+//                    ((JTextField) jDateChooser2.getDateEditor().getUiComponent()).getText());
             AfficherVents(selected_client.getIdClient(),
-                    ((JTextField) jDateChooser1.getDateEditor().getUiComponent()).getText(),
-                    ((JTextField) jDateChooser2.getDateEditor().getUiComponent()).getText());
+                    month,
+                    year);
         } catch (SQLException ex) {
             Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void client_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_client_listActionPerformed
-        try {
-            pick_client(client_list.getSelectedItem().toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+        //pick_client(client_list.getSelectedItem().toString());
+        pick_client(client_list.getSelectedIndex());
+
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_client_listActionPerformed
 
     private void produit_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produit_listActionPerformed
         // TODO add your handling code here:
-        int t_qte=0,t_prix=0,t_montant=0;
+        int t_qte = 0, t_prix = 0, t_montant = 0;
         DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             if (produit_list.getSelectedItem().toString().equals(vent_table.getValueAt(i, 1).toString())) {
-                 t_qte += Integer.parseInt(vent_table.getValueAt(i, 2).toString());
-            t_prix = Integer.parseInt(vent_table.getValueAt(i, 3).toString());
-            t_montant += Integer.parseInt(vent_table.getValueAt(i, 4).toString());
+                t_qte += Integer.parseInt(vent_table.getValueAt(i, 2).toString());
+                t_prix = Integer.parseInt(vent_table.getValueAt(i, 3).toString());
+                t_montant += Integer.parseInt(vent_table.getValueAt(i, 4).toString());
             }
-           
         }
-        
-        jTextField2.setText(""+t_qte);
-        jTextField3.setText(""+t_prix);
-        jTextField4.setText(""+t_montant);
-        
-        
+        jTextField2.setText("" + t_qte);
+        jTextField3.setText("" + t_prix);
+        jTextField4.setText("" + t_montant);
+
+
     }//GEN-LAST:event_produit_listActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
-         if (!produit_list.getSelectedItem().equals(" / ")) {
-              int counter = model.getRowCount();
-               Object[] row = new Object[]{
-                counter + 1, produit_list.getSelectedItem(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText()};
+        boolean tr = false;
+        for (int i = 0; i < fact_table.getRowCount(); i++) {
+            if (produit_list.getSelectedItem().equals(v_selected_vents.get(i).getIdProduit())) {
+                tr = true;
+                break;
+            }
+        }
+//        if (!produit_list.getSelectedItem().equals(" / ") && !tr) {
+//            int counter = model.getRowCount();
+//            Object[] row = new Object[]{
+//                counter + 1, produit_list.getSelectedItem(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText()};
+//            model.addRow(row);
+//            fact_table.setModel(model);
+//
+//            calc_Tot();
+//        }
+        //----------------------------------------------
+        int t_qte = 0, t_prix = 0, t_montant = 0;
+        if (!produit_list.getSelectedItem().equals(" / ") && !tr) {
+            for (int i = 0; i < v_vents.size(); i++) {
+                if (produit_list.getSelectedItem().toString().equals(v_vents.get(i).getIdProduit())) {
+                    Vent v = v_vents.get(i);
+                    v_selected_vents.add(v);
+                    t_qte += v.getQte();
+                    t_prix = v.getPrixU();
+                    t_montant += v.getMontant();
+                }
+            }
+            int counter = model.getRowCount();
+            Object[] row = new Object[]{
+                counter + 1, produit_list.getSelectedItem(), t_qte, t_prix, t_montant};
             model.addRow(row);
             fact_table.setModel(model);
-         }
+
+            calc_Tot();
+        }
+        //----------------------------------------------
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
+        model.setRowCount(0);
+        v_selected_vents.clear();
+        calc_Tot();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            /**
+             * selected_client
+             *
+             * jMonthChooser2.getMonth()   jYearChooser2.getYear()
+             *
+             * jNo_fact.gettext();
+             *
+             * v_selected_vents
+             *
+             * jTextField32
+             * jTextField1  jTextField33
+             * jTextField34
+             */
+            int monthe = jMonthChooser2.getMonth()+1;  
+            String date = monthe+"-"+jYearChooser2.getYear();
+            fr_factur_generate.generate_fr_factur(
+                    selected_client,
+                    date,
+                    jNo_fact.getText(),
+                    v_selected_vents,
+                    Float.parseFloat(jTextField32.getText()),
+                    Integer.parseInt(jTextField1.getText()),
+                    Float.parseFloat(jTextField33.getText()),
+                    Float.parseFloat(jTextField34.getText()));
+        } catch (MalformedURLException | FileNotFoundException ex) {
+            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -642,6 +890,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
@@ -649,18 +898,24 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private com.toedter.calendar.JMonthChooser jMonthChooser1;
+    private com.toedter.calendar.JMonthChooser jMonthChooser2;
+    private javax.swing.JTextField jNo_fact;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTextField1;
@@ -670,6 +925,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField33;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField4;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private com.toedter.calendar.JYearChooser jYearChooser2;
     private static javax.swing.JComboBox<String> produit_list;
     private static javax.swing.JTable vent_table;
     // End of variables declaration//GEN-END:variables

@@ -10,82 +10,97 @@ package dbclasse;
  * @author User
  */
 public class Facture {
-    private String idFacture, idVendeur, idClient, nFacture, Date, MTHT, tva, mttc;
-    public Facture(){};
-    public Facture(String idFacture, String idVendeur, String idClient, 
-            String nFacture, String Date, String MTHT, String tva, String mttc){
+
+    private int idFacture, MTHT, tva;
+    private String idClient, Date, nFacture;
+    private float tva_p, mttc;
+
+    public Facture() {
+    }
+
+    ;
+
+    public Facture(
+            int idFacture,
+            String nFacture,
+            String Date,
+            String idClient,
+            int MTHT,
+            int tva,
+            float tva_p,
+            float mttc) {
         this.idFacture = idFacture;
-        this.idVendeur = idVendeur; 
-        this.idClient = idClient;
         this.nFacture = nFacture;
-        this.Date = Date;
         this.MTHT = MTHT;
         this.tva = tva;
+        this.idClient = idClient;
+        this.Date = Date;
+        this.tva_p = tva_p;
         this.mttc = mttc;
-    };
+    }
 
-    public String getIdFacture() {
+    public int getIdFacture() {
         return idFacture;
-    }
-
-    public String getIdVendeur() {
-        return idVendeur;
-    }
-
-    public String getIdClient() {
-        return idClient;
     }
 
     public String getnFacture() {
         return nFacture;
     }
 
+    public int getMTHT() {
+        return MTHT;
+    }
+
+    public int getTva() {
+        return tva;
+    }
+
+    public String getIdClient() {
+        return idClient;
+    }
+
     public String getDate() {
         return Date;
     }
 
-    public String getMTHT() {
-        return MTHT;
+    public float getTva_p() {
+        return tva_p;
     }
 
-    public String getTva() {
-        return tva;
-    }
-
-    public String getMttc() {
+    public float getMttc() {
         return mttc;
     }
 
-    public void setIdFacture(String idFacture) {
+    public void setIdFacture(int idFacture) {
         this.idFacture = idFacture;
-    }
-
-    public void setIdVendeur(String idVendeur) {
-        this.idVendeur = idVendeur;
-    }
-
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
     }
 
     public void setnFacture(String nFacture) {
         this.nFacture = nFacture;
     }
 
+    public void setMTHT(int MTHT) {
+        this.MTHT = MTHT;
+    }
+
+    public void setTva(int tva) {
+        this.tva = tva;
+    }
+
+    public void setIdClient(String idClient) {
+        this.idClient = idClient;
+    }
+
     public void setDate(String Date) {
         this.Date = Date;
     }
 
-    public void setMTHT(String MTHT) {
-        this.MTHT = MTHT;
+    public void setTva_p(float tva_p) {
+        this.tva_p = tva_p;
     }
 
-    public void setTva(String tva) {
-        this.tva = tva;
-    }
-
-    public void setMttc(String mttc) {
+    public void setMttc(float mttc) {
         this.mttc = mttc;
     }
-    
+
 }

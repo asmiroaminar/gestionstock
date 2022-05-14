@@ -5,6 +5,7 @@
  */
 package pdfgenerator;
 
+import com.github.royken.converter.FrenchNumberToWords;
 import com.itextpdf.io.image.*;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
@@ -21,10 +22,13 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
+import dbclasse.Client;
 import dbclasse.Facture;
+import dbclasse.Vent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.util.Vector;
 
 /**
  *
@@ -35,7 +39,16 @@ public class Fr_factur_generate {
     Document document;
     String path = "pdf_test.pdf";
 
-    public void generate_fr_factur() throws MalformedURLException, FileNotFoundException {
+    public void generate_fr_factur(
+            Client c,
+            String date,
+            String noFact,
+            Vector<Vent> v,
+            Float mtht,
+            int tva,
+            float p_tva,
+            float mtttc
+    ) throws MalformedURLException, FileNotFoundException {
 
         File file = new File(path);
 
@@ -93,12 +106,14 @@ public class Fr_factur_generate {
         para = new Paragraph();
         text = new Text("DOIT: ").setBold();
         para.add(text);
-        text = new Text("Direction des Oevres Universitaires deTebessa" + "\n");
+//        text = new Text("Direction des Oevres Universitaires deTebessa" + "\n");
+        text = new Text(c.getDoit() + "\n");
         para.add(text);
 
         text = new Text("Au Profil: ").setBold();
         para.add(text);
-        text = new Text("Résidence Universitaire Mekahlia Ibrahim (Restaurant central)" + "\n");
+//        text = new Text("Résidence Universitaire Mekahlia Ibrahim (Restaurant central)" + "\n");
+        text = new Text(c.getProfil() + "\n");
         para.add(text);
 
         para.setTextAlignment(TextAlignment.CENTER);
@@ -108,12 +123,14 @@ public class Fr_factur_generate {
         para = new Paragraph();
         text = new Text("Mois: ").setBold();
         para.add(text);
-        text = new Text("Janvier / 2022" + "\n");
+//        text = new Text("Janvier / 2022" + "\n");
+        text = new Text(date + "\n");
         para.add(text);
 
         text = new Text("Facture N°: ").setBold();
         para.add(text);
-        text = new Text("001");
+//        text = new Text("001");
+        text = new Text(noFact);
         para.add(text);
 
         para.setTextAlignment(TextAlignment.CENTER);
@@ -127,9 +144,9 @@ public class Fr_factur_generate {
         Paragraph para5 = new Paragraph("Prix u HT").setBold();
         Paragraph para6 = new Paragraph("Montant").setBold();
         Paragraph para7 = new Paragraph("montant total hors taxes").setBold();
-        Paragraph para8 = new Paragraph("taxe sur la valeur ajoutee").setBold();
+        Paragraph para8 = new Paragraph("taxe sur la valeur ajoutee " + tva + " %").setBold();
         Paragraph para9 = new Paragraph("montant total en tout taxes comprises").setBold();
-        
+
         Table table2 = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
 
         table2.addCell(new Cell().add(para1).setTextAlignment(TextAlignment.CENTER));
@@ -139,33 +156,50 @@ public class Fr_factur_generate {
         table2.addCell(new Cell().add(para5).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell().add(para6).setTextAlignment(TextAlignment.CENTER));
         //********************************
-        
+        /**
+         *
+         */
+        for (int i = 0; i < v.size(); i++) {
+            Vent ve = v.get(i);
+            table2.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+            if (i == 0) {
+                table2.addCell(new Cell(v.size(),1).add(new Paragraph(ve.getIdProduit())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
+            }
+            table2.addCell(new Cell().add(new Paragraph("KG")).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+            table2.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+            table2.addCell(new Cell().add(new Paragraph("" + ve.getPrixU())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+            table2.addCell(new Cell().add(new Paragraph("" + ve.getMontant())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+        }
+
         //********************************
-        table2.addCell(new Cell(1,5).add(para7).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell(1,5).add(para8).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell(1,5).add(para9).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        
+        table2.addCell(new Cell(1, 5).add(para7).setTextAlignment(TextAlignment.CENTER));
+//        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + mtht)).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell(1, 5).add(para8).setTextAlignment(TextAlignment.CENTER));
+//        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + p_tva)).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell(1, 5).add(para9).setTextAlignment(TextAlignment.CENTER));
+//        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + mtttc)).setTextAlignment(TextAlignment.CENTER));
         document.add(table2);
-        
-        
+
+        addEmptyLine(5);
+
         //******************************
-        
         para = new Paragraph();
         text = new Text("Arrêtée la Présente Facture a la Somme de: ").setBold();
         para.add(text);
-        text = new Text("Zero ,dinars algériens" + "\n");
+        text = new Text(convert_chiffre2letter(mtttc) + "\n");
         para.add(text);
-        
+
         para.setTextAlignment(TextAlignment.LEFT);
         document.add(para);
-        
+
+        addEmptyLine(5);
+
         para = new Paragraph("Fournisseur");
         para.setTextAlignment(TextAlignment.RIGHT);
         document.add(para);
-        
 
         document.close();
     }
@@ -175,5 +209,26 @@ public class Fr_factur_generate {
             document.add(new Paragraph(" ").setFontSize(20));
 
         }
+    }
+
+    String convert_chiffre2letter(float montant) {
+        //******** montant en letter 
+
+        float nbr = montant;// Float.parseFloat(jTextField34.getText());
+
+        String doubleAsString = String.valueOf(nbr);
+        int indexOfDecimal = doubleAsString.indexOf(".");
+
+        String dinar = FrenchNumberToWords.convert((long) nbr);
+
+        int int_centime = Integer.parseInt(doubleAsString.substring(indexOfDecimal + 1));
+        String centime = ".";
+
+        if (int_centime != 0) {
+            centime = "et " + FrenchNumberToWords.convert(int_centime) + " centimes";
+        }
+
+        return (dinar + ", dinars algériens " + centime); // en FR
+
     }
 }

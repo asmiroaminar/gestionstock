@@ -849,12 +849,12 @@ public class Facture_vente_fr extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            // TODO add your handling code here:
-            fr_factur_generate.generate_fr_factur();
-        } catch (MalformedURLException | FileNotFoundException ex) {
-            Logger.getLogger(Facture_vente_fr.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            fr_factur_generate.generate_fr_factur();
+//        } catch (MalformedURLException | FileNotFoundException ex) {
+//            Logger.getLogger(Facture_vente_fr.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -18,7 +18,7 @@ import java.util.Vector;
  */
 public class VentManipulation {
 
-    public void AddProduit(Vent v) throws SQLException, ClassNotFoundException {
+    public void AddVent(Vent v) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO 'vent'('date_vent','id_clinet','id_produit','qte','prix_ht','montant') VALUES "
                 //                + " ('" + v.getIdVent() + "','"
                 + " ('" + v.getDate_vent() + "','"
@@ -51,15 +51,16 @@ public class VentManipulation {
         return prods;
     }
 
-    public Vector<Vent> getAllVents_ofclient_withdate(String idClient, String start, String end) throws SQLException {
+    public Vector<Vent> getAllVents_ofclient_withdate(String idClient, String month, String year) throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<Vent> prods = new Vector<>();
         String sql = "SELECT  vent.id,vent.date_vent,client.profile,produit.designnation_fr,vent.qte,vent.prix_ht,vent.montant "
                 + "FROM vent "
                 + "INNER JOIN produit ON produit.id == vent.id_produit "
                 + "INNER JOIN client ON client.id == vent.id_clinet "
-                + "WHERE date(vent.date_vent) between date('"+start+"') and date('"+end+"') "
-                + "AND vent.id_clinet = '"+idClient+"'";
+                + "WHERE strftime('%m',vent.date_vent) = '" + month + "' AND strftime('%Y',vent.date_vent) = '" + year + "' "
+                //+ "WHERE date(vent.date_vent) between date('"+start+"') and date('"+end+"') "
+                + "AND vent.id_clinet = '" + idClient + "'";
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
