@@ -56,7 +56,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     };
 
     Fr_factur_generate fr_factur_generate = new Fr_factur_generate();
-    
+
     public final void AfficherClients_Profil() throws SQLException {
 //        Vector<String> clients = cm.getAllClients_Profil();
 //        clients.add(0, " / ");
@@ -403,10 +403,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         vent_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         vent_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Date", "Produit", "Qte", "Prix", "montant"
@@ -620,8 +617,6 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jMonthChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jMonthChooser2.setYearChooser(jYearChooser2);
 
-        jYearChooser2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Facture du Mois :");
 
@@ -730,6 +725,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         //pick_client(client_list.getSelectedItem().toString());
         pick_client(client_list.getSelectedIndex());
 
+        DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
+        model.setRowCount(0);
+        v_selected_vents.clear();
+        calc_Tot();
+        
+         DefaultTableModel model2 = (DefaultTableModel) vent_table.getModel();
+        model2.setRowCount(0);
+        v_vents.clear();
+        
+        produit_list.setSelectedIndex(0);
 //        } catch (SQLException ex) {
 //            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
@@ -739,13 +744,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         // TODO add your handling code here:
         int t_qte = 0, t_prix = 0, t_montant = 0;
         DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
+        if (vent_table.getRowCount() != 0) {
+            for (int i = 0; i < model.getRowCount(); i++) {
             if (produit_list.getSelectedItem().toString().equals(vent_table.getValueAt(i, 1).toString())) {
                 t_qte += Integer.parseInt(vent_table.getValueAt(i, 2).toString());
                 t_prix = Integer.parseInt(vent_table.getValueAt(i, 3).toString());
                 t_montant += Integer.parseInt(vent_table.getValueAt(i, 4).toString());
             }
         }
+        }
+        
         jTextField2.setText("" + t_qte);
         jTextField3.setText("" + t_prix);
         jTextField4.setText("" + t_montant);
@@ -810,18 +818,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             /**
              * selected_client
              *
-             * jMonthChooser2.getMonth()   jYearChooser2.getYear()
+             * jMonthChooser2.getMonth() jYearChooser2.getYear()
              *
              * jNo_fact.gettext();
              *
              * v_selected_vents
              *
-             * jTextField32
-             * jTextField1  jTextField33
-             * jTextField34
+             * jTextField32 jTextField1 jTextField33 jTextField34
              */
-            int monthe = jMonthChooser2.getMonth()+1;  
-            String date = monthe+"-"+jYearChooser2.getYear();
+            int monthe = jMonthChooser2.getMonth() + 1;
+            String date = monthe + "-" + jYearChooser2.getYear();
             fr_factur_generate.generate_fr_factur(
                     selected_client,
                     date,

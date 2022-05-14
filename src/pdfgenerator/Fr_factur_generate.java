@@ -124,7 +124,7 @@ public class Fr_factur_generate {
         text = new Text("Mois: ").setBold();
         para.add(text);
 //        text = new Text("Janvier / 2022" + "\n");
-        text = new Text(date + "\n");
+        text = new Text(getMonth_fr(date) + "\n");
         para.add(text);
 
         text = new Text("Facture N°: ").setBold();
@@ -163,7 +163,7 @@ public class Fr_factur_generate {
             Vent ve = v.get(i);
             table2.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
             if (i == 0) {
-                table2.addCell(new Cell(v.size(),1).add(new Paragraph(ve.getIdProduit())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
+                table2.addCell(new Cell(v.size(), 1).add(new Paragraph(ve.getIdProduit())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
             }
             table2.addCell(new Cell().add(new Paragraph("KG")).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
             table2.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
@@ -174,13 +174,13 @@ public class Fr_factur_generate {
         //********************************
         table2.addCell(new Cell(1, 5).add(para7).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(new Paragraph("" + mtht)).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + mtht).setBold()).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell(1, 5).add(para8).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell().add(new Paragraph("" + p_tva)).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell(1, 5).add(para9).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(new Paragraph("" + mtttc)).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + mtttc).setBold()).setTextAlignment(TextAlignment.CENTER));
         document.add(table2);
 
         addEmptyLine(5);
@@ -230,5 +230,50 @@ public class Fr_factur_generate {
 
         return (dinar + ", dinars algériens " + centime); // en FR
 
+    }
+
+    String getMonth_fr(String date) {
+        int m = Integer.parseInt(date.split("-")[0]);
+        String m_text = "";
+        switch (m) {
+            case 1:
+                m_text = "Janvier";
+                break;
+            case 2:
+                m_text = "Février";
+                break;
+            case 3:
+                m_text = "Mars";
+                break;
+            case 4:
+                m_text = "Avril";
+                break;
+            case 5:
+                m_text = "Mai";
+                break;
+            case 6:
+                m_text = "Juin";
+                break;
+            case 7:
+                m_text = "juillet";
+                break;
+            case 8:
+                m_text = "Aout";
+                break;
+            case 9:
+                m_text = "Septembre";
+                break;
+            case 10:
+                m_text = "Octobre";
+                break;
+            case 11:
+                m_text = "Novembre";
+                break;
+            case 12:
+                m_text = "Décembre";
+                break;
+        }
+
+        return m_text+" / "+date.split("-")[1];
     }
 }
