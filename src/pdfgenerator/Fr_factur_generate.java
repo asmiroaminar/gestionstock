@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,13 +45,14 @@ public class Fr_factur_generate {
             String date,
             String noFact,
             Vector<Vent> v,
+            DefaultTableModel model,
             Float mtht,
             int tva,
             float p_tva,
             float mtttc
     ) throws MalformedURLException, FileNotFoundException {
 
-        File file = new File(path);
+        File file = new File("F"+noFact+"_"+date+"_"+c.getIdClient()+".pdf");
 
         PdfWriter pdfWriter = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -101,6 +103,8 @@ public class Fr_factur_generate {
 
         para.setTextAlignment(TextAlignment.LEFT);
         document.add(para);
+
+        addEmptyLine(5);
 
         //*********************************************************
         para = new Paragraph();
@@ -159,16 +163,25 @@ public class Fr_factur_generate {
         /**
          *
          */
-        for (int i = 0; i < v.size(); i++) {
-            Vent ve = v.get(i);
+//        for (int i = 0; i < v.size(); i++) {
+//            Vent ve = v.get(i);
+//            table2.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+//            if (i == 0) {
+//                table2.addCell(new Cell(v.size(), 1).add(new Paragraph(ve.getIdProduit())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
+//            }
+//            table2.addCell(new Cell().add(new Paragraph("KG")).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+//            table2.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+//            table2.addCell(new Cell().add(new Paragraph("" + ve.getPrixU())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+//            table2.addCell(new Cell().add(new Paragraph("" + ve.getMontant())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+//        }
+        for (int i = 0; i < model.getRowCount(); i++) {
             table2.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
-            if (i == 0) {
-                table2.addCell(new Cell(v.size(), 1).add(new Paragraph(ve.getIdProduit())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
-            }
+            table2.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 1).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
             table2.addCell(new Cell().add(new Paragraph("KG")).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
-            table2.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
-            table2.addCell(new Cell().add(new Paragraph("" + ve.getPrixU())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
-            table2.addCell(new Cell().add(new Paragraph("" + ve.getMontant())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+            table2.addCell(new Cell().add(new Paragraph("" + model.getValueAt(i, 2).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+            table2.addCell(new Cell().add(new Paragraph("" + model.getValueAt(i, 3).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+            table2.addCell(new Cell().add(new Paragraph("" + model.getValueAt(i, 4).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+
         }
 
         //********************************
@@ -274,6 +287,6 @@ public class Fr_factur_generate {
                 break;
         }
 
-        return m_text+" / "+date.split("-")[1];
+        return m_text + " / " + date.split("-")[1];
     }
 }
