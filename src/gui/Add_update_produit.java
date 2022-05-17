@@ -78,11 +78,13 @@ public class Add_update_produit extends javax.swing.JDialog {
     public Add_update_produit(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
-//        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
 
-        jid.setText(generateId());
-
+        try {
+            //jid.setText(generateId());
+            jid.setText(ps.autoID());
+        } catch (SQLException ex) {
+            Logger.getLogger(Add_update_produit.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,9 +125,15 @@ public class Add_update_produit extends javax.swing.JDialog {
 
     public Add_update_produit(Produit p) {
         initComponents();
-        setLocationRelativeTo(null);
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
-//
+
+        jid.setText(p.getIdProduit());
+        jnam.setText(p.getDesignation_fr());
+        jnam_ar.setText(p.getDesignation());
+        jqte.setText("" + p.getQte());
+        jtva.setText("" + p.getTva());
+        jpht.setText("" + p.getPrixU_ht());
+        jprix_achat.setText("" + p.getPrix_achat());
+
 //        jid.setText("" + p.getId_p());
 //        jnam.setText(p.getNom());
 //        jdateAjout.setText(p.getDateAjoute());
@@ -134,32 +142,32 @@ public class Add_update_produit extends javax.swing.JDialog {
 //        jqte.setText("" + p.getQte());
 //        jposition.setText(p.getPosition());
 //
-//        jButton1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (isAllWriten()) {
-//                    Produit produit = new Produit();
-//                    produit.setId_p(jid.getText());
-//                    produit.setNom(jnam.getText());
-//                    produit.setDateAjoute(jdateAjout.getText());
-//                    produit.setPrix_achat(Integer.parseInt(jpa.getText()));
-//                    produit.setPrix_vent(Integer.parseInt(jpv.getText()));
-//                    produit.setQte(Integer.parseInt(jqte.getText()));
-//                    produit.setPosition(jposition.getText());
-//
-//                    try {
-//                        ps.updateProduit(produit);
-//                        JOptionPane.showMessageDialog(null, "Bien Eregistrer");
-//                        clearAll();
-//                        dispose();
-//                        Gestion_Produit.AfficherProduits();
-//                    } catch (ClassNotFoundException | SQLException ex) {
-//                    }
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
-//                }
-//            }
-//        });
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isAllWriten()) {
+                    Produit produit = new Produit();
+                    produit.setIdProduit(jid.getText());
+                    produit.setDesignation_fr(jnam.getText());
+                    produit.setDesignation(jnam_ar.getText());
+                    produit.setQte(Integer.parseInt(jqte.getText()));
+                    produit.setPrixU_ht(Integer.parseInt(jpht.getText()));
+                    produit.setTva(Integer.parseInt(jtva.getText()));
+                    produit.setPrix_achat(Integer.parseInt(jprix_achat.getText()));                
+
+                    try {
+                        ps.update_Produit(produit);
+                        JOptionPane.showMessageDialog(null, "Ce produit est suppremer");
+                        clearAll();
+                        dispose();
+                        Home_v2.AfficherProduit();
+                    } catch (ClassNotFoundException | SQLException ex) {
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
+                }
+            }
+        });
     }
 
     /**
@@ -393,6 +401,7 @@ public class Add_update_produit extends javax.swing.JDialog {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 610));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

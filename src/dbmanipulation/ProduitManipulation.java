@@ -87,4 +87,42 @@ public class ProduitManipulation {
         return pric;
     }
 
+    public String autoID() throws SQLException {
+        String id = "P001";
+
+        Connection c = sqlConnection.conector();
+        String sql = "SELECT max(id) from produit";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        rs.next();
+        if (rs.getString("max(id)") == null) {
+            id = "P001";
+        } else {
+            Long idd = Long.parseLong(rs.getString("max(id)").substring(1, rs.getString("max(id)").length()));
+            idd++;
+            id = "P" + String.format("%03d", idd);
+        }
+
+        c.close();
+
+        return id;
+    }
+
+    public void update_Produit(Produit p) throws ClassNotFoundException, SQLException {
+        String sql = "update produit SET "
+                + "designnation='" + p.getDesignation() + "',"
+                + "qte=" + p.getQte() + ","
+                + "prix_u=" + p.getPrix_achat() + ","
+                + "tva=" + p.getTva() + ","
+                + "designnation_fr=" + p.getDesignation_fr() + ","
+                + "prix_achat=" + p.getPrix_achat() + " "
+                + " where id= '" + p.getIdProduit() + "'";
+        sqlConnection.executeSQLQuery(sql);
+    }
+
+
+    public void deleteProduit(String id) throws ClassNotFoundException, SQLException {
+        String sql = "Delete  from produit where id ='" + id + "'";
+        sqlConnection.executeSQLQuery(sql);
+    }
 }

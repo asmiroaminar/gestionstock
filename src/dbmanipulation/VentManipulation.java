@@ -33,15 +33,19 @@ public class VentManipulation {
     public Vector<Vent> getAllVents() throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<Vent> prods = new Vector<>();
-        String sql = "select * from vent";
+        String sql = "SELECT  vent.id,vent.date_vent,client.profile,produit.designnation_fr,vent.qte,vent.prix_ht,vent.montant "
+                + "FROM vent "
+                + "INNER JOIN produit ON produit.id == vent.id_produit "
+                + "INNER JOIN client ON client.id == vent.id_clinet ";
+//"select * from vent";
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
             prods.addElement(new Vent(
                     rs.getString("id"),
                     rs.getString("date_vent"),
-                    rs.getString("id_clinet"),
-                    rs.getString("id_produit"),
+                    rs.getString("profile"),
+                    rs.getString("designnation_fr"),
                     rs.getInt("qte"),
                     rs.getInt("prix_ht"),
                     rs.getInt("montant"))

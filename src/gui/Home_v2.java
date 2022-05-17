@@ -682,6 +682,15 @@ public class Home_v2 extends javax.swing.JFrame {
         vent_table.setRowHeight(26);
         vent_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(vent_table);
+        if (vent_table.getColumnModel().getColumnCount() > 0) {
+            vent_table.getColumnModel().getColumn(0).setPreferredWidth(10);
+            vent_table.getColumnModel().getColumn(1).setPreferredWidth(50);
+            vent_table.getColumnModel().getColumn(2).setPreferredWidth(300);
+            vent_table.getColumnModel().getColumn(3).setPreferredWidth(300);
+            vent_table.getColumnModel().getColumn(4).setPreferredWidth(30);
+            vent_table.getColumnModel().getColumn(5).setPreferredWidth(50);
+            vent_table.getColumnModel().getColumn(6).setPreferredWidth(50);
+        }
 
         javax.swing.GroupLayout commandes_panelLayout = new javax.swing.GroupLayout(commandes_panel);
         commandes_panel.setLayout(commandes_panelLayout);
@@ -1125,9 +1134,13 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        // TODO add your handling code here:
-        Add_update_client dialog = new Add_update_client(null, true);
-        dialog.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            Add_update_client dialog = new Add_update_client(null, true);
+            dialog.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed

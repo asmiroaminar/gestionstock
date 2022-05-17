@@ -70,12 +70,12 @@ public class Add_update_client extends javax.swing.JDialog {
     }
 //************* Add ****************************
 
-    public Add_update_client(java.awt.Frame parent, boolean modal) {
+    public Add_update_client(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
-        // setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
-
+       
+       
+        jid.setText(ps.autoID());
         jid.setText(generateId());
 
         jButton1.addActionListener(new ActionListener() {
