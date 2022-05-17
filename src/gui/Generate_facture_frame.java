@@ -421,7 +421,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        vent_table.setRowHeight(20);
+        vent_table.setRowHeight(26);
         vent_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(vent_table);
         if (vent_table.getColumnModel().getColumnCount() > 0) {
@@ -603,7 +603,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        fact_table.setRowHeight(18);
+        fact_table.setRowHeight(26);
         fact_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(fact_table);
         if (fact_table.getColumnModel().getColumnCount() > 0) {
@@ -872,6 +872,11 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         try {
             fm.Add_facture(f, v_selected_vents);
         } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Home_v2.AfficherFactures();
+        } catch (SQLException ex) {
             Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

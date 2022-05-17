@@ -38,6 +38,57 @@ public class Facture_manupulation {
 
     }
 
+    public Vector<Facture> getAllFactures() throws SQLException {
+        Connection c = sqlConnection.conector();
+        Vector<Facture> fs = new Vector<>();
+        String sql = "SELECT id_facture,n_facture,date_facture,profile,mtht,tva,tva_p,mttc "
+                + "FROM main.facture "
+                + "INNER JOIN client ON client.id = facture.id_client";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            //clients.addElement(new Facture(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+            fs.addElement(new Facture(
+                    rs.getInt("id_facture"),
+                    rs.getString("n_facture"),
+                    rs.getString("date_facture"),
+                    rs.getString("profile"),
+                    rs.getInt("mtht"),
+                    rs.getInt("tva"),
+                    rs.getFloat("tva_p"),
+                    rs.getFloat("mttc")
+            ));
+        }
+        c.close();
+        return fs;
+    }
+
+    public Vector<Facture> getFactures_ByClientID(String id) throws SQLException {
+        Connection c = sqlConnection.conector();
+        Vector<Facture> fs = new Vector<>();
+        String sql = "SELECT id_facture,n_facture,date_facture,profile,mtht,tva,tva_p,mttc "
+                + "FROM main.facture "
+                + "INNER JOIN client ON client.id = facture.id_client "
+                + "WHERE facture.id_client = '" + id + "'";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            //clients.addElement(new Facture(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+            fs.addElement(new Facture(
+                    rs.getInt("id_facture"),
+                    rs.getString("n_facture"),
+                    rs.getString("date_facture"),
+                    rs.getString("profile"),
+                    rs.getInt("mtht"),
+                    rs.getInt("tva"),
+                    rs.getFloat("tva_p"),
+                    rs.getFloat("mttc")
+            ));
+        }
+        c.close();
+        return fs;
+    }
+
     public String autoID() throws SQLException {
         String id = "0001";
 

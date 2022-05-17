@@ -6,16 +6,21 @@
 package gui;
 
 import dbclasse.Client;
+import dbclasse.Facture;
 import dbclasse.Produit;
 import dbclasse.Vent;
 import dbmanipulation.ClientManipulation;
+import dbmanipulation.Facture_manupulation;
 import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,9 +29,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Home_v2 extends javax.swing.JFrame {
 
+    Vector<Client> v_clients = new Vector<>();
+
     static ProduitManipulation pm = new ProduitManipulation();
     static ClientManipulation cm = new ClientManipulation();
     static VentManipulation vm = new VentManipulation();
+    static Facture_manupulation fm = new Facture_manupulation();
 
     /**
      * Creates new form Home_v2
@@ -51,7 +59,7 @@ public class Home_v2 extends javax.swing.JFrame {
         }
     }
 
-    // afficher tout les Clients en produit table
+    // afficher tout les Clients en Clients table
     public static void AfficherClients() throws SQLException {
         // TODO Auto-generated method stub
         DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
@@ -91,16 +99,102 @@ public class Home_v2 extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
+
+    // afficher tout les Facture  en Facture table
+    public static void AfficherFactures() throws SQLException {
+        // TODO Auto-generated method stub
+        DefaultTableModel model = (DefaultTableModel) facture_table.getModel();
+        model.setRowCount(0);
+        Vector<Facture> parants = fm.getAllFactures();
+        for (int i = 0; i < parants.size(); i++) {
+            Facture v = (Facture) parants.get(i);
+            Object[] row = new Object[]{
+                v.getnFacture(),
+                v.getDate(),
+                v.getIdClient(),
+                v.getMTHT(),
+                v.getTva(),
+                v.getMttc()};
+            model.addRow(row);
+        }
+    }
+
+    public final void AfficherClients_Profil_factPanel() throws SQLException {
+
+        v_clients = cm.getAllClients();
+        Vector<String> clients = new Vector<>();
+        clients.add("tous les clients");
+        for (int i = 0; i < v_clients.size(); i++) {
+            Client c = v_clients.get(i);
+            clients.add(c.getProfil());
+        }
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(clients);
+        jComboBox2.setModel(model);
+        jComboBox1.setModel(model);
+
+    }
+
+    public static void AfficherVents_byNfacture_factPanel() throws SQLException {
+
+        // TODO Auto-generated method stub
+        DefaultTableModel model = (DefaultTableModel) fact_vent.getModel();
+        model.setRowCount(0);
+        Vector<Facture> parants = fm.getAllFactures();
+        for (int i = 0; i < parants.size(); i++) {
+            Facture v = (Facture) parants.get(i);
+            Object[] row = new Object[]{
+                v.getnFacture(),
+                v.getDate(),
+                v.getIdClient(),
+                v.getMTHT(),
+                v.getTva(),
+                v.getMttc()};
+            model.addRow(row);
+        }
+
+    }
     //------------------------------------------------------------
 
     public Home_v2() throws SQLException {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
 
         AfficherProduit();
         AfficherClients();
         AfficherVents();
+
+        AfficherFactures();
+        AfficherClients_Profil_factPanel();
+
+        facture_table.getSelectionModel()
+                .addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (facture_table.getSelectedRow() != -1) {
+                            try {
+                                DefaultTableModel mod = (DefaultTableModel) facture_table.getModel();
+                                DefaultTableModel model = (DefaultTableModel) fact_vent.getModel();
+                                model.setRowCount(0);
+                                Vector<Vent> parants = vm.getVentsOfFacture(mod.getValueAt(facture_table.getSelectedRow(), 0).toString());
+                                for (int i = 0; i < parants.size(); i++) {
+                                    Vent v = (Vent) parants.get(i);
+                                    Object[] row = new Object[]{
+                                        v.getIdVent(),
+                                        v.getDate_vent(),
+                                        //v.getIdClinet(),
+                                        v.getIdProduit(),
+                                        v.getQte(),
+                                        v.getPrixU(),
+                                        v.getMontant()};
+                                    model.addRow(row);
+                                }
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                });
+
     }
 
     /**
@@ -151,13 +245,6 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton27 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         vent_table = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         gestion_employ_panel = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
@@ -188,14 +275,10 @@ public class Home_v2 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton32 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        facture_table = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        fact_vent = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -557,7 +640,7 @@ public class Home_v2 extends javax.swing.JFrame {
             .addGroup(home_panelLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         sceen.add(home_panel, "card6");
@@ -585,7 +668,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID vent", "date", "ID Client", "ID Produit", "Qte", "Prix", "montant"
+                "N° vent", "Date", "Client", "Produit", "Qte", "Prix", "montant"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -596,34 +679,9 @@ public class Home_v2 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        vent_table.setRowHeight(20);
+        vent_table.setRowHeight(26);
         vent_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(vent_table);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Somme");
-
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.setText("Total HT");
-
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setText("Total TTc");
-
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable6);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Somme");
-
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField5.setText("Total TTc");
 
         javax.swing.GroupLayout commandes_panelLayout = new javax.swing.GroupLayout(commandes_panel);
         commandes_panel.setLayout(commandes_panelLayout);
@@ -633,24 +691,13 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6)
                     .addGroup(commandes_panelLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton27)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(commandes_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(commandes_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         commandes_panelLayout.setVerticalGroup(
@@ -659,24 +706,11 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1)
-                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         sceen.add(commandes_panel, "card4");
@@ -755,7 +789,7 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton15)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -830,7 +864,7 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jButton18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton19)
-                        .addGap(0, 170, Short.MAX_VALUE)))
+                        .addGap(0, 235, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -904,7 +938,7 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton24)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -920,8 +954,14 @@ public class Home_v2 extends javax.swing.JFrame {
 
         jButton32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton32.setText("Filtrer");
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        facture_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        facture_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -933,41 +973,31 @@ public class Home_v2 extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jTable3.getColumnModel().getColumn(3).setPreferredWidth(50);
-            jTable3.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTable3.getColumnModel().getColumn(5).setPreferredWidth(50);
+        facture_table.setRowHeight(26);
+        facture_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        facture_table.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(facture_table);
+        if (facture_table.getColumnModel().getColumnCount() > 0) {
+            facture_table.getColumnModel().getColumn(0).setPreferredWidth(20);
+            facture_table.getColumnModel().getColumn(1).setPreferredWidth(20);
+            facture_table.getColumnModel().getColumn(2).setPreferredWidth(300);
+            facture_table.getColumnModel().getColumn(3).setPreferredWidth(50);
+            facture_table.getColumnModel().getColumn(4).setPreferredWidth(20);
+            facture_table.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Somme :");
+        jLabel8.setText("Les articlles de facture :");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Totql HT:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Total TTC:");
-
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField6.setText("0");
-
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField7.setText("0");
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        fact_vent.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        fact_vent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -986,10 +1016,11 @@ public class Home_v2 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(2).setMinWidth(150);
-            jTable4.getColumnModel().getColumn(2).setPreferredWidth(150);
+        fact_vent.setRowHeight(26);
+        jScrollPane8.setViewportView(fact_vent);
+        if (fact_vent.getColumnModel().getColumnCount() > 0) {
+            fact_vent.getColumnModel().getColumn(2).setMinWidth(150);
+            fact_vent.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         javax.swing.GroupLayout facture_panelLayout = new javax.swing.GroupLayout(facture_panel);
@@ -1002,22 +1033,15 @@ public class Home_v2 extends javax.swing.JFrame {
                     .addComponent(jScrollPane8)
                     .addComponent(jScrollPane7)
                     .addGroup(facture_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(facture_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(facture_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(facture_panelLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 509, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         facture_panelLayout.setVerticalGroup(
@@ -1032,14 +1056,9 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(facture_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1082,6 +1101,7 @@ public class Home_v2 extends javax.swing.JFrame {
         setJMenuBar(jMenuBar1);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1164,18 +1184,37 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        // jComboBox1
         try {
-            // TODO add your handling code here:
-            AfficherVents();
+            if (jComboBox1.getSelectedIndex() == 0) {
+                AfficherVents();
+            } else {
+                DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
+                model.setRowCount(0);
+                Vector<Vent> parants = vm.getVents_costum(v_clients.get(jComboBox1.getSelectedIndex() - 1).getIdClient());
+                for (int i = 0; i < parants.size(); i++) {
+                    Vent v = (Vent) parants.get(i);
+                    Object[] row = new Object[]{
+                        v.getIdVent(),
+                        v.getDate_vent(),
+                        v.getIdClinet(),
+                        v.getIdProduit(),
+                        v.getQte(),
+                        v.getPrixU(),
+                        v.getMontant()};
+                    model.addRow(row);
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
         try {
             // TODO add your handling code here:
-            
+
             Generate_facture_frame dialog = new Generate_facture_frame(this, true);
             dialog.setVisible(true);
         } catch (SQLException ex) {
@@ -1198,6 +1237,35 @@ public class Home_v2 extends javax.swing.JFrame {
         sceen.repaint();
         sceen.revalidate();
     }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+        try {
+            DefaultTableModel mod = (DefaultTableModel) fact_vent.getModel();
+            mod.setRowCount(0);
+            // Affucher les facture par client selctionee 
+            if (jComboBox2.getSelectedIndex() == 0) {
+                AfficherFactures();
+
+            } else {
+                DefaultTableModel model = (DefaultTableModel) facture_table.getModel();
+                model.setRowCount(0);
+                Vector<Facture> parants = fm.getFactures_ByClientID(v_clients.get(jComboBox2.getSelectedIndex() - 1).getIdClient());
+                for (int i = 0; i < parants.size(); i++) {
+                    Facture v = (Facture) parants.get(i);
+                    Object[] row = new Object[]{
+                        v.getnFacture(),
+                        v.getDate(),
+                        v.getIdClient(),
+                        v.getMTHT(),
+                        v.getTva(),
+                        v.getMttc()};
+                    model.addRow(row);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton32ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1244,7 +1312,9 @@ public class Home_v2 extends javax.swing.JFrame {
     private static javax.swing.JTable clients_table;
     private javax.swing.JPanel commandes_panel;
     private javax.swing.JPanel employees;
+    private static javax.swing.JTable fact_vent;
     private javax.swing.JPanel facture_panel;
+    private static javax.swing.JTable facture_table;
     private javax.swing.JPanel gestion_client_panel;
     private javax.swing.JPanel gestion_client_panel2;
     private javax.swing.JPanel gestion_employ_panel;
@@ -1286,15 +1356,11 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1308,7 +1374,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
@@ -1316,16 +1381,8 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private static javax.swing.JTable produit_table;
     private javax.swing.JPanel sceen;
     private javax.swing.JPanel stock;

@@ -443,6 +443,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this,
                         "Il-y-a un problem dans la validation de commande !!");
             }
+            try {
+                Home_v2.AfficherVents();
+            } catch (SQLException ex) {
+                Logger.getLogger(Ajouter_commande_frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             JOptionPane.showMessageDialog(this,
