@@ -1352,16 +1352,19 @@ public class Home_v2 extends javax.swing.JFrame {
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
         // delete selected client
-        try {
-            // TODO add your handling code here:
-            DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
-            cm.deleteClient(model.getValueAt(
-                    clients_table.getSelectedRow(),
-                    0).toString());
-            AfficherClients();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        if (clients_table.getSelectedRow() != -1) {
+            try {
+                // TODO add your handling code here:
+                DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
+                cm.deleteClient(model.getValueAt(
+                        clients_table.getSelectedRow(),
+                        0).toString());
+                AfficherClients();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
@@ -1394,17 +1397,20 @@ public class Home_v2 extends javax.swing.JFrame {
         
 
         // delete selected client
-        try {
-            // TODO add your handling code here:
-            DefaultTableModel model = (DefaultTableModel) produit_table.getModel();
-            pm.deleteProduit(model.getValueAt(
-                    produit_table.getSelectedRow(),
-                    0).toString());
-            JOptionPane.showMessageDialog(null, "Ce produit est suppremer");
-            AfficherProduit();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        if (produit_table.getSelectedRow() != -1) {
+            try {
+                // TODO add your handling code here:
+                DefaultTableModel model = (DefaultTableModel) produit_table.getModel();
+                pm.deleteProduit(model.getValueAt(
+                        produit_table.getSelectedRow(),
+                        0).toString());
+                JOptionPane.showMessageDialog(null, "Ce produit est suppremer");
+                AfficherProduit();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
     }//GEN-LAST:event_jButton23ActionPerformed
 
     /**
