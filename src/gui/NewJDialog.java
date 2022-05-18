@@ -295,8 +295,8 @@ public class NewJDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Add_update_client dialog = new Add_update_client(null, true);
-        dialog.setVisible(true);
+//        Add_update_client dialog = new Add_update_client(null, true);
+//        dialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

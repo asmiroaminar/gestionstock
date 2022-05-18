@@ -44,7 +44,7 @@ public class ClientManipulation {
         return clients;
     }
 
-    public Vector<String> getAllClients_Profil() throws SQLException {
+ public Vector<String> getAllClients_Profil() throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<String> clients = new Vector<>();
         String sql = "select * from client";
@@ -57,15 +57,45 @@ public class ClientManipulation {
         return clients;
     }
 
+    public Client getOneClient(String id) throws SQLException {
+        Connection c = sqlConnection.conector();
+        Client cl = new Client();
+        String sql = "select * from client where id='" + id + "'";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        rs.next();
+
+        cl.setIdClient(rs.getString("id"));
+        cl.setDoit(rs.getString("doit"));
+        cl.setProfil(rs.getString("profile"));
+        cl.setFormeJuridique(rs.getString("form_juridique"));
+        cl.setAdr(rs.getString("adress"));
+        cl.setTel(rs.getString("tel"));
+        cl.setFax(rs.getString("fax"));
+        cl.setNif(rs.getString("nif"));
+
+        c.close();
+        return cl;
+    }
+
     public void deleteClient(String id) throws ClassNotFoundException, SQLException {
         String sql = "Delete  from client where id='" + id + "'";
         sqlConnection.executeSQLQuery(sql);
     }
 
-//    public void updateClient(Client c) throws ClassNotFoundException, SQLException {
-//        String sql = "update client SET nom_prenom='" + c.getNom_prenom() + "',tel='" + c.getTel() + "',dette_n=" + c.getDette_n() + ",dette_p=" + c.getDette_p() + ",rest=" + c.getRest() + " where id_c= " + c.getId_c();
-//        sqlConnection.executeSQLQuery(sql);
-//    }
+    public void updateClient(Client c) throws ClassNotFoundException, SQLException {
+        String sql = "update client SET "
+                + "doit='" + c.getDoit() + "',"
+                + "profile='" + c.getProfil()+ "',"
+                + "form_juridique='" + c.getFormeJuridique()+ "',"
+                + "adress='" + c.getAdr()+ "',"
+                + "tel='" + c.getTel()+ "',"
+                + "fax='" + c.getFax()+ "',"
+                + "nif='" + c.getNif()+ "'"
+                + " where id= '" + c.getIdClient()+"'";
+        sqlConnection.executeSQLQuery(sql);
+    }
+
     public Client getClient_byprofile(String profile) throws SQLException {
         Connection c = sqlConnection.conector();
         Client cl = new Client();
@@ -77,6 +107,27 @@ public class ClientManipulation {
         }
         c.close();
         return cl;
+    }
+
+    public String autoID() throws SQLException {
+        String id = "C001";
+
+        Connection c = sqlConnection.conector();
+        String sql = "SELECT max(id) from client";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        rs.next();
+        if (rs.getString("max(id)") == null) {
+            id = "C001";
+        } else {
+            Long idd = Long.parseLong(rs.getString("max(id)").substring(1, rs.getString("max(id)").length()));
+            idd++;
+            id = "C" + String.format("%03d", idd);
+        }
+
+        c.close();
+
+        return id;
     }
 
 }

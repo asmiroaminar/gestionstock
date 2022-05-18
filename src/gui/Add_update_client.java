@@ -5,17 +5,13 @@
  */
 package gui;
 
-import dbclasse.Produit;
-import dbmanipulation.ProduitManipulation;
-import java.awt.Toolkit;
+import dbclasse.Client;
+import dbmanipulation.ClientManipulation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,27 +20,22 @@ import javax.swing.JOptionPane;
  */
 public class Add_update_client extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Add_update_produit
-     */
-    static ProduitManipulation ps = new ProduitManipulation();
+    static ClientManipulation cm = new ClientManipulation();
 
-    public String getDate() {
-
-        Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
-        return ft.format(dNow);
-    }
-
-    public String generateId() {
-
-        Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
-        return ft.format(dNow);
-    }
-
-    private void clearAll() {
-        jid.setText(generateId());
+//    public String getDate() {
+//
+//        Date dNow = new Date();
+//        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
+//        return ft.format(dNow);
+//    }
+//    public String generateId() {
+//
+//        Date dNow = new Date();
+//        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
+//        return ft.format(dNow);
+//    }
+    private void clearAll() throws SQLException {
+        jid.setText(cm.autoID());
         jnam.setText("");
         jprofil.setText("");
         jform_j.setText("");
@@ -70,97 +61,103 @@ public class Add_update_client extends javax.swing.JDialog {
     }
 //************* Add ****************************
 
-    public Add_update_client(java.awt.Frame parent, boolean modal) throws SQLException {
+    public Add_update_client(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-       
-       
-        jid.setText(ps.autoID());
-        jid.setText(generateId());
 
-        jButton1.addActionListener(new ActionListener() {
+        try {
+            jid.setText(cm.autoID());
+        } catch (SQLException ex) {
+            Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        saveBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (isAllWriten()) {
-//
-//                    Produit produit = new Produit();
-//                    produit.setId_p(jid.getText());
-//                    produit.setNom(jnam.getText());
-//                    produit.setDateAjoute(jdateAjout.getText());
-//                    produit.setPrix_achat(Integer.parseInt(jpa.getText()));
-//                    produit.setPrix_vent(Integer.parseInt(jpv.getText()));
-//                    produit.setQte(Integer.parseInt(jqte.getText()));
-//                    produit.setPosition(jposition.getText());
-//
-//                    try {
-//                        ps.AddProduit(produit);
-//                    } catch (SQLException | ClassNotFoundException ex) {
-//                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                    JOptionPane.showMessageDialog(null, "Bien Eregistrer");
-//                    clearAll();
-//                    //  dispose();
-//
-//                    try {
-//                        Gestion_Produit.AfficherProduits();
-//                    } catch (SQLException ex) {
-//                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
-//                }
+                if (isAllWriten()) {
+
+                    Client c = new Client();
+                    c.setIdClient(jid.getText());
+                    c.setDoit(jnam.getText());
+                    c.setProfil(jprofil.getText());
+                    c.setFormeJuridique(jform_j.getText());
+                    c.setAdr(jadress.getText());
+                    c.setTel(jphone.getText());
+                    c.setFax(jfax.getText());
+                    c.setNif(jnif.getText());
+                    try {
+                        cm.AddClient(c);
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+
+                    try {
+                        Home_v2.AfficherClients();
+                        dispose();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
+                }
 
             }
         });
     }
 //************* update ****************************
 
-    public Add_update_client(Produit p) {
+    public Add_update_client(java.awt.Frame parent, boolean modal, Client cl) {
+        super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/rokgard-glam-ip5_2048x.png")));
 
-//        jid.setText("" + p.getId_p());
-//        jnam.setText(p.getNom());
-//        jdateAjout.setText(p.getDateAjoute());
-//        jpa.setText("" + p.getPrix_achat());
-//        jpv.setText("" + p.getPrix_vent());
-//        jqte.setText("" + p.getQte());
-//        jposition.setText(p.getPosition());
-//        jButton1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (isAllWriten()) {
-//                    Produit produit = new Produit();
-//                    produit.setId_p(jid.getText());
-//                    produit.setNom(jnam.getText());
-//                    produit.setDateAjoute(jdateAjout.getText());
-//                    produit.setPrix_achat(Integer.parseInt(jpa.getText()));
-//                    produit.setPrix_vent(Integer.parseInt(jpv.getText()));
-//                    produit.setQte(Integer.parseInt(jqte.getText()));
-//                    produit.setPosition(jposition.getText());
-//
-//                    try {
-//                        ps.updateProduit(produit);
-//                        JOptionPane.showMessageDialog(null, "Bien Eregistrer");
-//                        clearAll();
-//                        dispose();
-//                        Gestion_Produit.AfficherProduits();
-//                    } catch (ClassNotFoundException | SQLException ex) {
-//                    }
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
-//                }
-//            }
-//        });
+        jid.setText(cl.getIdClient());
+        jnam.setText(cl.getDoit());
+        jprofil.setText(cl.getProfil());
+        jform_j.setText(cl.getFormeJuridique());
+        jadress.setText(cl.getAdr());
+        jphone.setText(cl.getTel());
+        jfax.setText(cl.getFax());
+        jnif.setText(cl.getNif());
+
+        saveBTN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isAllWriten()) {
+                    Client c = new Client();
+                    c.setIdClient(jid.getText());
+                    c.setDoit(jnam.getText());
+                    c.setProfil(jprofil.getText());
+                    c.setFormeJuridique(jform_j.getText());
+                    c.setAdr(jadress.getText());
+                    c.setTel(jphone.getText());
+                    c.setFax(jfax.getText());
+                    c.setNif(jnif.getText());
+
+                    try {
+                        cm.updateClient(c);
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+
+                    try {
+                        Home_v2.AfficherClients();
+                        dispose();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Add_update_client.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
+                }
+            }
+        });
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -185,11 +182,10 @@ public class Add_update_client extends javax.swing.JDialog {
         jfax = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jnif = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        saveBTN = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(7, 153, 146));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -209,7 +205,7 @@ public class Add_update_client extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Matricule :");
 
-        jid.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jid.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jid.setText("Générer par le système");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -266,29 +262,28 @@ public class Add_update_client extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jnam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                            .addComponent(jid, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jprofil, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jform_j, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addComponent(jphone, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jfax, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jnif, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jid)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jnif, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jfax, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jphone, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addComponent(jform_j, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jnam, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jprofil, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(45, 45, 45))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,14 +320,14 @@ public class Add_update_client extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jnif, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 740, 520));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 750, 520));
 
-        jButton1.setBackground(new java.awt.Color(184, 233, 148));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Save_30px.png"))); // NOI18N
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 80, -1));
+        saveBTN.setBackground(new java.awt.Color(184, 233, 148));
+        saveBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Save_30px.png"))); // NOI18N
+        jPanel1.add(saveBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 80, -1));
 
         jButton2.setBackground(new java.awt.Color(235, 47, 6));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/Delete_30px.png"))); // NOI18N
@@ -346,6 +341,7 @@ public class Add_update_client extends javax.swing.JDialog {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 660));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -355,7 +351,6 @@ public class Add_update_client extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -377,5 +372,6 @@ public class Add_update_client extends javax.swing.JDialog {
     private javax.swing.JTextField jnif;
     private javax.swing.JTextField jphone;
     private javax.swing.JTextField jprofil;
+    private javax.swing.JButton saveBTN;
     // End of variables declaration//GEN-END:variables
 }

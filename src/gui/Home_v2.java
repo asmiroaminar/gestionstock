@@ -14,11 +14,13 @@ import dbmanipulation.Facture_manupulation;
 import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -245,6 +247,7 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton27 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         vent_table = new javax.swing.JTable();
+        jButton33 = new javax.swing.JButton();
         gestion_employ_panel = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
@@ -692,6 +695,13 @@ public class Home_v2 extends javax.swing.JFrame {
             vent_table.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
+        jButton33.setText("jButton33");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout commandes_panelLayout = new javax.swing.GroupLayout(commandes_panel);
         commandes_panel.setLayout(commandes_panelLayout);
         commandes_panelLayout.setHorizontalGroup(
@@ -706,6 +716,8 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton27)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton33)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -715,7 +727,9 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton33))
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
@@ -820,14 +834,30 @@ public class Home_v2 extends javax.swing.JFrame {
         ));
         clients_table.setRowHeight(26);
         clients_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        clients_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(clients_table);
 
+        jButton17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton17.setText("Modifier");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
+        jButton18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton18.setText("Supprimer");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
 
+        jButton19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton19.setText("Imprimer");
+        jButton19.setEnabled(false);
 
+        jButton20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton20.setText("Nouveau");
         jButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -848,7 +878,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(gestion_client_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(gestion_client_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -873,7 +903,7 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jButton18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton19)
-                        .addGap(0, 235, Short.MAX_VALUE)))
+                        .addGap(0, 227, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -895,6 +925,7 @@ public class Home_v2 extends javax.swing.JFrame {
         ));
         produit_table.setRowHeight(26);
         produit_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        produit_table.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(produit_table);
 
         jButton16.setText("Nouveau");
@@ -905,10 +936,21 @@ public class Home_v2 extends javax.swing.JFrame {
         });
 
         jButton22.setText("Modifier");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
 
         jButton23.setText("Supprimer");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
 
         jButton24.setText("Imprimer");
+        jButton24.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1134,13 +1176,9 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        try {
-            // TODO add your handling code here:
-            Add_update_client dialog = new Add_update_client(null, true);
-            dialog.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        Add_update_client dialog = new Add_update_client(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
@@ -1280,6 +1318,95 @@ public class Home_v2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton32ActionPerformed
 
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        // TODO add your handling code here:
+        // double money = 10000.1;
+        int money = 10000;
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String moneyString = formatter.format(money);
+        System.out.println(moneyString);
+    }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // Update Client
+        if (clients_table.getSelectedRow() != -1) {
+            try {
+                DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
+                Client c = cm.getOneClient(
+                        model.getValueAt(
+                                clients_table.getSelectedRow(),
+                                0).toString());
+
+                Add_update_client dialog = new Add_update_client(
+                        new javax.swing.JFrame(),
+                        true,
+                        c);
+                dialog.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // delete selected client
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel model = (DefaultTableModel) clients_table.getModel();
+            cm.deleteClient(model.getValueAt(
+                    clients_table.getSelectedRow(),
+                    0).toString());
+            AfficherClients();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // 
+        // Update Produit
+        if (produit_table.getSelectedRow() != -1) {
+            try {
+                DefaultTableModel model = (DefaultTableModel) produit_table.getModel();
+                Produit p = pm.getOneProduit(
+                        model.getValueAt(
+                                produit_table.getSelectedRow(),
+                                0).toString());
+
+                Add_update_produit dialog = new Add_update_produit(
+                        new javax.swing.JFrame(),
+                        true,
+                        p);
+                dialog.setVisible(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        // TODO add your handling code here:
+
+        
+
+        // delete selected client
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel model = (DefaultTableModel) produit_table.getModel();
+            pm.deleteProduit(model.getValueAt(
+                    produit_table.getSelectedRow(),
+                    0).toString());
+            JOptionPane.showMessageDialog(null, "Ce produit est suppremer");
+            AfficherProduit();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton23ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1359,6 +1486,7 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

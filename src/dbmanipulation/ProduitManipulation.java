@@ -50,6 +50,24 @@ public class ProduitManipulation {
         return prods;
     }
 
+    public Produit getOneProduit(String id) throws SQLException {
+        Connection c = sqlConnection.conector();
+        String sql = "select * from produit where id ='" + id + "'";
+        Statement st = c.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        rs.next();
+        Produit p = new Produit(
+                rs.getString("id"),
+                rs.getString("designnation"),
+                rs.getString("designnation_fr"),
+                rs.getInt("qte"),
+                rs.getInt("prix_u"),
+                rs.getInt("tva"),
+                rs.getInt("prix_achat"));
+        c.close();
+        return p;
+    }
+
     public Vector<String> getAllProduits_designnation_ar() throws SQLException {
         Connection c = sqlConnection.conector();
         Vector<String> Produits = new Vector<>();
@@ -112,14 +130,13 @@ public class ProduitManipulation {
         String sql = "update produit SET "
                 + "designnation='" + p.getDesignation() + "',"
                 + "qte=" + p.getQte() + ","
-                + "prix_u=" + p.getPrix_achat() + ","
+                + "prix_u=" + p.getPrixU_ht()+ ","
                 + "tva=" + p.getTva() + ","
-                + "designnation_fr=" + p.getDesignation_fr() + ","
+                + "designnation_fr='" + p.getDesignation_fr() + "',"
                 + "prix_achat=" + p.getPrix_achat() + " "
                 + " where id= '" + p.getIdProduit() + "'";
         sqlConnection.executeSQLQuery(sql);
     }
-
 
     public void deleteProduit(String id) throws ClassNotFoundException, SQLException {
         String sql = "Delete  from produit where id ='" + id + "'";

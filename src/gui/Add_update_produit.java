@@ -7,7 +7,6 @@ package gui;
 
 import dbclasse.Produit;
 import dbmanipulation.ProduitManipulation;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -37,7 +36,6 @@ public class Add_update_produit extends javax.swing.JDialog {
     }
 
     public String generateId() {
-
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
         return ft.format(dNow);
@@ -123,7 +121,8 @@ public class Add_update_produit extends javax.swing.JDialog {
     }
 //************* update ****************************
 
-    public Add_update_produit(Produit p) {
+    public Add_update_produit(java.awt.Frame parent, boolean modal,Produit p) {
+        super(parent, modal);
         initComponents();
 
         jid.setText(p.getIdProduit());
@@ -134,14 +133,7 @@ public class Add_update_produit extends javax.swing.JDialog {
         jpht.setText("" + p.getPrixU_ht());
         jprix_achat.setText("" + p.getPrix_achat());
 
-//        jid.setText("" + p.getId_p());
-//        jnam.setText(p.getNom());
-//        jdateAjout.setText(p.getDateAjoute());
-//        jpa.setText("" + p.getPrix_achat());
-//        jpv.setText("" + p.getPrix_vent());
-//        jqte.setText("" + p.getQte());
-//        jposition.setText(p.getPosition());
-//
+
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,14 +147,23 @@ public class Add_update_produit extends javax.swing.JDialog {
                     produit.setTva(Integer.parseInt(jtva.getText()));
                     produit.setPrix_achat(Integer.parseInt(jprix_achat.getText()));                
 
+               
                     try {
                         ps.update_Produit(produit);
-                        JOptionPane.showMessageDialog(null, "Ce produit est suppremer");
-                        clearAll();
-                        dispose();
-                        Home_v2.AfficherProduit();
                     } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(Add_update_produit.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    
+                        JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+                        dispose();
+                        
+                        
+                    try {
+                        Home_v2.AfficherProduit();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Add_update_produit.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "S'il vous plaît vérifier les champs");
                 }
