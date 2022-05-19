@@ -20,9 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +39,8 @@ public class Home_v2 extends javax.swing.JFrame {
     static ClientManipulation cm = new ClientManipulation();
     static VentManipulation vm = new VentManipulation();
     static Facture_manupulation fm = new Facture_manupulation();
+
+    static NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
     /**
      * Creates new form Home_v2
@@ -96,8 +100,8 @@ public class Home_v2 extends javax.swing.JFrame {
                 v.getIdClinet(),
                 v.getIdProduit(),
                 v.getQte(),
-                v.getPrixU(),
-                v.getMontant()};
+                formatter.format(v.getPrixU()),
+                formatter.format(v.getMontant())};
             model.addRow(row);
         }
     }
@@ -114,9 +118,9 @@ public class Home_v2 extends javax.swing.JFrame {
                 v.getnFacture(),
                 v.getDate(),
                 v.getIdClient(),
-                v.getMTHT(),
+                formatter.format(v.getMTHT()),
                 v.getTva(),
-                v.getMttc()};
+                formatter.format(v.getMttc())};
             model.addRow(row);
         }
     }
@@ -150,7 +154,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 v.getIdClient(),
                 v.getMTHT(),
                 v.getTva(),
-                v.getMttc()};
+                formatter.format(v.getMttc())};
             model.addRow(row);
         }
 
@@ -160,6 +164,20 @@ public class Home_v2 extends javax.swing.JFrame {
     public Home_v2() throws SQLException {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        facture_table.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        facture_table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        facture_table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+
+        fact_vent.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        fact_vent.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        fact_vent.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+
+        vent_table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        vent_table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        vent_table.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
 
         AfficherProduit();
         AfficherClients();
@@ -186,8 +204,8 @@ public class Home_v2 extends javax.swing.JFrame {
                                         //v.getIdClinet(),
                                         v.getIdProduit(),
                                         v.getQte(),
-                                        v.getPrixU(),
-                                        v.getMontant()};
+                                        formatter.format(v.getPrixU()),
+                                        formatter.format(v.getMontant())};
                                     model.addRow(row);
                                 }
                             } catch (SQLException ex) {
@@ -247,7 +265,6 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton27 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         vent_table = new javax.swing.JTable();
-        jButton33 = new javax.swing.JButton();
         gestion_employ_panel = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
@@ -384,6 +401,8 @@ public class Home_v2 extends javax.swing.JFrame {
 
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        accueil.setBackground(new java.awt.Color(153, 255, 255));
 
         jButton28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8-accueil-48.png"))); // NOI18N
@@ -655,7 +674,7 @@ public class Home_v2 extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton27.setText("Tous commandes");
+        jButton27.setText("Filtrer");
         jButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton27ActionPerformed(evt);
@@ -695,13 +714,6 @@ public class Home_v2 extends javax.swing.JFrame {
             vent_table.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
-        jButton33.setText("jButton33");
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout commandes_panelLayout = new javax.swing.GroupLayout(commandes_panel);
         commandes_panel.setLayout(commandes_panelLayout);
         commandes_panelLayout.setHorizontalGroup(
@@ -713,11 +725,9 @@ public class Home_v2 extends javax.swing.JFrame {
                     .addGroup(commandes_panelLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton27)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton33)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -727,9 +737,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton33))
+                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
@@ -1060,7 +1068,7 @@ public class Home_v2 extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1068,6 +1076,7 @@ public class Home_v2 extends javax.swing.JFrame {
             }
         });
         fact_vent.setRowHeight(26);
+        fact_vent.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(fact_vent);
         if (fact_vent.getColumnModel().getColumnCount() > 0) {
             fact_vent.getColumnModel().getColumn(2).setMinWidth(150);
@@ -1318,15 +1327,6 @@ public class Home_v2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton32ActionPerformed
 
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        // TODO add your handling code here:
-        // double money = 10000.1;
-        int money = 10000;
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String moneyString = formatter.format(money);
-        System.out.println(moneyString);
-    }//GEN-LAST:event_jButton33ActionPerformed
-
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         // Update Client
         if (clients_table.getSelectedRow() != -1) {
@@ -1364,7 +1364,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
@@ -1394,8 +1394,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // TODO add your handling code here:
 
-        
-
         // delete selected client
         if (produit_table.getSelectedRow() != -1) {
             try {
@@ -1410,7 +1408,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_jButton23ActionPerformed
 
     /**
@@ -1492,7 +1490,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
