@@ -13,4 +13,7 @@ public class VendeurManipulation {
     public void ajouterVendeur(String idVendeur){
         
     }
+    public void supVendeur(String id){
+        
+    }
 }
