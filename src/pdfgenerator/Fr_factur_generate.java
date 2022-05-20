@@ -6,24 +6,16 @@
 package pdfgenerator;
 
 import com.github.royken.converter.FrenchNumberToWords;
-import com.itextpdf.io.image.*;
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-import com.itextpdf.layout.property.VerticalAlignment;
 import dbclasse.Client;
-import dbclasse.Facture;
 import dbclasse.Vent;
 import java.io.File;
 import java.io.FileNotFoundException;

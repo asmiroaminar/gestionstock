@@ -402,8 +402,6 @@ public class Home_v2 extends javax.swing.JFrame {
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        accueil.setBackground(new java.awt.Color(153, 255, 255));
-
         jButton28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8-accueil-48.png"))); // NOI18N
         jButton28.setText("Accueil");
@@ -667,6 +665,8 @@ public class Home_v2 extends javax.swing.JFrame {
 
         sceen.add(home_panel, "card6");
 
+        commandes_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Liste des commandes"));
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Par Client :");
 
@@ -721,7 +721,7 @@ public class Home_v2 extends javax.swing.JFrame {
             .addGroup(commandes_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(commandes_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1007, Short.MAX_VALUE)
                     .addGroup(commandes_panelLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -740,7 +740,7 @@ public class Home_v2 extends javax.swing.JFrame {
                     .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1003,7 +1003,7 @@ public class Home_v2 extends javax.swing.JFrame {
 
         sceen.add(gestion_produit_panel, "card5");
 
-        facture_panel.setBackground(new java.awt.Color(204, 255, 204));
+        facture_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Liste des Facture"));
 
         jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "tous les clients", "Item 2", "Item 3", "Item 4" }));
@@ -1101,7 +1101,7 @@ public class Home_v2 extends javax.swing.JFrame {
                                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 509, Short.MAX_VALUE)))
+                        .addGap(0, 497, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         facture_panelLayout.setVerticalGroup(
@@ -1114,11 +1114,11 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

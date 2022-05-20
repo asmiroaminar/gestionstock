@@ -1,3 +1,4 @@
+
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -12,6 +13,7 @@ import com.itextpdf.text.pdf.languages.LanguageProcessor;
 import java.io.File;
 
 public class ArabicExample {
+
     public static final String DEST = "arabic_example.pdf";
     public static final String FONT = "font/NotoNaskhArabic-Regular.ttf";
 
@@ -20,9 +22,8 @@ public class ArabicExample {
 
     public static void main(String[] args) throws Exception {
         File file = new File(DEST);
-        
-        //file.getParentFile().mkdirs();
 
+        //file.getParentFile().mkdirs();
         new ArabicExample().manipulatePdf(DEST);
     }
 
@@ -32,23 +33,14 @@ public class ArabicExample {
         PdfFont f = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
         LanguageProcessor al = new com.itextpdf.text.pdf.languages.ArabicLigaturizer();
         // It is required to add iText typography dependency to handle correctly arabic text
-        Paragraph p=new Paragraph();
-        p.setTextAlignment(TextAlignment.RIGHT);
+        Paragraph p = new Paragraph();
+        p.setTextAlignment(TextAlignment.CENTER);
         p.add(new Text(al.process("هبير نصر الدين")).setFont(f));
-       
+
         doc.add(p);
-        
 
         doc.close();
-          
 
-   
-
- 
-        
-        
-        
     }
-    
-    
+
 }
