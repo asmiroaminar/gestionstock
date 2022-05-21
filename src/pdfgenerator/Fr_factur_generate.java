@@ -44,7 +44,7 @@ public class Fr_factur_generate {
             float mtttc
     ) throws MalformedURLException, FileNotFoundException {
 
-        File file = new File("F"+noFact+"_"+date+"_"+c.getIdClient()+".pdf");
+        File file = new File("F" + noFact + "_" + date + "_" + c.getIdClient() + ".pdf");
 
         PdfWriter pdfWriter = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);

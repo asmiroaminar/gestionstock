@@ -15,20 +15,69 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.text.pdf.languages.LanguageProcessor;
+import dbclasse.Client;
+import dbclasse.Vent;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 public class Ar_factur_generate {
 
-    public static final String DEST = "arabic_example.pdf";
-    public static final String FONT = "font/NotoNaskhArabic-Regular.ttf";
+//    public static final String DEST = "arabic_example.pdf";
+    public static final String FONT = "font/ARIAL.ttf";//NotoNaskhArabic-Regular
 
-    protected void manipulatePdf(String dest) throws Exception {
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
-        Document doc = new Document(pdfDoc);
+    Document doc;
+
+    //****************************************************************
+    String convert_chiffre2letter(String m) throws Exception {
+        //******** montant en letter 
+
+        float nbr = Float.parseFloat(m);
+
+        String doubleAsString = String.valueOf(nbr);
+        int indexOfDecimal = doubleAsString.indexOf(".");
+
+        int hh = 1000;
+
+        String dinar = Nombrearabic.CALCULATE.getValue(hh);
+
+        int int_centime = Integer.parseInt(doubleAsString.substring(indexOfDecimal + 1));
+        String centime = ".";
+
+        if (int_centime != 0) {
+            centime = "سنتيم " + Nombrearabic.CALCULATE.getValue(int_centime) + " و";
+        }
+
+        return centime + " ،دينار جزائري" + dinar;
+
+    }
+    //****************************************************************
+
+    public void generate_ar_factur(
+            Client c,
+            String date,
+            String noFact,
+            Vector<Vent> v,
+            DefaultTableModel model,
+            Float mtht,
+            int tva,
+            float p_tva,
+            float mtttc,
+            boolean detail
+    ) throws MalformedURLException, FileNotFoundException, IOException, Exception {
+
+        String path = "F" + noFact + "_" + date + "_" + c.getIdClient() + ".pdf";
+
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(path));
+        doc = new Document(pdfDoc);
         PdfFont f = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
         LanguageProcessor al = new com.itextpdf.text.pdf.languages.ArabicLigaturizer();
         // It is required to add iText typography dependency to handle correctly arabic text
@@ -42,66 +91,298 @@ public class Ar_factur_generate {
         para.setTextAlignment(TextAlignment.CENTER);
         para.setBold();
         para.add(text);
-        
-        
+
         doc.add(para);
 
         para = new Paragraph(new Text(al.process("تجارة بالجملة للمنتجات المرتبطة بتغذية الإنسان")).setFont(f));
         para.setTextAlignment(TextAlignment.CENTER);
         para.setBold();
         doc.add(para);
-
         //-----------------------------------------------
         Table table2 = new Table(UnitValue.createPercentArray(2)).useAllAvailableWidth();
 
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process("المشتري")).setFont(f)))
-                .setTextAlignment(TextAlignment.CENTER));
+                        .add(new Paragraph(new Text(al.process("المشتري")).setFont(f)))
+                        .setTextAlignment(TextAlignment.CENTER));
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process("البائع")).setFont(f)))
-                .setTextAlignment(TextAlignment.CENTER));
+                        .add(new Paragraph(new Text(al.process("البائع")).setFont(f)))
+                        .setTextAlignment(TextAlignment.CENTER));
+        //----------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("اسم المؤسسة: " + c.getDoit())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
 
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process(""+"اسم المؤسسة: ")).setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
+                        .add(new Paragraph(new Text(al.process("" + "اسم المؤسسة: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //-------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("موقع التوزيع: " + c.getProfil())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
 
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process(""+"اسم المؤسسة: ")).setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
-        
-         table2.addCell(
+                        .add(new Paragraph(new Text(al.process("" + "العنوان: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------
+        table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process(""+"موقع التوزيع: ")).setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
+                        .add(new Paragraph(new Text(al.process("الشكل القانوني: " + c.getFormeJuridique())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
 
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(al.process(""+"العنوان: ")).setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
-        
-         table2.addCell(
+                        .add(new Paragraph(new Text(al.process("" + "الهاتف: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //------------------------------------------------------------------
+        table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(""+"الشكل القانوني: ").setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
+                        .add(new Paragraph(new Text(al.process("العنوان: " + c.getAdr())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
 
         table2.addCell(
                 new Cell()
-                .add(new Paragraph(new Text(""+"الهاتف: ").setFont(f)))
-                .setTextAlignment(TextAlignment.RIGHT));
+                        .add(new Paragraph(new Text(al.process("" + "هاتف/فاكس: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("الهاتف: " + c.getTel())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "رقم السجل التجاري: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("الفاكس: " + c.getFax())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "تاريخ الصدور: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("رقم التعريف الجبائي: " + c.getNif())).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "الرقم الجبائي: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "رقم وصل الطلب: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "الرقم الإحصائي: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "بتاريخ: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "ر.ح.البنكي: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+        //----------------------------------------------------------------------
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        table2.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "الوكالة: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
 
         doc.add(table2);
 
+        //****************************************************************************
+        addEmptyLine(2);
+
+        Table table3 = new Table(1).setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(150);
+
+        table3.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("فاتورة رقم: " + noFact)).setFont(f)))
+                        .setTextAlignment(TextAlignment.CENTER));
+        table3.addCell(
+                new Cell()
+                        .add(new Paragraph(new Text(al.process("" + "بتاريخ: ")).setFont(f)))
+                        .setTextAlignment(TextAlignment.RIGHT));
+
+        doc.add(table3);
+
+        //*********************   FACTur     *********************************
+        addEmptyLine(2);
+
+        Paragraph p1 = new Paragraph(new Text(al.process("المبلغ / د.ج")).setFont(f));
+        Paragraph p2 = new Paragraph(new Text(al.process("سعر الوحدة / د.ج")).setFont(f));
+        Paragraph p3 = new Paragraph(new Text(al.process("الكمية")).setFont(f));
+        Paragraph p4 = new Paragraph(new Text(al.process("الوحدة")).setFont(f));
+        Paragraph p5 = new Paragraph(new Text(al.process("التاريخ")).setFont(f));
+        Paragraph p6 = new Paragraph(new Text(al.process("التعيين")).setFont(f));
+        Paragraph p7 = new Paragraph(new Text(al.process("رقم")).setFont(f));
+
+        Paragraph p8 = new Paragraph(new Text(al.process("المجموع")).setFont(f));
+        Paragraph p9 = new Paragraph(new Text(al.process("المجموع خارج الرسو م")).setFont(f));
+        Paragraph p10 = new Paragraph(new Text(al.process("الرسوم على القيمة المضافة " + tva + " % ")).setFont(f));
+        Paragraph p11 = new Paragraph(new Text(al.process("المجموع بكل الرسوم")).setFont(f));
+
+//     les information
+        if (detail) {
+            Table table4 = new Table(UnitValue.createPercentArray(7)).useAllAvailableWidth();
+
+            //     La tete de tableau
+            table4.addCell(new Cell().add(p1).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p2).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p3).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p4).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p5).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p6).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p7).setTextAlignment(TextAlignment.CENTER));
+
+            for (int i = 0; i < v.size(); i++) {
+                Vent ve = v.get(i);
+                table4.addCell(new Cell().add(new Paragraph("" + ve.getMontant())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+                table4.addCell(new Cell().add(new Paragraph("" + ve.getPrixU())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+                table4.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+                table4.addCell(new Cell().add(new Paragraph(new Text(al.process("كلغ")).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+                table4.addCell(new Cell().add(new Paragraph("" + ve.getDate_vent())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+
+                if (i == 0) {
+                    table4.addCell(new Cell(v.size(), 1).add(new Paragraph(new Text(al.process(ve.getIdProduit())).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
+                }
+                table4.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+
+            }
+            //      totale       *-*-*-*-*-*-*-*
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + mtht))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("/"))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + model.getValueAt(0, 2).toString()))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 4).add(p8).setTextAlignment(TextAlignment.CENTER));
+            //     
+            //      totale 
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + mtht))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 6).add(p9).setTextAlignment(TextAlignment.CENTER));
+
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + p_tva))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 6).add(p10).setTextAlignment(TextAlignment.CENTER));
+
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + mtttc))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 6).add(p11).setTextAlignment(TextAlignment.CENTER));
+
+            doc.add(table4);
+        } else {
+            // Not detail
+
+            Table table4 = new Table(UnitValue.createPercentArray(5)).useAllAvailableWidth();
+
+            //     La tete de tableau
+            table4.addCell(new Cell().add(p1).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p2).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p3).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p6).setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell().add(p7).setTextAlignment(TextAlignment.CENTER));
+            for (int i = 0; i < model.getRowCount(); i++) {
+                table4.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 4).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+                table4.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 3).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
+                table4.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 2).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+
+                if (i == 0) {
+                    table4.addCell(new Cell(v.size(), 1)
+                            .add(new Paragraph(new Text(al.process(model.getValueAt(i, 1).toString())).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
+                }
+                table4.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+
+            }
+            //      totale 
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + mtht))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 4).add(p9).setTextAlignment(TextAlignment.CENTER));
+
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + p_tva))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 4).add(p10).setTextAlignment(TextAlignment.CENTER));
+
+            table4.addCell(
+                    new Cell()
+                            .add(new Paragraph("" + mtttc))
+                            .setTextAlignment(TextAlignment.CENTER));
+            table4.addCell(new Cell(1, 4).add(p11).setTextAlignment(TextAlignment.CENTER));
+
+            doc.add(table4);
+        }
+
+        //********************************************************
+        //******************************
+        /**
+         * int nbr = Integer.parseInt(jTextField32.getText()); try { //
+         * jLabel14.setText(FrenchNumberToWords.convert(nbr) + " DA."); // en FR
+         * jLabel14.setText(Nombrearabic.CALCULATE.getValue(nbr)+" ،دينار
+         * جزائري. "); // en AR } catch (Exception ex) {
+         * Logger.getLogger(Facture_vente_ar.class.getName()).log(Level.SEVERE,
+         * null, ex); }
+         */
+        para = new Paragraph();
+        text = new Text(al.process("حدد مبلغ الفاتورة بـ : ")).setFont(f).setBold();
+        para.add(text);
+        text = new Text(al.process(convert_chiffre2letter("" + mtttc))).setFont(f);
+        para.add(text);
+
+        para.setTextAlignment(TextAlignment.RIGHT);
+        doc.add(para);
+
+        addEmptyLine(5);
+
+        para = new Paragraph(new Text(al.process("الممـــون")).setFont(f));
+        para.setTextAlignment(TextAlignment.LEFT);
+        doc.add(para);
         doc.close();
     }
 
-    public static void main(String[] args) throws Exception {
-        File file = new File(DEST);
+    private void addEmptyLine(int number) {
+        for (int i = 0; i < number; i++) {
+            doc.add(new Paragraph(" ").setFontSize(20));
 
-        //file.getParentFile().mkdirs();
-        new Ar_factur_generate().manipulatePdf(DEST);
+        }
     }
+
 }
