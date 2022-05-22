@@ -190,7 +190,7 @@ public class Ar_factur_generate {
         table2.addCell(
                 new Cell()
                         .add(new Paragraph()
-                                .add(new Text(al.process(c.getTel())).setFont(f))
+                                .add(new Text(c.getTel()).setFont(f))
                                 .add(new Text(al.process("الهاتف: ")).setFont(f).setBold()))
                         .setTextAlignment(TextAlignment.RIGHT)
                         .setFontSize(10));
@@ -206,7 +206,7 @@ public class Ar_factur_generate {
         table2.addCell(
                 new Cell()
                         .add(new Paragraph()
-                                .add(new Text(al.process(c.getFax())).setFont(f))
+                                .add(new Text(c.getFax()).setFont(f))
                                 .add(new Text(al.process("الفاكس: ")).setFont(f).setBold()))
                         .setTextAlignment(TextAlignment.RIGHT)
                         .setFontSize(10));

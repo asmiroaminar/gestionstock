@@ -898,6 +898,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         Float.parseFloat(jTextField34.getText()));
             } catch (MalformedURLException | FileNotFoundException ex) {
                 Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             // En Arabe ******************************
