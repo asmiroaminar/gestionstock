@@ -237,15 +237,17 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton28 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        home_panel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         accueil = new javax.swing.JPanel();
-        jButton28 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton25 = new javax.swing.JButton();
         jButton26 = new javax.swing.JButton();
         jButton30 = new javax.swing.JButton();
         jButton31 = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
         employees = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         stock = new javax.swing.JPanel();
@@ -257,8 +259,6 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton29 = new javax.swing.JButton();
         sceen = new javax.swing.JPanel();
-        home_panel = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         commandes_panel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -396,11 +396,6 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap(395, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jButton28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8-accueil-48.png"))); // NOI18N
         jButton28.setText("Accueil");
@@ -411,6 +406,36 @@ public class Home_v2 extends javax.swing.JFrame {
                 jButton28ActionPerformed(evt);
             }
         });
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        home_panel.setBackground(new java.awt.Color(255, 255, 204));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8-accueil-150.png"))); // NOI18N
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout home_panelLayout = new javax.swing.GroupLayout(home_panel);
+        home_panel.setLayout(home_panelLayout);
+        home_panelLayout.setHorizontalGroup(
+            home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(home_panelLayout.createSequentialGroup()
+                .addGap(417, 417, 417)
+                .addComponent(jLabel6)
+                .addContainerGap(472, Short.MAX_VALUE))
+        );
+        home_panelLayout.setVerticalGroup(
+            home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(home_panelLayout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jLabel6)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -456,18 +481,12 @@ public class Home_v2 extends javax.swing.JFrame {
             }
         });
 
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
         javax.swing.GroupLayout accueilLayout = new javax.swing.GroupLayout(accueil);
         accueil.setLayout(accueilLayout);
         accueilLayout.setHorizontalGroup(
             accueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accueilLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton26)
@@ -477,21 +496,18 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton31)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         accueilLayout.setVerticalGroup(
             accueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accueilLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(accueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(accueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator1)
-                        .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton30)
-                        .addComponent(jButton31))
-                    .addComponent(jButton28))
+                .addGroup(accueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1)
+                    .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton30)
+                    .addComponent(jButton31))
                 .addContainerGap())
         );
 
@@ -638,31 +654,6 @@ public class Home_v2 extends javax.swing.JFrame {
 
         sceen.setBackground(new java.awt.Color(255, 255, 204));
         sceen.setLayout(new java.awt.CardLayout());
-
-        home_panel.setBackground(new java.awt.Color(255, 255, 204));
-
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8-accueil-150.png"))); // NOI18N
-        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout home_panelLayout = new javax.swing.GroupLayout(home_panel);
-        home_panel.setLayout(home_panelLayout);
-        home_panelLayout.setHorizontalGroup(
-            home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(home_panelLayout.createSequentialGroup()
-                .addGap(417, 417, 417)
-                .addComponent(jLabel6)
-                .addContainerGap(472, Short.MAX_VALUE))
-        );
-        home_panelLayout.setVerticalGroup(
-            home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(home_panelLayout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jLabel6)
-                .addContainerGap(135, Short.MAX_VALUE))
-        );
-
-        sceen.add(home_panel, "card6");
 
         commandes_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Liste des commandes"));
 
@@ -1125,6 +1116,11 @@ public class Home_v2 extends javax.swing.JFrame {
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem1.setText("Configuration Login et Psw");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setText("Configuration facture");
@@ -1404,6 +1400,13 @@ public class Home_v2 extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        Configurer_user dialog;
+        dialog = new Configurer_user(this, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
