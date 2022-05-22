@@ -17,10 +17,13 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import dbclasse.Client;
 import dbclasse.Vent;
+import dbmanipulation.DataServices;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +31,8 @@ import javax.swing.table.DefaultTableModel;
  * @author IT-06
  */
 public class Fr_factur_generate {
+
+    DataServices ds = new DataServices();
 
     Document document;
     String path = "pdf_test.pdf";
@@ -42,9 +47,13 @@ public class Fr_factur_generate {
             int tva,
             float p_tva,
             float mtttc
-    ) throws MalformedURLException, FileNotFoundException {
+    ) throws MalformedURLException, FileNotFoundException, SQLException {
 
-        File file = new File("F" + noFact + "_" + date + "_" + c.getIdClient() + ".pdf");
+        String folder_path = ds.getFolderPath();
+
+        String path = folder_path + "\\" + "F" + noFact + "_" + date + "_" + c.getIdClient() + ".pdf";
+
+        File file = new File(path);
 
         PdfWriter pdfWriter = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -207,6 +216,8 @@ public class Fr_factur_generate {
         document.add(para);
 
         document.close();
+        
+        JOptionPane.showMessageDialog(null, "Bien Eregistrer");
     }
 
     private void addEmptyLine(int number) {

@@ -213,9 +213,9 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        print_btn = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton3 = new javax.swing.JButton();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -240,6 +240,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jNo_fact = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Les vents de mois :");
@@ -341,21 +342,29 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel5.setText("%");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8_print_30px_1.png"))); // NOI18N
-        jButton1.setText("Impremer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        print_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        print_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8_print_30px_1.png"))); // NOI18N
+        print_btn.setText("Impremer");
+        print_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                print_btnActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCheckBox1.setText("facture detailleé (pour un seul produit)");
+        jCheckBox1.setEnabled(false);
 
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCheckBox2.setText("facture en arabe");
+        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox2ItemStateChanged(evt);
+            }
+        });
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jCheckBox2ActionPerformed(evt);
             }
         });
 
@@ -363,33 +372,31 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(610, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox2))
+                        .addGap(322, 322, 322)
+                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -409,12 +416,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jCheckBox2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
@@ -650,8 +661,9 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText("Facture N°:");
 
-        jNo_fact.setEditable(false);
         jNo_fact.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel14.setText("ex: 0001,0002...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -660,7 +672,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1226, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1272, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -669,16 +681,18 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(client_list, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel13)
-                                .addGap(31, 31, 31)
-                                .addComponent(jNo_fact, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(31, 31, 31))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jMonthChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jYearChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jNo_fact, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -691,10 +705,12 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNo_fact, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jYearChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(jMonthChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jYearChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                        .addComponent(jMonthChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel14))
                 .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -849,98 +865,59 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         calc_Tot();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void print_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print_btnActionPerformed
         String date = "";
-        try {
-            // TODO add your handling code here:
-            /**
-             * selected_client
-             *
-             * jMonthChooser2.getMonth() jYearChooser2.getYear()
-             *
-             * jNo_fact.gettext();
-             *
-             * v_selected_vents
-             *
-             * jTextField32 jTextField1 jTextField33 jTextField34
-             */
-            int monthe = jMonthChooser2.getMonth() + 1;
-            date = monthe + "-" + jYearChooser2.getYear();
-            DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
-            fr_factur_generate.generate_fr_factur(
-                    selected_client,
-                    date,
-                    jNo_fact.getText(),
-                    v_selected_vents,
-                    model,
-                    Float.parseFloat(jTextField32.getText()),
-                    Integer.parseInt(jTextField1.getText()),
-                    Float.parseFloat(jTextField33.getText()),
-                    Float.parseFloat(jTextField34.getText()));
-        } catch (MalformedURLException | FileNotFoundException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //add Facture to Data base
-        Facture f = new Facture();
-        f.setIdFacture(0);
-        f.setnFacture(jNo_fact.getText());
-        f.setDate(date);
-        f.setIdClient(selected_client.getIdClient());
-        f.setMTHT(Integer.parseInt(jTextField32.getText().substring(0, jTextField32.getText().length() - 2)));
-        f.setTva(Integer.parseInt(jTextField1.getText()));
-        f.setTva_p(Float.parseFloat(jTextField33.getText()));
-        f.setMttc(Float.parseFloat(jTextField34.getText()));
-
-        try {
-            fm.Add_facture(f, v_selected_vents);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Home_v2.AfficherFactures();
-        } catch (SQLException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-
-        //  jCheckBox1
-        String date = "";
-
-        // TODO add your handling code here:
-        /**
-         * selected_client
-         *
-         * jMonthChooser2.getMonth() jYearChooser2.getYear()
-         *
-         * jNo_fact.gettext();
-         *
-         * v_selected_vents
-         *
-         * jTextField32 jTextField1 jTextField33 jTextField34
-         */
         int monthe = jMonthChooser2.getMonth() + 1;
         date = monthe + "-" + jYearChooser2.getYear();
         DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
-        try {
-            ar_factur_generate.generate_ar_factur(
-                    selected_client,
-                    date,
-                    jNo_fact.getText(),
-                    v_selected_vents,
-                    model,
-                    Float.parseFloat(jTextField32.getText()),
-                    Integer.parseInt(jTextField1.getText()),
-                    Float.parseFloat(jTextField33.getText()),
-                    Float.parseFloat(jTextField34.getText()),
-                    jCheckBox1.isSelected());
-        } catch (IOException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (!jCheckBox2.isSelected()) {
+            //   en francais *******************
+            try {
+                // TODO add your handling code here:
+                /**
+                 * selected_client
+                 *
+                 * jMonthChooser2.getMonth() jYearChooser2.getYear()
+                 *
+                 * jNo_fact.gettext();
+                 *
+                 * v_selected_vents
+                 *
+                 * jTextField32 jTextField1 jTextField33 jTextField34
+                 */
+                fr_factur_generate.generate_fr_factur(
+                        selected_client,
+                        date,
+                        jNo_fact.getText(),
+                        v_selected_vents,
+                        model,
+                        Float.parseFloat(jTextField32.getText()),
+                        Integer.parseInt(jTextField1.getText()),
+                        Float.parseFloat(jTextField33.getText()),
+                        Float.parseFloat(jTextField34.getText()));
+            } catch (MalformedURLException | FileNotFoundException ex) {
+                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // En Arabe ******************************
+            try {
+                ar_factur_generate.generate_ar_factur(
+                        selected_client,
+                        date,
+                        jNo_fact.getText(),
+                        v_selected_vents,
+                        model,
+                        Float.parseFloat(jTextField32.getText()),
+                        Integer.parseInt(jTextField1.getText()),
+                        Float.parseFloat(jTextField33.getText()),
+                        Float.parseFloat(jTextField34.getText()),
+                        jCheckBox1.isSelected());
+            } catch (IOException ex) {
+                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         //add Facture to Data base
@@ -964,8 +941,22 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_print_btnActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+        // TODO add your handling code here:
+        if (!jCheckBox2.isSelected()) {
+            jCheckBox1.setEnabled(false);
+            jCheckBox1.setSelected(false);
+        } else {
+            jCheckBox1.setEnabled(true);
+            jCheckBox1.setSelected(false);
+        }
+    }//GEN-LAST:event_jCheckBox2ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -1019,11 +1010,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JButton btn_add_fact;
     private javax.swing.JComboBox<String> client_list;
     private static javax.swing.JTable fact_table;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private static javax.swing.JCheckBox jCheckBox1;
+    private static javax.swing.JCheckBox jCheckBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -1031,6 +1021,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1059,6 +1050,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField4;
     private com.toedter.calendar.JYearChooser jYearChooser1;
     private com.toedter.calendar.JYearChooser jYearChooser2;
+    private javax.swing.JButton print_btn;
     private static javax.swing.JComboBox<String> produit_list;
     private static javax.swing.JTable vent_table;
     // End of variables declaration//GEN-END:variables

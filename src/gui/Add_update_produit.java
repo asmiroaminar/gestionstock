@@ -269,8 +269,10 @@ public class Add_update_produit extends javax.swing.JDialog {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("Nom de produit en arabic :");
 
+        jnam_ar.setEditable(false);
         jnam_ar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jnam_ar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jnam_ar.setText("/");
 
         junite_fr.setEditable(false);
         junite_fr.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N

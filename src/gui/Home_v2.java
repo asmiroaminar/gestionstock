@@ -289,7 +289,6 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton22 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         facture_panel = new javax.swing.JPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -746,7 +745,7 @@ public class Home_v2 extends javax.swing.JFrame {
 
         sceen.add(commandes_panel, "card4");
 
-        gestion_employ_panel.setBackground(new java.awt.Color(153, 153, 255));
+        gestion_employ_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des Employées"));
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField2.setText("Employees");
@@ -793,7 +792,7 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jButton11)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(gestion_employ_panelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(gestion_employ_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -820,13 +819,13 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton15)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         sceen.add(gestion_employ_panel, "card3");
 
-        gestion_client_panel.setBackground(new java.awt.Color(255, 153, 153));
+        gestion_client_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des clients"));
 
         clients_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         clients_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -886,7 +885,7 @@ public class Home_v2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(gestion_client_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(gestion_client_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -911,13 +910,13 @@ public class Home_v2 extends javax.swing.JFrame {
                         .addComponent(jButton18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton19)
-                        .addGap(0, 227, Short.MAX_VALUE)))
+                        .addGap(0, 204, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         sceen.add(gestion_client_panel, "card2");
 
-        gestion_produit_panel.setBackground(new java.awt.Color(153, 255, 153));
+        gestion_produit_panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion des produits"));
 
         produit_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         produit_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -960,19 +959,13 @@ public class Home_v2 extends javax.swing.JFrame {
         jButton24.setText("Imprimer");
         jButton24.setEnabled(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Produits");
-
         javax.swing.GroupLayout gestion_produit_panelLayout = new javax.swing.GroupLayout(gestion_produit_panel);
         gestion_produit_panel.setLayout(gestion_produit_panelLayout);
         gestion_produit_panelLayout.setHorizontalGroup(
             gestion_produit_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gestion_produit_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(gestion_produit_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(gestion_produit_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -984,21 +977,18 @@ public class Home_v2 extends javax.swing.JFrame {
         gestion_produit_panelLayout.setVerticalGroup(
             gestion_produit_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gestion_produit_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jButton16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gestion_produit_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(gestion_produit_panelLayout.createSequentialGroup()
-                        .addComponent(jButton16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton24)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jButton22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton24)
+                .addContainerGap(226, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gestion_produit_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         sceen.add(gestion_produit_panel, "card5");
@@ -1284,10 +1274,14 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        Configurer_facture dialog;
-        dialog = new Configurer_facture(this, true);
-        dialog.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            Configurer_facture dialog;
+            dialog = new Configurer_facture(this, true);
+            dialog.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
@@ -1500,7 +1494,6 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
