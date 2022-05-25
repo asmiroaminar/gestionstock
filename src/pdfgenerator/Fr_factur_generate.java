@@ -176,7 +176,7 @@ public class Fr_factur_generate {
 //            table2.addCell(new Cell().add(new Paragraph("" + ve.getMontant())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
 //        }
         for (int i = 0; i < model.getRowCount(); i++) {
-            table2.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+            table2.addCell(new Cell().add(new Paragraph("0" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
             table2.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 1).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
             table2.addCell(new Cell().add(new Paragraph("KG")).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
             table2.addCell(new Cell().add(new Paragraph("" + model.getValueAt(i, 2).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));

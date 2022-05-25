@@ -32,6 +32,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     public Client selected_client = new Client();
     private Produit selected_Produit = new Produit();
     public Vector<Produit> selected_products;
+    private int somme_qnt = 0;
 
     static ClientManipulation cm = new ClientManipulation();
     static ProduitManipulation pm = new ProduitManipulation();
@@ -85,8 +86,8 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
     //********************************************************************  
     void calc_monotan() {
-        if (!jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty()) {
-            int qte = Integer.parseInt(jTextField2.getText());
+        if (!qntTextField.getText().isEmpty() && !jTextField3.getText().isEmpty()) {
+            int qte = Integer.parseInt(qntTextField.getText());
             int prix = Integer.parseInt(jTextField3.getText());
             int total = qte * prix;
             jTextField4.setText("" + total);
@@ -97,7 +98,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     void clear_pro() {
         selected_Produit = new Produit();
         jTextField1.setText("");
-        jTextField2.setText("1");
+        qntTextField.setText("1");
         jTextField3.setText("0");
         jTextField4.setText("0");
     }
@@ -112,7 +113,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
 
-        jTextField2.getDocument().addDocumentListener(documentListener);
+        qntTextField.getDocument().addDocumentListener(documentListener);
 
         AfficherClients_Profil();
         AfficherProduit();
@@ -141,7 +142,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        qntTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -151,6 +152,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        add_qnt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -244,7 +246,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -267,22 +269,27 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Quantité :");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField2.setText("1");
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        qntTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        qntTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        qntTextField.setText("1");
+        qntTextField.setName(""); // NOI18N
+        qntTextField.setPreferredSize(new java.awt.Dimension(18, 23));
+        qntTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField2FocusGained(evt);
+                qntTextFieldFocusGained(evt);
             }
         });
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        qntTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                qntTextFieldActionPerformed(evt);
             }
         });
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        qntTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                qntTextFieldKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
+                qntTextFieldKeyTyped(evt);
             }
         });
 
@@ -326,6 +333,29 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             }
         });
 
+        add_qnt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add_qnt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        add_qnt.setText("1");
+        add_qnt.setName(""); // NOI18N
+        add_qnt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                add_qntFocusGained(evt);
+            }
+        });
+        add_qnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_qntActionPerformed(evt);
+            }
+        });
+        add_qnt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                add_qntKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                add_qntKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -342,19 +372,18 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(qntTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(add_qnt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9))))
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTextField1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -373,25 +402,31 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qntTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(add_qnt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
                     .addComponent(jButton6))
@@ -431,14 +466,14 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (!client_list.getSelectedItem().equals(" / ")
                 && (!((JTextField) jdate.getDateEditor().getUiComponent()).getText().isEmpty())
-                && (!jTextField2.getText().isEmpty())
+                && (!qntTextField.getText().isEmpty())
                 && (!jTextField1.getText().isEmpty())
                 && (jdate.getDate() != null)) {
             Vent ve = new Vent();
             ve.setDate_vent(((JTextField) jdate.getDateEditor().getUiComponent()).getText());
             ve.setIdClinet(selected_client.getIdClient());
             ve.setIdProduit(selected_Produit.getIdProduit());
-            ve.setQte(Integer.parseInt(jTextField2.getText()));
+            ve.setQte(Integer.parseInt(qntTextField.getText()));
             ve.setPrixU(Integer.parseInt(jTextField3.getText()));
             ve.setMontant(Integer.parseInt(jTextField4.getText()));
 
@@ -474,7 +509,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_client_listActionPerformed
 
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    private void qntTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qntTextFieldKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c)
@@ -483,17 +518,63 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField2KeyTyped
+        
+    }//GEN-LAST:event_qntTextFieldKeyTyped
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void qntTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qntTextFieldActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_qntTextFieldActionPerformed
 
-    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+    private void qntTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_qntTextFieldFocusGained
         // TODO add your handling code here:
-        jTextField2.selectAll();
-    }//GEN-LAST:event_jTextField2FocusGained
+        qntTextField.selectAll();
+    }//GEN-LAST:event_qntTextFieldFocusGained
+
+    private void add_qntFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_add_qntFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add_qntFocusGained
+
+    private void add_qntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_qntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add_qntActionPerformed
+
+    private void add_qntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_add_qntKeyTyped
+
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c)
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || c == KeyEvent.VK_DELETE)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_add_qntKeyTyped
+
+    private void qntTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qntTextFieldKeyPressed
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qntTextFieldKeyPressed
+
+    private void add_qntKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_add_qntKeyPressed
+        char c = evt.getKeyChar();
+        switch (c) {
+            case '+':{
+                somme_qnt = Integer.parseInt(add_qnt.getText()) + Integer.parseInt(qntTextField.getText());
+                qntTextField.setText(somme_qnt+"");
+                add_qnt.setText("0");
+                break;
+            }  
+            case '-':{
+                somme_qnt =  Integer.parseInt(qntTextField.getText()) - Integer.parseInt(add_qnt.getText());
+                qntTextField.setText(somme_qnt+"");
+                add_qnt.setText("0");
+                break;
+            }
+        
+        }
+       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add_qntKeyPressed
 
     /**
      * @param args the command line arguments
@@ -549,6 +630,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField add_qnt;
     private javax.swing.JComboBox<String> client_list;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
@@ -568,11 +650,11 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private com.toedter.calendar.JDateChooser jdate;
     private static javax.swing.JTable produit_table;
+    private javax.swing.JTextField qntTextField;
     // End of variables declaration//GEN-END:variables
 
 }

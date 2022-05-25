@@ -344,7 +344,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
 
         print_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         print_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconse/icons8_print_30px_1.png"))); // NOI18N
-        print_btn.setText("Impremer");
+        print_btn.setLabel("Imprimer");
         print_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 print_btnActionPerformed(evt);
@@ -373,7 +373,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(527, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -395,8 +395,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox1)
                             .addComponent(jCheckBox2))
-                        .addGap(322, 322, 322)
-                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(88, 88, 88)
+                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(

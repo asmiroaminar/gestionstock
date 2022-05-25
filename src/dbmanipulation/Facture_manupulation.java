@@ -90,7 +90,7 @@ public class Facture_manupulation {
     }
 
     public String autoID() throws SQLException {
-        String id = "0001";
+        String id = "001";
 
         Connection c = sqlConnection.conector();
         Vector<Vent> prods = new Vector<>();
@@ -100,11 +100,11 @@ public class Facture_manupulation {
         rs.next();//rs.getString("id"),
 
         if (rs.getString("max(n_facture)") == null) {
-            id = "0001";
+            id = "001";
         } else {
             Long idd = Long.parseLong(rs.getString("max(n_facture)"));
             idd++;
-            id = String.format("%04d", idd);
+            id = String.format("%03d", idd);
         }
 
         c.close();

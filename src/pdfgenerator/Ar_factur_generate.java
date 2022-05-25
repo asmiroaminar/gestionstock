@@ -336,11 +336,14 @@ public class Ar_factur_generate {
                 table4.addCell(new Cell().add(new Paragraph("" + ve.getPrixU())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
                 table4.addCell(new Cell().add(new Paragraph("" + ve.getQte())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
                 table4.addCell(new Cell().add(new Paragraph(new Text(al.process("كلغ")).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
-                table4.addCell(new Cell().add(new Paragraph("" + ve.getDate_vent())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
+                table4.addCell(new Cell().add(new Paragraph("" + ve.getDate_vent())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
 
                 if (i == 0) {
                     table4.addCell(new Cell(v.size(), 1).add(new Paragraph(new Text(al.process(ve.getIdProduit())).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
                 }
+                if(i<10)
+                table4.addCell(new Cell().add(new Paragraph("0" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+                else 
                 table4.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
 
             }
@@ -395,8 +398,12 @@ public class Ar_factur_generate {
                 table4.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 3).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(15)));
                 table4.addCell(new Cell().add(new Paragraph(model.getValueAt(i, 2).toString())).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(10)));
                 table4.addCell(new Cell().add(new Paragraph(new Text(al.process(model.getValueAt(i, 1).toString())).setFont(f))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(50)));
-                table4.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
-
+                if(i<10)
+                table4.addCell(new Cell().add(new Paragraph("0" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));
+                else 
+                table4.addCell(new Cell().add(new Paragraph("" + (i + 1))).setTextAlignment(TextAlignment.CENTER).setWidth(UnitValue.createPercentValue(5)));   
+                
+                
             }
             //      totale 
             table4.addCell(
