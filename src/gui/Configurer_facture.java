@@ -151,9 +151,9 @@ public class Configurer_facture extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(!fileName.isEmpty()){
+        if(!jpath.getText().isEmpty()){
             try {
-                ds.updatFolderPath(fileName);
+                ds.updatFolderPath(jpath.getText());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Configurer_facture.class.getName()).log(Level.SEVERE, null, ex);
             }

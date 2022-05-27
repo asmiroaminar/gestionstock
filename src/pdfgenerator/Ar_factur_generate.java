@@ -308,7 +308,9 @@ public class Ar_factur_generate {
 
         table3.addCell(
                 new Cell()
-                        .add(new Paragraph(new Text(al.process("" + "بتاريخ: ")).setFont(f)))
+                        .add(new Paragraph()
+                                .add(new Text(al.process(getMonth_ar(date))).setFont(f))
+                                .add(new Text(al.process("  "+"بتاريخ: ")).setFont(f).setBold()))
                         .setTextAlignment(TextAlignment.RIGHT));
 
         doc.add(table3);
@@ -481,6 +483,51 @@ public class Ar_factur_generate {
             doc.add(new Paragraph(" ").setFontSize(20));
 
         }
+    }
+    
+     String getMonth_ar(String date) {
+        int m = Integer.parseInt(date.split("-")[0]);
+        String m_text = "";
+        switch (m) {
+            case 1:
+                m_text = "جانفي";
+                break;
+            case 2:
+                m_text = "فيفري";
+                break;
+            case 3:
+                m_text = "مارس";
+                break;
+            case 4:
+                m_text = "أفريل";
+                break;
+            case 5:
+                m_text = "ماي";
+                break;
+            case 6:
+                m_text = "جوان";
+                break;
+            case 7:
+                m_text = "جويلية";
+                break;
+            case 8:
+                m_text = "أوت";
+                break;
+            case 9:
+                m_text = "سبتمبر";
+                break;
+            case 10:
+                m_text = "أكتوبر";
+                break;
+            case 11:
+                m_text = "نوفمبر";
+                break;
+            case 12:
+                m_text = "ديسمبر";
+                break;
+        }
+
+        return m_text + " / " + date.split("-")[1];
     }
 
 }
