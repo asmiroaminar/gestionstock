@@ -915,8 +915,6 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         Float.parseFloat(jTextField33.getText()),
                         Float.parseFloat(jTextField34.getText()),
                         jCheckBox1.isSelected());
-            } catch (IOException ex) {
-                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
             }

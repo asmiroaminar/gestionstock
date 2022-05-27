@@ -27,7 +27,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,7 +44,7 @@ public class Ar_factur_generate {
     Document doc;
 
     //****************************************************************
-    String convert_chiffre2letter(String m) throws Exception {
+    String convert_chiffre2letter(String m){
         //******** montant en letter 
 
         float nbr = Float.parseFloat(m);
@@ -51,13 +54,22 @@ public class Ar_factur_generate {
 
         int hh = 1000;
 
-        String dinar = Nombrearabic.CALCULATE.getValue((long) nbr);
+        String dinar = "";
+        try {
+            dinar = Nombrearabic.CALCULATE.getValue((long) nbr);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
 
         int int_centime = Integer.parseInt(doubleAsString.substring(indexOfDecimal + 1));
         String centime = ".";
 
         if (int_centime != 0) {
-            centime = "و" + " " + Nombrearabic.CALCULATE.getValue(int_centime) + " " + "سنتيم";
+            try {
+                centime = "و" + " " + Nombrearabic.CALCULATE.getValue(int_centime) + " " + "سنتيم";
+            } catch (Exception ex) {
+               JOptionPane.showMessageDialog(null, ex);
+            }
         }
 
         return dinar + " " + "،دينار جزائري" + " " + centime;
@@ -76,12 +88,12 @@ public class Ar_factur_generate {
             float p_tva,
             float mtttc,
             boolean detail
-    ) throws MalformedURLException, FileNotFoundException, IOException, Exception {
-
+    ) {
+         try{
         String folder_path = ds.getFolderPath();
 
         String path = folder_path + "\\" + "F" + noFact + "_" + date + "_" + c.getIdClient() + ".pdf";
-
+       
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(path));
         doc = new Document(pdfDoc);
         PdfFont f = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
@@ -455,6 +467,13 @@ public class Ar_factur_generate {
         doc.close();
 
         JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 
     private void addEmptyLine(int number) {
