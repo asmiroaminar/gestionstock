@@ -14,7 +14,10 @@ import dbmanipulation.Facture_manupulation;
 import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +44,7 @@ public class Home_v2 extends javax.swing.JFrame {
     static Facture_manupulation fm = new Facture_manupulation();
 
     static NumberFormat formatter = NumberFormat.getCurrencyInstance();
+    static DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) formatter).getDecimalFormatSymbols();
 
     /**
      * Creates new form Home_v2
@@ -88,6 +92,7 @@ public class Home_v2 extends javax.swing.JFrame {
 
     // afficher tout les Vent  en Vent table
     public static void AfficherVents() throws SQLException {
+
         // TODO Auto-generated method stub
         DefaultTableModel model = (DefaultTableModel) vent_table.getModel();
         model.setRowCount(0);
@@ -178,6 +183,9 @@ public class Home_v2 extends javax.swing.JFrame {
         vent_table.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         vent_table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         vent_table.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) formatter).setDecimalFormatSymbols(decimalFormatSymbols);
 
         AfficherProduit();
         AfficherClients();

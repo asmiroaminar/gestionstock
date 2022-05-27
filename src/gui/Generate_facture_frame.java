@@ -20,6 +20,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -859,80 +860,110 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void print_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print_btnActionPerformed
-        String date = "";
-        int monthe = jMonthChooser2.getMonth() + 1;
-        date = monthe + "-" + jYearChooser2.getYear();
-        DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
 
-        if (!jCheckBox2.isSelected()) {
-            //   en francais *******************
+        if (v_selected_vents.size() != 0) {
+
+            String date = "";
+            int monthe = jMonthChooser2.getMonth() + 1;
+            date = monthe + "-" + jYearChooser2.getYear();
+            DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
+
+            if (!jCheckBox2.isSelected()) {
+                //   en francais *******************
+                try {
+                    // TODO add your handling code here:
+                    /**
+                     * selected_client
+                     *
+                     * jMonthChooser2.getMonth() jYearChooser2.getYear()
+                     *
+                     * jNo_fact.gettext();
+                     *
+                     * v_selected_vents
+                     *
+                     * jTextField32 jTextField1 jTextField33 jTextField34
+                     */
+                    fr_factur_generate.generate_fr_factur(
+                            selected_client,
+                            date,
+                            jNo_fact.getText(),
+                            v_selected_vents,
+                            model,
+                            Float.parseFloat(jTextField32.getText()),
+                            Integer.parseInt(jTextField1.getText()),
+                            Float.parseFloat(jTextField33.getText()),
+                            Float.parseFloat(jTextField34.getText()));
+                } catch (MalformedURLException | FileNotFoundException ex) {
+                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex);
+                }
+            } else {
+                // En Arabe ******************************
+                boolean tr_detail;
+                tr_detail = (model.getRowCount() <= 1) && jCheckBox1.isSelected();
+                try {
+                    ar_factur_generate.generate_ar_factur(
+                            selected_client,
+                            date,
+                            jNo_fact.getText(),
+                            v_selected_vents,
+                            model,
+                            Float.parseFloat(jTextField32.getText()),
+                            Integer.parseInt(jTextField1.getText()),
+                            Float.parseFloat(jTextField33.getText()),
+                            Float.parseFloat(jTextField34.getText()),
+                            tr_detail);
+                } catch (Exception ex) {
+                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex);
+                }
+            }
+
+            //add Facture to Data base
+            Facture f = new Facture();
+            f.setIdFacture(0);
+            f.setnFacture(jNo_fact.getText());
+            f.setDate(date);
+            f.setIdClient(selected_client.getIdClient());
+            f.setMTHT(Integer.parseInt(jTextField32.getText().substring(0, jTextField32.getText().length() - 2)));
+            f.setTva(Integer.parseInt(jTextField1.getText()));
+            f.setTva_p(Float.parseFloat(jTextField33.getText()));
+            f.setMttc(Float.parseFloat(jTextField34.getText()));
+
             try {
-                // TODO add your handling code here:
-                /**
-                 * selected_client
-                 *
-                 * jMonthChooser2.getMonth() jYearChooser2.getYear()
-                 *
-                 * jNo_fact.gettext();
-                 *
-                 * v_selected_vents
-                 *
-                 * jTextField32 jTextField1 jTextField33 jTextField34
-                 */
-                fr_factur_generate.generate_fr_factur(
-                        selected_client,
-                        date,
-                        jNo_fact.getText(),
-                        v_selected_vents,
-                        model,
-                        Float.parseFloat(jTextField32.getText()),
-                        Integer.parseInt(jTextField1.getText()),
-                        Float.parseFloat(jTextField33.getText()),
-                        Float.parseFloat(jTextField34.getText()));
-            } catch (MalformedURLException | FileNotFoundException ex) {
+                fm.Add_facture(f, v_selected_vents);
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+            try {
+                /**
+                 * veder le formulair pour une neuvou facture
+                 */
+                generat_N_fact();
+                DefaultTableModel m = (DefaultTableModel) fact_table.getModel();
+                m.setRowCount(0);
+                v_selected_vents.clear();
+                calc_Tot();
+
             } catch (SQLException ex) {
                 Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+            //******************************
+            try {
+                Home_v2.AfficherFactures();
+            } catch (SQLException ex) {
+                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex);
             }
         } else {
-            // En Arabe ******************************
-            try {
-                ar_factur_generate.generate_ar_factur(
-                        selected_client,
-                        date,
-                        jNo_fact.getText(),
-                        v_selected_vents,
-                        model,
-                        Float.parseFloat(jTextField32.getText()),
-                        Integer.parseInt(jTextField1.getText()),
-                        Float.parseFloat(jTextField33.getText()),
-                        Float.parseFloat(jTextField34.getText()),
-                        jCheckBox1.isSelected());
-            } catch (Exception ex) {
-                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        //add Facture to Data base
-        Facture f = new Facture();
-        f.setIdFacture(0);
-        f.setnFacture(jNo_fact.getText());
-        f.setDate(date);
-        f.setIdClient(selected_client.getIdClient());
-        f.setMTHT(Integer.parseInt(jTextField32.getText().substring(0, jTextField32.getText().length() - 2)));
-        f.setTva(Integer.parseInt(jTextField1.getText()));
-        f.setTva_p(Float.parseFloat(jTextField33.getText()));
-        f.setMttc(Float.parseFloat(jTextField34.getText()));
-
-        try {
-            fm.Add_facture(f, v_selected_vents);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Home_v2.AfficherFactures();
-        } catch (SQLException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Choisez des vents SVP!");
         }
     }//GEN-LAST:event_print_btnActionPerformed
 
