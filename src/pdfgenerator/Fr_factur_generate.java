@@ -22,6 +22,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +38,9 @@ public class Fr_factur_generate {
     DataServices ds = new DataServices();
 
     Document document;
-    String path = "pdf_test.pdf";
+    //String path = "pdf_test.pdf";
+    static NumberFormat nf2 = NumberFormat.getCurrencyInstance();
+    static DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf2).getDecimalFormatSymbols();
 
     public void generate_fr_factur(
             Client c,
@@ -48,6 +53,10 @@ public class Fr_factur_generate {
             float p_tva,
             float mtttc
     ) throws MalformedURLException, FileNotFoundException, SQLException {
+        
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) nf2).setDecimalFormatSymbols(decimalFormatSymbols);
+
 
         String folder_path = ds.getFolderPath();
 
@@ -188,13 +197,13 @@ public class Fr_factur_generate {
         //********************************
         table2.addCell(new Cell(1, 5).add(para7).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(new Paragraph("" + mtht).setBold()).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + nf2.format(mtht)).setBold()).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell(1, 5).add(para8).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(new Paragraph("" + p_tva)).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + nf2.format(p_tva))).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell(1, 5).add(para9).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
-        table2.addCell(new Cell().add(new Paragraph("" + mtttc).setBold()).setTextAlignment(TextAlignment.CENTER));
+        table2.addCell(new Cell().add(new Paragraph("" + nf2.format(mtttc)).setBold()).setTextAlignment(TextAlignment.CENTER));
         document.add(table2);
 
         addEmptyLine(5);
@@ -216,7 +225,7 @@ public class Fr_factur_generate {
         document.add(para);
 
         document.close();
-        
+
         JOptionPane.showMessageDialog(null, "Bien Eregistrer");
     }
 

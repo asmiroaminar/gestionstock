@@ -15,6 +15,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Stack;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -42,6 +45,9 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     static ProduitManipulation pm = new ProduitManipulation();
     static VentManipulation vm = new VentManipulation();
     Facture_manupulation fm = new Facture_manupulation();
+
+    static NumberFormat nf1 = NumberFormat.getCurrencyInstance();
+    static DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf1).getDecimalFormatSymbols();
 
     DocumentListener calculeTotalwithTAX_listener = new DocumentListener() {
         @Override
@@ -181,9 +187,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     public Generate_facture_frame(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
+
+        decimalFormatSymbols.setCurrencySymbol("");
+        ((DecimalFormat) nf1).setDecimalFormatSymbols(decimalFormatSymbols);
+
         AfficherClients_Profil();
+
         generat_N_fact();
-        jTextField1.getDocument().addDocumentListener(calculeTotalwithTAX_listener);
+
+        jTextField1.getDocument()
+                .addDocumentListener(calculeTotalwithTAX_listener);
 
     }
 
@@ -753,8 +766,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             AfficherVents(selected_client.getIdClient(),
                     month,
                     year);
+
         } catch (SQLException ex) {
-            Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Generate_facture_frame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -841,7 +856,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             }
             int counter = model.getRowCount();
             Object[] row = new Object[]{
-                counter + 1, produit_list.getSelectedItem(), t_qte, t_prix, t_montant};
+                counter + 1, produit_list.getSelectedItem(), t_qte, nf1.format(t_prix), nf1.format(t_montant)};
+            //**
             model.addRow(row);
             fact_table.setModel(model);
 
@@ -893,11 +909,15 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                             Integer.parseInt(jTextField1.getText()),
                             Float.parseFloat(jTextField33.getText()),
                             Float.parseFloat(jTextField34.getText()));
+
                 } catch (MalformedURLException | FileNotFoundException ex) {
-                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Generate_facture_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Generate_facture_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex);
                 }
             } else {
@@ -916,8 +936,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                             Float.parseFloat(jTextField33.getText()),
                             Float.parseFloat(jTextField34.getText()),
                             tr_detail);
+
                 } catch (Exception ex) {
-                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Generate_facture_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex);
                 }
             }
@@ -935,8 +957,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
 
             try {
                 fm.Add_facture(f, v_selected_vents);
+
             } catch (SQLException | ClassNotFoundException ex) {
-                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Generate_facture_frame.class
+                        .getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex);
             }
 
@@ -951,15 +975,18 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 calc_Tot();
 
             } catch (SQLException ex) {
-                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Generate_facture_frame.class
+                        .getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex);
             }
 
             //******************************
             try {
                 Home_v2.AfficherFactures();
+
             } catch (SQLException ex) {
-                Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Generate_facture_frame.class
+                        .getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex);
             }
         } else {
@@ -996,16 +1023,24 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Generate_facture_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generate_facture_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Generate_facture_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generate_facture_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Generate_facture_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generate_facture_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Generate_facture_frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Generate_facture_frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1022,8 +1057,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                         }
                     });
                     dialog.setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Generate_facture_frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
