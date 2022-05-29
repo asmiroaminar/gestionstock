@@ -7,6 +7,13 @@ package gui;
 
 import dbclasse.User;
 import dbmanipulation.UserServices;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author IT-06
  */
 public class Log_in extends javax.swing.JFrame {
-    
+
     UserServices us = new UserServices();
 
     /**
@@ -131,7 +138,7 @@ public class Log_in extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-            User u = us.getOneUser(u_nam.getText(),u_psw.getText());
+            User u = us.getOneUser(u_nam.getText(), u_psw.getText());
             if (u != null) {
                 try {
                     new Home_v2().setVisible(true);
@@ -139,10 +146,10 @@ public class Log_in extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Nom d'utilisateur / mot de passe incorrect");
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Log_in.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -156,6 +163,9 @@ public class Log_in extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    static String key_readed = "";
+    static String key_calc = "";
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -183,7 +193,162 @@ public class Log_in extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Log_in().setVisible(true);
+//                 try (FileReader fileReader = new FileReader("data.txt")) {
+//                    int ch = fileReader.read();
+//                    key = "";
+//                    while (ch != -1) {
+//                        key += (char) ch;
+//                        ch = fileReader.read();
+//                    }
+//                    //*****************************
+//                    try {
+//                        Process p = Runtime.getRuntime().exec("wmic baseboard get serialnumber");
+//                        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//                        String line;
+//                        key_calc = "";
+//                        while ((line = input.readLine()) != null) {
+//                            key_calc += line;
+//                        }
+//                        if (key_calc.equalsIgnoreCase(" ")) {
+//                        } else {
+//                            key_calc = "" + (key_calc.hashCode());
+//                        }
+//                        input.close();
+//                    } catch (IOException ex) {
+//
+//                    }
+//                    //*****************************
+//
+//                    if (key.equals(key_calc)) {
+//                        new Login().setVisible(true);
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Voter application n'est pas activer !!");
+//                    }
+//
+//                } catch (FileNotFoundException e) {
+//                    JOptionPane.showMessageDialog(null, "Voter application n'est pas activer !!");
+//                    System.out.println("+++++++++++++");
+//                } catch (IOException e) {
+//                    //System.out.println("+++++++++++++");
+//                }     
+                String key = "Mary has one cat";
+                File inputFile = new File("document.txt");
+                File encryptedFile = new File("key.lic");
+                File decryptedFile = new File("key_clear.lic");
+
+                if (encryptedFile.exists()) {
+                    // test if the key is valid or NOT
+                    //
+                    //****** Recalculate key *********
+                    //     get mother bord serial
+                    try {
+                        Process p = Runtime.getRuntime().exec("wmic baseboard get serialnumber");
+                        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                        String line;
+                        key_calc = "";
+                        while ((line = input.readLine()) != null) {
+                            key_calc += line;
+                        }
+                        if (key_calc.equalsIgnoreCase(" ")) {
+                        } else {
+                            System.out.println(key_calc);
+                            key_calc = "" + (key_calc.hashCode());
+                        }
+                        input.close();
+                    } catch (IOException ex) {
+                    }
+                    key_calc = key_calc + "roh_ta3ti";
+
+                    key_calc = "" + (key_calc.hashCode());
+
+                    //
+                    // ***** Read key from file **********
+                    //---------- Decrype file 
+                    try {
+                        CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
+                    } catch (CryptoException ex) {
+                        System.out.println(ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                    BufferedReader br;
+                    try {
+                        br = new BufferedReader(new FileReader(decryptedFile));
+                        // Declaring a string variable
+                        String st;
+                        // Condition holds true till
+                        // there is character in a string
+                        while ((st = br.readLine()) != null) {
+                            key_readed = st;
+                        }
+
+                        //----- Delete licence_clear.lic
+                        br.close();
+                        if (decryptedFile.delete()) {
+                            System.out.println("Deleted the file: " + decryptedFile.getName());
+                        } else {
+                            System.out.println("Failed to delete the file.");
+                        }
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Activation_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Activation_frame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //
+                    //------- Compair between keys to lunche app 
+                    //
+
+                    if (key_calc.equals(key_readed)) {
+                        new Log_in().setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Votre Produit est n'est pas Activer !");
+                        Activation_frame dialog = new Activation_frame(new javax.swing.JFrame(), true);
+                        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                            @Override
+                            public void windowClosing(java.awt.event.WindowEvent e) {
+                                System.exit(0);
+                            }
+                        });
+                        dialog.setVisible(true);
+                    }
+
+                } else {
+
+//                    //   Run for first time only
+                    Activation_frame dialog = new Activation_frame(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+
+//                    //    generer Random Key 10 digites
+//                    long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+//                    String hach = "" + number;
+//                    //   Write it down on txt file  = key.txt
+//                    try (PrintWriter out = new PrintWriter("key.txt")) {
+//                        out.println(hach);
+//                    } catch (FileNotFoundException ex) {
+//                        Logger.getLogger(Activation_frame.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    //    Encrypte key.txt file
+//                    try {
+//                        //---------Encryte key.txt file---------------------------
+//                        CryptoUtils.encrypt(key, inputFile, encryptedFile);
+//                        //--------delete key.txt File---------------------
+//                        if (inputFile.delete()) {
+//                            System.out.println("Deleted the file: " + inputFile.getName());
+//                        } else {
+//                            System.out.println("Failed to delete the file.");
+//                        }
+//                    } catch (CryptoException ex) {
+//                        System.out.println(ex.getMessage());
+//                        ex.printStackTrace();
+//                    }
+                }
+
             }
         });
     }
