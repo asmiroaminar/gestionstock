@@ -12,6 +12,7 @@ import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -938,6 +939,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                     Logger.getLogger(Generate_facture_frame.class
                             .getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Generate_facture_frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 // En Arabe ******************************
