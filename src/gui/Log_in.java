@@ -163,8 +163,8 @@ public class Log_in extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    static String key_readed = "";
-    static String key_calc = "";
+    static private String key_readed = "";
+    static private String key_calc = "";
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

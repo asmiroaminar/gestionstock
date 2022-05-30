@@ -306,6 +306,7 @@ public class Home_v2 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         fact_vent = new javax.swing.JTable();
+        jButton33 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -1072,6 +1073,13 @@ public class Home_v2 extends javax.swing.JFrame {
             fact_vent.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
+        jButton33.setText("Supprimer");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout facture_panelLayout = new javax.swing.GroupLayout(facture_panel);
         facture_panel.setLayout(facture_panelLayout);
         facture_panelLayout.setHorizontalGroup(
@@ -1089,8 +1097,10 @@ public class Home_v2 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 497, Short.MAX_VALUE)))
+                                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 363, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         facture_panelLayout.setVerticalGroup(
@@ -1101,7 +1111,8 @@ public class Home_v2 extends javax.swing.JFrame {
                     .addComponent(jButton32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(facture_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1416,6 +1427,26 @@ public class Home_v2 extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        /********** delete Facture  *************/
+        System.out.println("delete button");
+        // delete selected client
+        if (facture_table.getSelectedRow() != -1) {
+            try {
+                // TODO add your handling code here:
+                DefaultTableModel model = (DefaultTableModel) facture_table.getModel();
+                System.out.println("index = " + model.getValueAt(facture_table.getSelectedRow(),0).toString());
+                fm.deleteFacture(model.getValueAt(facture_table.getSelectedRow(),0).toString());
+                JOptionPane.showMessageDialog(null, "Cette facture est suppremer");
+                AfficherFactures();
+                AfficherVents_byNfacture_factPanel();
+            } catch (SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_jButton33ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1495,6 +1526,7 @@ public class Home_v2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
