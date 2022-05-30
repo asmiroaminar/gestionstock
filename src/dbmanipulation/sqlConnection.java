@@ -21,11 +21,17 @@ public class sqlConnection {
 
     public static Connection conector() {
         try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/cobraPro?useUnicode=yes&characterEncoding=UTF-8","root","");//localhost
             Class.forName("org.sqlite.JDBC");
             Connection con = DriverManager.getConnection("jdbc:sqlite:database.db");
             return con;
+            
+//            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+//            String msAccDB = "dbstocke.accdb";
+//            String dbURL = "jdbc:ucanaccess://" + msAccDB; 
+//            Connection con = DriverManager.getConnection(dbURL); 
+//            
+//            return con;
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             return null;

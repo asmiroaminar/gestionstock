@@ -113,44 +113,51 @@ public class Facture_manupulation {
 
         return id;
     }
-    
-    public void deleteFacture(String n){
+
+    public void deleteFacture(int n) throws ClassNotFoundException, SQLException {
         System.out.println("delete facture function");
-        try {
-            Connection c = sqlConnection.conector();
-            
-            Statement st = c.createStatement();
-            
-            String sql = "select * from facture where n_facture = " + n;
-            ResultSet rs = st.executeQuery(sql);
-            String fc = rs.getString(1);
-            String sqldeleteFact = "delete from facture where id_facture = " + fc;
-            st.executeUpdate(sqldeleteFact);
-            
-            sql = "select * from vent_fact where id_facture = " + n;
-            String sqldeleteVentFact = "delete from vent_fact where id_facture = " + n;
-            rs = st.executeQuery(sql);
-            System.out.println("s = " + sql);
-            while (rs.next()) {
-                System.out.println("index" + rs.getString(1));
-            st.executeUpdate(sqldeleteVentFact);
-            }
-            
-            /*while (rs.next()) {
-            //clients.addElement(new Facture(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
-            System.out.println(rs.getString(1)+ " " +
-                    //rs.getString(1)+ " "+
-                            rs.getString(2)+ " "+
-                                    rs.getString(3)+ " "+
-                                            rs.getString(4)+ " "+
-                                                    rs.getString(5)+ " "+
-                                                   rs.getString(6)+ " "+
-                                                     rs.getString(7)+ " "+
-                                                            rs.getString(8)+ " ");
-        }*/
-        c.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Facture_manupulation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String sql = "delete from facture where n_facture = " + n;
+        sqlConnection.executeSQLQuery(sql);
+
+        sql = "delete from vent_fact where id_facture = " + n;
+        sqlConnection.executeSQLQuery(sql);
+//        
+
+//        try {
+//            Connection c = sqlConnection.conector();
+//            
+//            Statement st = c.createStatement();
+//            
+//            String sql = "select * from facture where n_facture = " + n;
+//            ResultSet rs = st.executeQuery(sql);
+//            String fc = rs.getString(1);
+//            String sqldeleteFact = "delete from facture where n_facture = " + fc;
+//            st.executeUpdate(sqldeleteFact);
+//            
+//            sql = "select * from vent_fact where id_facture = " + n;
+//            String sqldeleteVentFact = "delete from vent_fact where id_facture = " + n;
+//            rs = st.executeQuery(sql);
+//            System.out.println("s = " + sql);
+//            while (rs.next()) {
+//                System.out.println("index" + rs.getString(1));
+//            st.executeUpdate(sqldeleteVentFact);
+//            }
+//            
+//            /*while (rs.next()) {
+//            //clients.addElement(new Facture(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+//            System.out.println(rs.getString(1)+ " " +
+//                    //rs.getString(1)+ " "+
+//                            rs.getString(2)+ " "+
+//                                    rs.getString(3)+ " "+
+//                                            rs.getString(4)+ " "+
+//                                                    rs.getString(5)+ " "+
+//                                                   rs.getString(6)+ " "+
+//                                                     rs.getString(7)+ " "+
+//                                                            rs.getString(8)+ " ");
+//        }*/
+//        c.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Facture_manupulation.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

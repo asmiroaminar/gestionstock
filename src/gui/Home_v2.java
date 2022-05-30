@@ -116,6 +116,8 @@ public class Home_v2 extends javax.swing.JFrame {
         // TODO Auto-generated method stub
         DefaultTableModel model = (DefaultTableModel) facture_table.getModel();
         model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) fact_vent.getModel();
+        model2.setRowCount(0);
         Vector<Facture> parants = fm.getAllFactures();
         for (int i = 0; i < parants.size(); i++) {
             Facture v = (Facture) parants.get(i);
@@ -145,25 +147,25 @@ public class Home_v2 extends javax.swing.JFrame {
 
     }
 
-    public static void AfficherVents_byNfacture_factPanel() throws SQLException {
-
-        // TODO Auto-generated method stub
-        DefaultTableModel model = (DefaultTableModel) fact_vent.getModel();
-        model.setRowCount(0);
-        Vector<Facture> parants = fm.getAllFactures();
-        for (int i = 0; i < parants.size(); i++) {
-            Facture v = (Facture) parants.get(i);
-            Object[] row = new Object[]{
-                v.getnFacture(),
-                v.getDate(),
-                v.getIdClient(),
-                v.getMTHT(),
-                v.getTva(),
-                formatter.format(v.getMttc())};
-            model.addRow(row);
-        }
-
-    }
+//    public static void AfficherVents_byNfacture_factPanel() throws SQLException {
+//
+//        // TODO Auto-generated method stub
+//        DefaultTableModel model = (DefaultTableModel) fact_vent.getModel();
+//        model.setRowCount(0);
+//        Vector<Facture> parants = fm.getAllFactures();
+//        for (int i = 0; i < parants.size(); i++) {
+//            Facture v = (Facture) parants.get(i);
+//            Object[] row = new Object[]{
+//                v.getnFacture(),
+//                v.getDate(),
+//                v.getIdClient(),
+//                v.getMTHT(),
+//                v.getTva(),
+//                formatter.format(v.getMttc())};
+//            model.addRow(row);
+//        }
+//
+//    }
     //------------------------------------------------------------
 
     public Home_v2() throws SQLException {
@@ -1073,6 +1075,7 @@ public class Home_v2 extends javax.swing.JFrame {
             fact_vent.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
+        jButton33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton33.setText("Supprimer");
         jButton33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1428,23 +1431,30 @@ public class Home_v2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        /********** delete Facture  *************/
+        /**
+         * ******** delete Facture  ************
+         */
         System.out.println("delete button");
         // delete selected client
-        if (facture_table.getSelectedRow() != -1) {
+        if ((facture_table.getSelectedRow() != -1)
+                && (JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer cette facture !") == 0)) {
+            //int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
             try {
                 // TODO add your handling code here:
                 DefaultTableModel model = (DefaultTableModel) facture_table.getModel();
-                System.out.println("index = " + model.getValueAt(facture_table.getSelectedRow(),0).toString());
-                fm.deleteFacture(model.getValueAt(facture_table.getSelectedRow(),0).toString());
+                System.out.println("index = " + model.getValueAt(facture_table.getSelectedRow(), 0).toString());
+                int nf = Integer.parseInt(model.getValueAt(facture_table.getSelectedRow(), 0).toString());
+                fm.deleteFacture(nf);
                 JOptionPane.showMessageDialog(null, "Cette facture est suppremer");
                 AfficherFactures();
-                AfficherVents_byNfacture_factPanel();
+                //AfficherVents_byNfacture_factPanel();
             } catch (SQLException ex) {
+                Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Home_v2.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_jButton33ActionPerformed
 
     /**

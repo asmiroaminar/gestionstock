@@ -75,7 +75,7 @@ public class ProduitManipulation {
         Statement st = c.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
-            Produits.addElement(rs.getString(2));
+            Produits.addElement(rs.getString(6));
         }
         c.close();
         return Produits;

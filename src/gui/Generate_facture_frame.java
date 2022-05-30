@@ -12,7 +12,6 @@ import dbmanipulation.ProduitManipulation;
 import dbmanipulation.VentManipulation;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -88,6 +87,13 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         //-----------------------------
     }
 
+    public final void AfficherProduits_designnation() throws SQLException {
+        Vector<String> Produits = pm.getAllProduits_designnation_ar();
+        Produits.add(0, " / ");
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(Produits);
+        produit_list.setModel(model);
+    }
+
     static boolean isDuplicated(Vector<String> v, String pro) {
         boolean tr = false;
         for (int i = 0; i < v.size(); i++) {
@@ -108,8 +114,8 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         temp_model2.setRowCount(0);
         v_selected_vents.clear();
         //****** liste des produits sons repetision
-        Vector<String> listproduit = new Stack<String>();
-        listproduit.add(" / ");
+//        Vector<String> listproduit = new Stack<String>();
+//        listproduit.add(" / ");
         //----------------------------
 //        Vector<Vent> parants = vm.getAllVents_ofclient_withdate(idClient, month, year);
         v_vents = vm.getAllVents_ofclient_withdate(idClient, month, year);
@@ -125,13 +131,13 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 v.getMontant()};
             model.addRow(row);
             //------------
-            if (!isDuplicated(listproduit, v.getIdProduit())) {
-                listproduit.add(v.getIdProduit());
-            }
+//            if (!isDuplicated(listproduit, v.getIdProduit())) {
+//                listproduit.add(v.getIdProduit());
+//            }
         }
         //--------------------------------------
-        final DefaultComboBoxModel model2 = new DefaultComboBoxModel(listproduit);
-        produit_list.setModel(model2);
+//        final DefaultComboBoxModel model2 = new DefaultComboBoxModel(listproduit);
+//        produit_list.setModel(model2);
         //----------------------------------
     }
 
@@ -192,6 +198,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         ((DecimalFormat) nf1).setDecimalFormatSymbols(decimalFormatSymbols);
 
         AfficherClients_Profil();
+        AfficherProduits_designnation();
 
         generat_N_fact();
 
@@ -822,8 +829,14 @@ public class Generate_facture_frame extends javax.swing.JDialog {
          * tester Si le produit est dejas exicte dans la facture
          */
         boolean tr = false;
-        for (int i = 0; i < v_selected_vents.size(); i++) {//fact_table.getRowCount()
-            if (produit_list.getSelectedItem().equals(v_selected_vents.get(i).getIdProduit())) {
+//        for (int i = 0; i < v_selected_vents.size(); i++) {//fact_table.getRowCount()
+//            if (produit_list.getSelectedItem().equals(v_selected_vents.get(i).getIdProduit())) {
+//                tr = true;
+//                break;
+//            }
+//        }
+        for (int i = 0; i < model.getRowCount(); i++) {//fact_table.getRowCount()
+            if (produit_list.getSelectedItem().equals(model.getValueAt(i, 1))) {
                 tr = true;
                 break;
             }
@@ -855,10 +868,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                 }
             }
             int counter = model.getRowCount();
-            Object[] row = new Object[]{
-                counter + 1, produit_list.getSelectedItem(), t_qte, nf1.format(t_prix), nf1.format(t_montant)};
-            //**
-            model.addRow(row);
+            if (jTextField2.getText().equals("0")) {
+                Object[] row = new Object[]{
+                    counter + 1, produit_list.getSelectedItem(), "/", "/", "/"};
+                model.addRow(row);
+            } else {
+                Object[] row = new Object[]{
+                    counter + 1, produit_list.getSelectedItem(), t_qte, nf1.format(t_prix), nf1.format(t_montant)};
+                model.addRow(row);
+            }
+
             fact_table.setModel(model);
 
             calc_Tot();

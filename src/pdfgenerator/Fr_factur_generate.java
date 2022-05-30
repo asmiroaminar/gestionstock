@@ -20,6 +20,7 @@ import dbclasse.Vent;
 import dbmanipulation.DataServices;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -52,7 +53,7 @@ public class Fr_factur_generate {
             int tva,
             float p_tva,
             float mtttc
-    ) throws MalformedURLException, FileNotFoundException, SQLException {
+    ) throws MalformedURLException, FileNotFoundException, SQLException, IOException {
         
         decimalFormatSymbols.setCurrencySymbol("");
         ((DecimalFormat) nf2).setDecimalFormatSymbols(decimalFormatSymbols);
@@ -227,6 +228,8 @@ public class Fr_factur_generate {
         document.close();
 
         JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+        
+        Runtime.getRuntime().exec("explorer.exe /select," + path);
     }
 
     private void addEmptyLine(int number) {

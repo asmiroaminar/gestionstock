@@ -476,6 +476,8 @@ public class Ar_factur_generate {
             doc.close();
 
             JOptionPane.showMessageDialog(null, "Bien Eregistrer");
+            
+            Runtime.getRuntime().exec("explorer.exe /select," + path);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         } catch (FileNotFoundException ex) {
