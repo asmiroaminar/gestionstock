@@ -201,7 +201,11 @@ public class Fr_factur_generate {
         table2.addCell(new Cell().add(new Paragraph("" + nf2.format(mtht)).setBold()).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell(1, 5).add(para8).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
+        if(p_tva != 0)
         table2.addCell(new Cell().add(new Paragraph("" + nf2.format(p_tva))).setTextAlignment(TextAlignment.CENTER));
+        else
+           table2.addCell(new Cell().add(new Paragraph("/")).setTextAlignment(TextAlignment.CENTER));
+         
         table2.addCell(new Cell(1, 5).add(para9).setTextAlignment(TextAlignment.CENTER));
 //        table2.addCell(new Cell().add(para0).setTextAlignment(TextAlignment.CENTER));
         table2.addCell(new Cell().add(new Paragraph("" + nf2.format(mtttc)).setBold()).setTextAlignment(TextAlignment.CENTER));
@@ -253,7 +257,7 @@ public class Fr_factur_generate {
         String centime = ".";
 
         if (int_centime != 0) {
-            centime = "et " + FrenchNumberToWords.convert(int_centime) + " centimes";
+            centime = "et " + FrenchNumberToWords.convert(int_centime) + " centimes.";
         }
 
         return (dinar + ", dinars algériens " + centime); // en FR

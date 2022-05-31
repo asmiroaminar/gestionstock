@@ -98,7 +98,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
     void clear_pro() {
         selected_Produit = new Produit();
         jTextField1.setText("");
-        qntTextField.setText("1");
+        qntTextField.setText("0");
         jTextField3.setText("0");
         jTextField4.setText("0");
     }
@@ -155,6 +155,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         add_qnt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nouveau command");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Client :");
@@ -271,7 +272,7 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         qntTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         qntTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        qntTextField.setText("1");
+        qntTextField.setText("0");
         qntTextField.setName(""); // NOI18N
         qntTextField.setPreferredSize(new java.awt.Dimension(18, 23));
         qntTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -335,7 +336,6 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
 
         add_qnt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         add_qnt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        add_qnt.setText("1");
         add_qnt.setName(""); // NOI18N
         add_qnt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -559,15 +559,21 @@ public class Ajouter_commande_frame extends javax.swing.JDialog {
         char c = evt.getKeyChar();
         switch (c) {
             case '+':{
-                somme_qnt = Integer.parseInt(add_qnt.getText()) + Integer.parseInt(qntTextField.getText());
+                String s = add_qnt.getText();
+                if(!s.isEmpty()){
+                somme_qnt = Integer.parseInt(s) + Integer.parseInt(qntTextField.getText());
                 qntTextField.setText(somme_qnt+"");
-                add_qnt.setText("0");
+                add_qnt.setText("");
+                }
                 break;
             }  
             case '-':{
-                somme_qnt =  Integer.parseInt(qntTextField.getText()) - Integer.parseInt(add_qnt.getText());
+                String s = add_qnt.getText();
+                if(!s.isEmpty()){
+                somme_qnt =  Integer.parseInt(qntTextField.getText()) - Integer.parseInt(s);
                 qntTextField.setText(somme_qnt+"");
-                add_qnt.setText("0");
+                add_qnt.setText("");
+                }
                 break;
             }
         

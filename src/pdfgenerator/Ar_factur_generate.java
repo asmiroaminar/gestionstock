@@ -72,7 +72,7 @@ public class Ar_factur_generate {
 
         if (int_centime != 0) {
             try {
-                centime = "و" + " " + Nombrearabic.CALCULATE.getValue(int_centime) + " " + "سنتيم";
+                centime = "و" + " " + Nombrearabic.CALCULATE.getValue(int_centime) + " " + "سنتيم.";
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
@@ -93,7 +93,8 @@ public class Ar_factur_generate {
             int tva,
             float p_tva,
             float mtttc,
-            boolean detail
+            boolean detail,
+            String jour
     ) {
 
         decimalFormatSymbols.setCurrencySymbol("");
@@ -315,13 +316,22 @@ public class Ar_factur_generate {
                             .add(new Text(noFact).setFont(f))
                             .add(new Text(al.process("فاتورة رقم: ")).setFont(f).setBold()))
                     .setTextAlignment(TextAlignment.CENTER));
-
+            if(!jour.equals(""))
             table3.addCell(
                     new Cell()
                     .add(new Paragraph()
-                            .add(new Text(al.process(getMonth_ar(date))).setFont(f))
+                            .add(new Text(al.process(getMonth_ar(date)) + " "+ jour).setFont(f))
                             .add(new Text("  " + al.process("بتاريخ: ")).setFont(f).setBold()))
                     .setTextAlignment(TextAlignment.CENTER));
+            else
+                table3.addCell(
+                    new Cell()
+                    .add(new Paragraph()
+                            
+                            .add(new Text(":" + al.process("بتاريخ") + "      ").setFont(f).setBold())
+                            .add(new String("               "))
+                    )
+                    .setTextAlignment(TextAlignment.RIGHT));
 
             doc.add(table3);
 
@@ -337,7 +347,7 @@ public class Ar_factur_generate {
             Paragraph p7 = new Paragraph(new Text(al.process("رقم")).setFont(f).setBold());
 
             Paragraph p8 = new Paragraph(new Text(al.process("المجموع")).setFont(f).setBold());
-            Paragraph p9 = new Paragraph(new Text(al.process("المجموع خارج الرسو م")).setFont(f).setBold());
+            Paragraph p9 = new Paragraph(new Text(al.process("المجموع خارج الرسوم")).setFont(f).setBold());
             Paragraph p10 = new Paragraph(new Text(al.process("الرسوم على القيمة المضافة " + tva + " % ")).setFont(f).setBold());
             Paragraph p11 = new Paragraph(new Text(al.process("المجموع بكل الرسوم")).setFont(f).setBold());
 
@@ -391,9 +401,13 @@ public class Ar_factur_generate {
                         .add(new Paragraph("" + nf.format(mtht)))
                         .setTextAlignment(TextAlignment.CENTER));
                 table4.addCell(new Cell(1, 6).add(p9).setTextAlignment(TextAlignment.CENTER));
-
-                table4.addCell(new Cell()
+                if(p_tva!= 0)
+                    table4.addCell(new Cell()
                         .add(new Paragraph("" + nf.format(p_tva)))
+                        .setTextAlignment(TextAlignment.CENTER));
+                else
+                    table4.addCell(new Cell()
+                        .add(new Paragraph("/"))
                         .setTextAlignment(TextAlignment.CENTER));
                 table4.addCell(new Cell(1, 6).add(p10).setTextAlignment(TextAlignment.CENTER));
 
@@ -536,7 +550,7 @@ public class Ar_factur_generate {
                 break;
         }
 
-        return m_text + " / " + date.split("-")[1];
+        return m_text + " " + date.split("-")[1];
     }
 
 }

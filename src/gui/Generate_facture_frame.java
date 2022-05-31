@@ -163,22 +163,22 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         for (int i = 0; i < v_selected_vents.size(); i++) {
             somme += v_selected_vents.get(i).getMontant();
         }
-        jTextField32.setText("" + somme);
-
+        jTextFieldMTHT.setText("" + somme);
+        
         calcul_tva();
 
     }
 
     void calcul_tva() {
-        if (!jTextField1.getText().isEmpty()) {
-            float mtht = Float.parseFloat(jTextField32.getText());
-            int ptva = Integer.parseInt(jTextField1.getText());
+        if (!jTextFieldtaxe.getText().isEmpty()) {
+            float mtht = Float.parseFloat(jTextFieldMTHT.getText());
+            int ptva = Integer.parseInt(jTextFieldtaxe.getText());
 
             float tva = (float) mtht * ptva / 100;
-            jTextField33.setText("" + tva);
+            jTextFieldValTax.setText("" + tva);
 
             float mtttc = mtht + tva;
-            jTextField34.setText("" + mtttc);
+            jTextFieldMTTTC.setText("" + mtttc);
 
         }
     }
@@ -194,6 +194,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     public Generate_facture_frame(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
+        
 
         decimalFormatSymbols.setCurrencySymbol("");
         ((DecimalFormat) nf1).setDecimalFormatSymbols(decimalFormatSymbols);
@@ -203,7 +204,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
 
         generat_N_fact();
 
-        jTextField1.getDocument()
+        jTextFieldtaxe.getDocument()
                 .addDocumentListener(calculeTotalwithTAX_listener);
 
     }
@@ -228,16 +229,19 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         client_list = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField32 = new javax.swing.JTextField();
+        jTextFieldMTHT = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField33 = new javax.swing.JTextField();
-        jTextField34 = new javax.swing.JTextField();
+        jTextFieldValTax = new javax.swing.JTextField();
+        jTextFieldMTTTC = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldtaxe = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         print_btn = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBoxFactureDetaille = new javax.swing.JCheckBox();
+        jCheckBoxFactureEnArab = new javax.swing.JCheckBox();
+        jLabelJour = new javax.swing.JLabel();
+        jTextFieldJour = new javax.swing.JTextField();
+        jCheckBoxJour = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -316,6 +320,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Crée Facture");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Client :");
@@ -331,32 +336,32 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setText("montant total hors taxes :");
 
-        jTextField32.setEditable(false);
-        jTextField32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField32.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField32.setText("0");
+        jTextFieldMTHT.setEditable(false);
+        jTextFieldMTHT.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextFieldMTHT.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldMTHT.setText("0");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel11.setText("taxe sur la valeur ajoutee :");
 
-        jTextField33.setEditable(false);
-        jTextField33.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField33.setText("0");
+        jTextFieldValTax.setEditable(false);
+        jTextFieldValTax.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextFieldValTax.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldValTax.setText("0");
 
-        jTextField34.setEditable(false);
-        jTextField34.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField34.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField34.setText("0");
+        jTextFieldMTTTC.setEditable(false);
+        jTextFieldMTTTC.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextFieldMTTTC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldMTTTC.setText("0");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel12.setText("montant total en tout taxes comprises :");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField1.setText("0");
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldtaxe.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextFieldtaxe.setText("0");
+        jTextFieldtaxe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                jTextFieldtaxeKeyTyped(evt);
             }
         });
 
@@ -372,79 +377,116 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jCheckBox1.setText("facture detailleé (pour un seul produit)");
-        jCheckBox1.setEnabled(false);
-
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jCheckBox2.setText("facture en arabe");
-        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox2ItemStateChanged(evt);
-            }
-        });
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxFactureDetaille.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCheckBoxFactureDetaille.setText("facture detailleé (pour un seul produit)");
+        jCheckBoxFactureDetaille.setEnabled(false);
+        jCheckBoxFactureDetaille.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                jCheckBoxFactureDetailleActionPerformed(evt);
             }
         });
+
+        jCheckBoxFactureEnArab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jCheckBoxFactureEnArab.setText("facture en arabe");
+        jCheckBoxFactureEnArab.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxFactureEnArabItemStateChanged(evt);
+            }
+        });
+        jCheckBoxFactureEnArab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxFactureEnArabActionPerformed(evt);
+            }
+        });
+
+        jLabelJour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelJour.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelJour.setText("Jour");
+        jLabelJour.setEnabled(false);
+
+        jTextFieldJour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldJour.setText("30");
+        jTextFieldJour.setEnabled(false);
+        jTextFieldJour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldJourActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxJour.setSelected(true);
+        jCheckBoxJour.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(527, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2))
+                            .addComponent(jCheckBoxFactureDetaille)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxJour)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabelJour)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(88, 88, 88)
-                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jCheckBoxFactureEnArab)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(259, 259, 259)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldMTHT, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldtaxe, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldValTax, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldMTTTC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMTHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldValTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldtaxe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(jTextFieldMTTTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jCheckBoxFactureEnArab)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1)
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxFactureDetaille)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jCheckBoxJour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelJour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldJour))
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(print_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -737,7 +779,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void jTextFieldtaxeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldtaxeKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c)
@@ -746,7 +788,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_jTextFieldtaxeKeyTyped
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -866,12 +908,16 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                     t_qte += v.getQte();
                     t_prix = v.getPrixU();
                     t_montant += v.getMontant();
+                    
                 }
+               jTextFieldtaxe.setText(pm.getTaxe(v_vents.get(0).getIdProduit())); 
             }
+            //jTextFieldtaxe.setText(v_vents.get(0).getIdProduit());
+            
             int counter = model.getRowCount();
             if (jTextField2.getText().equals("0")) {
                 Object[] row = new Object[]{
-                    counter + 1, produit_list.getSelectedItem(), "/", "/", "/"};
+                    counter + 1, produit_list.getSelectedItem(), "/", t_prix, "/"};
                 model.addRow(row);
             } else {
                 Object[] row = new Object[]{
@@ -880,7 +926,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             }
 
             fact_table.setModel(model);
-
+            
             calc_Tot();
         }
         //----------------------------------------------
@@ -904,7 +950,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             date = monthe + "-" + jYearChooser2.getYear();
             DefaultTableModel model = (DefaultTableModel) fact_table.getModel();
 
-            if (!jCheckBox2.isSelected()) {
+            if (!jCheckBoxFactureEnArab.isSelected()) {
                 //   en francais *******************
                 try {
                     // TODO add your handling code here:
@@ -925,10 +971,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
                             jNo_fact.getText(),
                             v_selected_vents,
                             model,
-                            Float.parseFloat(jTextField32.getText()),
-                            Integer.parseInt(jTextField1.getText()),
-                            Float.parseFloat(jTextField33.getText()),
-                            Float.parseFloat(jTextField34.getText()));
+                            Float.parseFloat(jTextFieldMTHT.getText()),
+                            Integer.parseInt(jTextFieldtaxe.getText()),
+                            Float.parseFloat(jTextFieldValTax.getText()),
+                            Float.parseFloat(jTextFieldMTTTC.getText()));
 
                 } catch (MalformedURLException | FileNotFoundException ex) {
                     Logger.getLogger(Generate_facture_frame.class
@@ -945,19 +991,23 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             } else {
                 // En Arabe ******************************
                 boolean tr_detail;
-                tr_detail = (model.getRowCount() <= 1) && jCheckBox1.isSelected();
+                tr_detail = (model.getRowCount() <= 1) && jCheckBoxFactureDetaille.isSelected();
                 try {
+                    String jr = "";
+                    if(jCheckBoxJour.isSelected()) jr = jTextFieldJour.getText();
+                        
                     ar_factur_generate.generate_ar_factur(
                             selected_client,
                             date,
                             jNo_fact.getText(),
                             v_selected_vents,
                             model,
-                            Float.parseFloat(jTextField32.getText()),
-                            Integer.parseInt(jTextField1.getText()),
-                            Float.parseFloat(jTextField33.getText()),
-                            Float.parseFloat(jTextField34.getText()),
-                            tr_detail);
+                            Float.parseFloat(jTextFieldMTHT.getText()),
+                            Integer.parseInt(jTextFieldtaxe.getText()),
+                            Float.parseFloat(jTextFieldValTax.getText()),
+                            Float.parseFloat(jTextFieldMTTTC.getText()),
+                            tr_detail,
+                            jr);
 
                 } catch (Exception ex) {
                     Logger.getLogger(Generate_facture_frame.class
@@ -972,10 +1022,10 @@ public class Generate_facture_frame extends javax.swing.JDialog {
             f.setnFacture(jNo_fact.getText());
             f.setDate(date);
             f.setIdClient(selected_client.getIdClient());
-            f.setMTHT(Integer.parseInt(jTextField32.getText().substring(0, jTextField32.getText().length() - 2)));
-            f.setTva(Integer.parseInt(jTextField1.getText()));
-            f.setTva_p(Float.parseFloat(jTextField33.getText()));
-            f.setMttc(Float.parseFloat(jTextField34.getText()));
+            f.setMTHT(Integer.parseInt(jTextFieldMTHT.getText().substring(0, jTextFieldMTHT.getText().length() - 2)));
+            f.setTva(Integer.parseInt(jTextFieldtaxe.getText()));
+            f.setTva_p(Float.parseFloat(jTextFieldValTax.getText()));
+            f.setMttc(Float.parseFloat(jTextFieldMTTTC.getText()));
 
             try {
                 fm.Add_facture(f, v_selected_vents);
@@ -1016,20 +1066,38 @@ public class Generate_facture_frame extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_print_btnActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void jCheckBoxFactureEnArabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFactureEnArabActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_jCheckBoxFactureEnArabActionPerformed
 
-    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+    private void jCheckBoxFactureEnArabItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxFactureEnArabItemStateChanged
         // TODO add your handling code here:
-        if (!jCheckBox2.isSelected()) {
-            jCheckBox1.setEnabled(false);
-            jCheckBox1.setSelected(false);
+        if (!jCheckBoxFactureEnArab.isSelected()) {
+            jCheckBoxFactureDetaille.setEnabled(false);
+            jCheckBoxFactureDetaille.setSelected(false);
+            jTextFieldJour.setEnabled(false);
+            jLabelJour.setEnabled(false);
+            jCheckBoxJour.setEnabled(false);
+            
+            
         } else {
-            jCheckBox1.setEnabled(true);
-            jCheckBox1.setSelected(false);
+            jCheckBoxFactureDetaille.setEnabled(true);
+            jCheckBoxFactureDetaille.setSelected(false);
+            jTextFieldJour.setEnabled(true);
+            jLabelJour.setEnabled(true);
+            jCheckBoxJour.setEnabled(true);
+            jCheckBoxJour.setSelected(true);
+
         }
-    }//GEN-LAST:event_jCheckBox2ItemStateChanged
+    }//GEN-LAST:event_jCheckBoxFactureEnArabItemStateChanged
+
+    private void jCheckBoxFactureDetailleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFactureDetailleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxFactureDetailleActionPerformed
+
+    private void jTextFieldJourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldJourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldJourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1095,8 +1163,9 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private static javax.swing.JTable fact_table;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private static javax.swing.JCheckBox jCheckBox1;
-    private static javax.swing.JCheckBox jCheckBox2;
+    private static javax.swing.JCheckBox jCheckBoxFactureDetaille;
+    private static javax.swing.JCheckBox jCheckBoxFactureEnArab;
+    private javax.swing.JCheckBox jCheckBoxJour;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -1112,6 +1181,7 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelJour;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private com.toedter.calendar.JMonthChooser jMonthChooser2;
     private javax.swing.JTextField jNo_fact;
@@ -1123,13 +1193,14 @@ public class Generate_facture_frame extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField32;
-    private javax.swing.JTextField jTextField33;
-    private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextFieldJour;
+    private javax.swing.JTextField jTextFieldMTHT;
+    private javax.swing.JTextField jTextFieldMTTTC;
+    private javax.swing.JTextField jTextFieldValTax;
+    private javax.swing.JTextField jTextFieldtaxe;
     private com.toedter.calendar.JYearChooser jYearChooser1;
     private com.toedter.calendar.JYearChooser jYearChooser2;
     private javax.swing.JButton print_btn;

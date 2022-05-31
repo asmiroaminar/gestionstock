@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -141,5 +143,21 @@ public class ProduitManipulation {
     public void deleteProduit(String id) throws ClassNotFoundException, SQLException {
         String sql = "Delete  from produit where id ='" + id + "'";
         sqlConnection.executeSQLQuery(sql);
+    }
+    public String getTaxe(String des){
+          Connection c = sqlConnection.conector();
+        String sql = "select tva from produit where designnation_fr = '"+ des + "'";
+        String prix_u = "";
+        
+        try {
+            Statement st = c.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            prix_u = rs.getString(1);
+            c.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitManipulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       return prix_u;
     }
 }
